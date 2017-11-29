@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar color="danger">
+        <ion-buttons left>
+            <button ion-button icon-only class="p-l-15 p-r-15" (click)="back()">
+                <ion-icon name="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Create Setting</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-list-header>
+            <span>Pedir Confirmación</span>
+        </ion-list-header>
+        <ion-item>
+            <ion-label>
+                <span>Confirmar antes de enviar correo</span>
+                <p>envio de mensaje</p>
+            </ion-label>
+            <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.CONFIRM_BEFORE_SENDING" (click)="fnFetchMyPreferences()"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <span>Confirmar antes de enviar correo</span>
+                <p>envio de mensaje</p>
+            </ion-label>
+            <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.CONFIRM_BEFORE_REMOVING" (click)="fnFetchMyPreferences()"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <span>Confirmar antes de enviar correo</span>
+                <p>envio de mensaje</p>
+            </ion-label>
+            <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.CONFIRM_BEFORE_FILING" (click)="fnFetchMyPreferences()"></ion-checkbox>
+        </ion-item>
+    </ion-list>
+</ion-content>

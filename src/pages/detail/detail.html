@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-buttons right>
+      <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_ARCHIVE" ion-button class="p-r-15 my-icon">
+        <ion-icon name="archive"></ion-icon>
+      </button>
+      <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_REMOVE" ion-button class="p-r-15 my-icon" (click)="fnRemove()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_UN_READ" ion-button class="p-r-15 my-icon">
+        <ion-icon name="mail"></ion-icon>
+      </button>
+      <button ion-button class="p-r-15 my-icon" (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div style="padding: 0 16px">
+      <h2>{{item.subject}}</h2>
+    </div>
+    <hr>
+    <div style="padding:0 16px">
+      <ion-item>
+        <ion-avatar item-left style="opacity: 0.8;">
+          <button ion-fab color="default" style="width: 40px;height: 40px;box-shadow: none;">
+            <span *ngIf="item.name != null" style="font-size: 1.5em">{{item.name.charAt(0)}}</span>
+          </button>
+        </ion-avatar>
+        <div class="p-t-1 p-b-1">
+          <h2>{{item.name}}</h2>
+          <p>para</p>
+          <p>Hace 2 días&nbsp;<a style="text-decoration: none" href="#">Ver detalle</a></p>
+        </div>
+      </ion-item>
+      <p [innerHTML]="item.message"></p>
+    </div>
+  </ion-list>
+</ion-content>
+
+<ion-footer no-border>
+  <div text-center>
+    <ion-row>
+      <ion-col>
+        <button ion-button clear class="text-muted">
+          <div>
+            <i class="fa fa-mail-reply" aria-hidden="true"></i>
+            <br>
+            <span class="text-capitalize">Reply</span>
+          </div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button clear class="text-muted">
+          <div>
+            <i class="fa fa-mail-reply-all" aria-hidden="true"></i>
+            <br>
+            <span class="text-capitalize">Reply All</span>
+          </div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button clear class="text-muted">
+          <div>
+            <i class="fa fa-mail-forward" aria-hidden="true"></i>
+            <br>
+            <span class="text-capitalize">Forward</span>
+          </div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-footer>

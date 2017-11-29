@@ -1,1 +1,13 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="nav">
+    <ion-content no-margin>
+        <ion-toolbar class="p-0">
+            <img src="assets/imgs/profile.jpg" alt="" width="100%" height="calc(100% - 25%)">
+        </ion-toolbar>
+        <ion-list class="menu-list" style="margin: 0;">
+            <button  menuClose ion-item *ngFor="let item of listComponents" [class.activeLink]="fnCheckActive(item)" [disabled]="item.status" (click)="fnLoadRoot(item)">
+                <i class="fa {{item.icon}} my-icon"></i><span class="p-l-20">{{item.title}}</span>
+            </button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+<ion-nav [root]="rootPage" #nav swipeBackEnabled="false"></ion-nav>

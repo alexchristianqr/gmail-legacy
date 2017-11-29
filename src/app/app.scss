@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +13,36 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+  border-bottom-color: transparent !important;
+  box-shadow: none !important;
+}
+.menu-list {
+
+  border: none !important;
+
+  button.item {
+
+    border-top: none !important;
+    border-bottom: none !important;
+
+    .item-inner {
+      background-image: inherit !important;
+      border-bottom: none !important;
+    }
+  }
+}
+
+.activeLink{
+  background-color: map_get($colors,light);
+}
+
+.list-empty{
+  position: fixed;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 50%;
+  text-align: center;
+}
