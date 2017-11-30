@@ -4,6 +4,7 @@ import {NotificationServiceProvider} from "../../providers/notification-service/
 import {HttpServiceProvider} from "../../providers/http-service/http-service";
 import {PopoverDetailPage} from "./popover-detail";
 import {Storage} from "@ionic/storage";
+import {DialogServiceProvider} from "../../providers/dialog-service/dialog-service";
 
 @Component({
     selector: 'page-detail',
@@ -19,19 +20,21 @@ export class DetailPage {
                 public httpService: HttpServiceProvider,
                 public notificationService: NotificationServiceProvider,
                 public event: Events,
+                public dialogService: DialogServiceProvider,
                 public navCtrl: NavController,
                 public navParams: NavParams,
                 public viewCtrl: ViewController,
                 public storage: Storage) {
 
         this.httpService.loadPreferences(this);
-        this.update(this.navParams.data.data, this.navParams.data.index);
         this.data = this.navParams.data.data;
         this.index = this.navParams.data.index;
+        this.update(this.navParams.data.data, this.navParams.data.index);
 
         this.event.subscribe("eventDetailFetch", () => {
             this.httpService.loadPreferences(this);
         })
+
     }
 
     back(): void {
@@ -39,8 +42,27 @@ export class DetailPage {
     }
 
     fnRemove() {
-        this.notificationService.notifyInfo("Removing...", 0);
-        this.httpService.remove(this, this.data.database);
+        let self = this;
+        this.storage.get("SHARED_PREFERENCE").then((data) => {
+            function doFunc() {
+                self.notificationService.notifyInfo("Removing...", 0);
+                self.httpService.remove(self, self.data.database);
+            }
+
+            if (data != null) {
+                if (data.CONFIRM_BEFORE_REMOVING) {
+                    this.dialogService.dialogQuestion("", "Do you want to remove this mail?", () => {
+                        doFunc();
+                    });
+                } else {
+                    doFunc();
+                }
+            } else {
+                doFunc();
+            }
+        }).catch((error) => {
+            console.error(error);
+        })
     }
 
     presentPopover(myEvent): void {
@@ -59,7 +81,7 @@ export class DetailPage {
                     });
                     this.storage.set(objeto.database, data)
                         .then(() => {
-                            console.log("Object storage updated!")
+                            console.log("Object of database storage updated!")
                         })
                         .catch((error) => {
                             console.error(error);
@@ -76,7 +98,7 @@ export class DetailPage {
         this.update(this.data, this.index, false);
         this.navCtrl.pop();
         this.notificationService.toast.dismiss();
-        this.notificationService.notifyInfo("Changed to unread");
+        this.notificationService.notifyInfo("Changed mail to unread");
     }
 
 }

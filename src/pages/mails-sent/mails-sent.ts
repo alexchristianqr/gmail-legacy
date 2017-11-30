@@ -20,7 +20,7 @@ export class MailsSentPage implements OnDestroy {
         console.log("Events destroyed!");
     }
 
-    database: any = [];
+    private database: any = [];
     public MYSHAREDPREFERENCES: any = {};
 
     constructor(public popoverCtrl: PopoverController,
@@ -45,22 +45,21 @@ export class MailsSentPage implements OnDestroy {
 
     }
 
-    fnMailDetail(data, index) {
+    fnViewDetail(data, index) {
         this.navCtrl.push(DetailPage, {data: data, index: index});
     }
 
-    fnMailSearch() {
+    fnViewSearch() {
         (this.modalCtrl.create(SearchPage)).present();
     }
 
-    fnMailCreate() {
+    fnViewCreate() {
         (this.modalCtrl.create(CreatePage)).present();
     }
 
     fnFetch() {
-        let theDB = (this.navParams.data.database != undefined) ? this.navParams.data.database : "DATABASE_SENT";
         this.dialogService.showLoading();
-        this.storage.get(theDB)
+        this.storage.get(this.navParams.data.database)
             .then((data) => {
                 this.database = (data == null) ? [] : data;
                 this.httpService.loadPreferences(this);
@@ -74,7 +73,7 @@ export class MailsSentPage implements OnDestroy {
     }
 
     fnClean() {
-        this.dialogService.dialogQuestion("Warning", "Do you want to clean the database?", () => {
+        this.dialogService.dialogQuestion("Warning", "Do you want to clean the database SENT?", () => {
             this.storage.remove("DATABASE_SENT").then(() => {
                 console.log("DATABASE_SENT removido!");
                 this.httpService.loadPreferences(this);

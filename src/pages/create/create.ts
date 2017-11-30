@@ -67,7 +67,6 @@ export class CreatePage {
                     self.notificationService.notifyInfo("Sending...", 0);
                     self.httpService.create(self);
                 }
-
                 if (data != null) {
                     if (data.CONFIRM_BEFORE_SENDING) {
                         this.dialogService.dialogQuestion("", "Do you want to send this message?", () => {

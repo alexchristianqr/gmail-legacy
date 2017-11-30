@@ -10,7 +10,7 @@
 
       <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SYNC" ion-button class="p-r-15 my-icon" (click)="fnFetch()"><ion-icon name="sync"></ion-icon></button>
       <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_CLEAN" ion-button class="p-r-15 my-icon" (click)="fnClean()"><ion-icon name="trash"></ion-icon></button>
-      <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SEARCH" ion-button class="p-r-15 my-icon" (click)="fnMailSearch()"><ion-icon name="search"></ion-icon></button>
+      <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SEARCH" ion-button class="p-r-15 my-icon" (click)="fnViewSearch()"><ion-icon name="search"></ion-icon></button>
       <button ion-button class="p-r-15 my-icon" (click)="presentPopover($event)"><ion-icon name="more"></ion-icon></button>
 
     </ion-buttons>
@@ -20,7 +20,7 @@
 <ion-content>
 
   <ion-list *ngIf="database.length >= 1">
-    <button ion-item unset *ngFor="let data of database;let i = index" detail-none (click)="fnMailDetail(data,i)">
+    <button ion-item unset *ngFor="let data of database;let i = index" detail-none (click)="fnViewDetail(data,i)">
       <ion-avatar item-left style="opacity: 0.8;">
         <button ion-fab color="default" style="width: 40px;height: 40px;box-shadow: none;">
           <span style="font-size: 1.5em">{{data.name.charAt(0)}}</span>
@@ -38,12 +38,12 @@
   <ion-list *ngIf="database.length <= 0">
     <div class="list-empty">
       <i class="fa fa-exclamation-triangle fa-2x text-danger"></i>
-      <h4 class="text-muted">There is nothing in the inbox</h4>
+      <h4 class="text-muted">There is nothing in the mails sent</h4>
     </div>
   </ion-list>
 
   <ion-fab right bottom>
-    <button ion-fab color="danger" class="my-icon" (click)="fnMailCreate()">
+    <button ion-fab color="danger" class="my-icon" (click)="fnViewCreate()">
       <ion-icon name="create"></ion-icon>
     </button>
   </ion-fab>

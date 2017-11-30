@@ -12,7 +12,19 @@
 <ion-content>
     <ion-list>
         <ion-list-header>
-            <span>Pedir Confirmación</span>
+            <h2>Request Confirmations</h2>
+        </ion-list-header>
+        <ion-item>
+            <ion-label>
+                <span>Confirm before sending mail</span>
+                <p>mail</p>
+            </ion-label>
+            <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.CONFIRM_BEFORE_SENDING" (click)="fnFetchMyPreferences()"></ion-checkbox>
+        </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-list-header>
+            <h2>Allow Actions</h2>
         </ion-list-header>
         <ion-item>
             <ion-label>
@@ -26,14 +38,7 @@
                 <span>Confirmar antes de enviar correo</span>
                 <p>envio de mensaje</p>
             </ion-label>
-            <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.CONFIRM_BEFORE_REMOVING" (click)="fnFetchMyPreferences()"></ion-checkbox>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <span>Confirmar antes de enviar correo</span>
-                <p>envio de mensaje</p>
-            </ion-label>
-            <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.CONFIRM_BEFORE_FILING" (click)="fnFetchMyPreferences()"></ion-checkbox>
+            <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.CONFIRM_BEFORE_SENDING" (click)="fnFetchMyPreferences()"></ion-checkbox>
         </ion-item>
     </ion-list>
 </ion-content>

@@ -12,11 +12,7 @@ import {SHARED_PREFERENCE} from "../../app/shared-preference";
 })
 export class ModalCreatePage {
 
-    public MYSHAREDPREFERENCES: object = {
-        CONFIRM_BEFORE_SENDING: false,
-        CONFIRM_BEFORE_REMOVING: false,
-        CONFIRM_BEFORE_FILING: false
-    };
+    public MYSHAREDPREFERENCES: object = {CONFIRM_BEFORE_SENDING: false, CONFIRM_BEFORE_REMOVING: false, CONFIRM_BEFORE_FILING: false};
 
     constructor(public viewCtrl: ViewController,
                 public storage: Storage) {
