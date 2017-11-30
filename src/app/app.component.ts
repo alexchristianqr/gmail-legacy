@@ -12,16 +12,17 @@ import {MailsSentPage} from "../pages/mails-sent/mails-sent";
 })
 export class MyApp {
 
-    @ViewChild(Nav) nav: Nav;
-    rootPage: any = MailsSentPage;
+    @ViewChild(Nav)
+    nav: Nav;
+    rootPage: any = MailsInboxPage;
     activePage: any;
     public MYSHAREDPREFERENCES: any = {};
     listComponents: Array<{ title: string, icon: string, component: any, db: any, status: boolean }>;
 
     constructor(private platform: Platform,
-                public httpService : HttpServiceProvider,
                 private  statusBar: StatusBar,
                 private splashScreen: SplashScreen,
+                public httpService: HttpServiceProvider,
                 public storage: Storage) {
 
         platform.ready().then(() => {
@@ -42,15 +43,13 @@ export class MyApp {
         this.listComponents = [
             {title: "Inbox", icon: "fa-list-ul", component: MailsInboxPage, db: "DATABASE_INBOX", status: false},
             {title: "Mail Sent", icon: "fa-send", component: MailsSentPage, db: "DATABASE_SENT", status: false},
-            // {title: "Mail Received", icon: "fa-envelope", component: MailPage, db: "DATABASE_RECEIVED", status: false},
-            // {title: "Mail Saved", icon: "fa-envelope-open", component: MailPage, db: "DATABASE_SAVED", status: false},
-            // {title: "Mail Span", icon: "fa-trash", component: MailPage, db: "DATABASE_SPAN", status: false}
+            // {title: "Mail Received", icon: "fa-envelope", component: MailsSentPage, db: "DATABASE_RECEIVED", status: false},
+            // {title: "Mail Saved", icon: "fa-envelope-open", component: MailsSentPage, db: "DATABASE_SAVED", status: false},
+            // {title: "Mail Span", icon: "fa-trash", component: MailsSentPage, db: "DATABASE_SPAN", status: false}
         ];
 
         this.httpService.loadPreferences(this);
-
-        this.activePage = this.listComponents[1];
-
+        this.activePage = this.listComponents[0];
     }
 
     fnLoadRoot(objeto) {

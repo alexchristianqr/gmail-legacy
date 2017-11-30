@@ -69,4 +69,5 @@ import {MailsSentPage} from "../pages/mails-sent/mails-sent";
         DialogServiceProvider,
     ]
 })
-export class AppModule {}
+export class AppModule {
+}
