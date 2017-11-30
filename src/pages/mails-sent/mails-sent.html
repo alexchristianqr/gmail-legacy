@@ -5,17 +5,13 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Mails Sent</ion-title>
+    <ion-title>Sent</ion-title>
     <ion-buttons right>
 
       <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SYNC" ion-button class="p-r-15 my-icon" (click)="fnFetch()"><ion-icon name="sync"></ion-icon></button>
       <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_CLEAN" ion-button class="p-r-15 my-icon" (click)="fnClean()"><ion-icon name="trash"></ion-icon></button>
-      <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_UN_READ" ion-button class="p-r-15 my-icon" (click)="fnUnRead()"><ion-icon name="mail"></ion-icon></button>
       <button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SEARCH" ion-button class="p-r-15 my-icon" (click)="fnMailSearch()"><ion-icon name="search"></ion-icon></button>
-
-      <button ion-button class="p-r-15 my-icon" (click)="presentPopover($event)">
-        <ion-icon name="more"></ion-icon>
-      </button>
+      <button ion-button class="p-r-15 my-icon" (click)="presentPopover($event)"><ion-icon name="more"></ion-icon></button>
 
     </ion-buttons>
   </ion-navbar>
@@ -30,9 +26,12 @@
           <span style="font-size: 1.5em">{{data.name.charAt(0)}}</span>
         </button>
       </ion-avatar>
-      <h2><b>{{data.name}}</b></h2>
-      <h3>{{data.subject}}</h3>
-      <p>{{data.message}}</p>
+      <h2 *ngIf="data.is_read">{{data.name}}</h2>
+      <h2 *ngIf="!data.is_read"><b>{{data.name}}</b></h2>
+      <h3 *ngIf="data.is_read">{{data.subject}}</h3>
+      <h3 *ngIf="!data.is_read"><b>{{data.subject}}</b></h3>
+      <p *ngIf="data.is_read">{{data.message}}</p>
+      <p *ngIf="!data.is_read"><b>{{data.message}}</b></p>
     </button>
   </ion-list>
 

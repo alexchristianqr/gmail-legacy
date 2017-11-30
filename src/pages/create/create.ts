@@ -21,11 +21,13 @@ export class CreatePage {
 
     public params: any = {
         name: "",
+        database: "",
         from: "",
         to: "",
         subject: "",
         message: "",
         created_at: "",
+        is_read: false
     };
 
     constructor(public popoverCtrl: PopoverController,
@@ -36,17 +38,19 @@ export class CreatePage {
                 public notificationService: NotificationServiceProvider,
                 public storage: Storage,
                 public event: Events) {
+        this.params.database = "DATABASE_SENT";
         this.params.name = "Alex Christian Quispe Roque";
         this.params.from = "aquispe.developer@idat.edu.pe";
         this.params.to = "teacher2017@idat.edu.pe";
         this.params.created_at = "2017-11-24";
+        this.params.is_read = false;
     }
 
     back() {
         this.viewCtrl.dismiss();
     }
 
-    fnSend() {
+    fnCreate() {
         let validate = false;
         if (this.params.from == null || this.params.from == "") {
             validate = false;
@@ -59,10 +63,11 @@ export class CreatePage {
         if (validate) {
             let self = this;
             this.storage.get("SHARED_PREFERENCE").then((data) => {
-                function doFunc(){
+                function doFunc() {
                     self.notificationService.notifyInfo("Sending...", 0);
-                    self.httpService.send(self);
+                    self.httpService.create(self);
                 }
+
                 if (data != null) {
                     if (data.CONFIRM_BEFORE_SENDING) {
                         this.dialogService.dialogQuestion("", "Do you want to send this message?", () => {

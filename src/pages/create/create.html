@@ -13,7 +13,7 @@
     </ion-buttons>
     <ion-title>Create</ion-title>
     <ion-buttons right>
-      <button ion-button class="p-r-15 my-icon" (click)="fnSend()">
+      <button ion-button class="p-r-15 my-icon" (click)="fnCreate()">
         <ion-icon name="send"></ion-icon>
       </button>
       <button ion-button class="p-r-15 my-icon" (click)="presentPopover($event)">
@@ -25,6 +25,13 @@
 
 <ion-content>
   <ion-list>
+    <ion-item>
+      <ion-label fixed >Database</ion-label>
+      <ion-select [(ngModel)]="params.database">
+        <ion-option value="DATABASE_SENT" selected>Sent</ion-option>
+        <ion-option value="DATABASE_INBOX">Inbox</ion-option>
+      </ion-select>
+    </ion-item>
     <ion-item>
       <ion-label fixed >From</ion-label>
       <ion-input [(ngModel)]="params.from" type="text"></ion-input>

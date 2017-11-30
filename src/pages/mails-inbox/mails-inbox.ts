@@ -8,11 +8,13 @@ import {NotificationServiceProvider} from "../../providers/notification-service/
 import {DialogServiceProvider} from "../../providers/dialog-service/dialog-service";
 import {Storage} from "@ionic/storage";
 import {PopoverMailPage} from "../mail/popover-mail";
+import {SHARED_PREFERENCE} from "../../app/shared-preference";
 
 @Component({
     selector: 'page-mails-inbox',
     templateUrl: 'mails-inbox.html'
 })
+
 export class MailsInboxPage implements OnDestroy {
 
     ngOnDestroy(): void {
@@ -45,10 +47,6 @@ export class MailsInboxPage implements OnDestroy {
 
     }
 
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad MailsInboxPage');
-    }
-
     fnMailDetail(data, index) {
         this.navCtrl.push(DetailPage, {data: data, index: index});
     }
@@ -78,22 +76,19 @@ export class MailsInboxPage implements OnDestroy {
     }
 
     fnClean() {
-        let self = this;
         this.dialogService.dialogQuestion("Warning", "Do you want to clean the database?", () => {
-            self.storage.clear();
-            self.httpService.loadPreferences(self);
-            self.fnFetch();
-            self.notificationService.notifyInfo("Database cleaned");
-            console.log("Storage cleaned!");
+            this.storage.remove("DATABASE_INBOX").then(() => {
+                console.log("DATABASE_INBOX removido!");
+                this.httpService.loadPreferences(this);
+                this.fnFetch();
+                this.notificationService.notifyInfo("Database cleaned");
+                console.log("Storage cleaned!");
+            });
         });
     }
 
     presentPopover(myEvent) {
         (this.popoverCtrl.create(PopoverMailPage)).present({ev: myEvent});
-    }
-
-    fnUnRead() {
-        console.log("unread!");
     }
 
 }

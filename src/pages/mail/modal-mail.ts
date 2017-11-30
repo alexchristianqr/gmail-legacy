@@ -19,7 +19,7 @@ export class ModalMailPage {
                 public viewCtrl: ViewController,
                 public storage: Storage) {
 
-            this.httpService.loadPreferences(this);
+        this.httpService.loadPreferences(this);
 
     }
 
@@ -31,6 +31,7 @@ export class ModalMailPage {
         if (Object.keys(this.MYSHAREDPREFERENCES).length) {
             this.storage.set("SHARED_PREFERENCE", this.MYSHAREDPREFERENCES)
                 .then(() => {
+                    this.event.publish("eventMailsInboxPreferences");
                     this.event.publish("eventMailsSentPreferences");
                     console.log("Fetch shared preferences!");
                 })

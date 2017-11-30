@@ -30,19 +30,27 @@ export class HttpServiceProvider {
         });
     }
 
-    send(self: any) {
+    create(self: any) {
         // Get storage
-        self.storage.get("DATABASE_SENT")
+        let msg = "";
+        self.storage.get(self.params.database)
             .then((data) => {
                 data = (data == null) ? [] : data;
                 data.unshift(self.params);
                 // Set storage
-                self.storage.set("DATABASE_SENT", data)
+                self.storage.set(self.params.database, data)
                     .then((data) => {
-                        self.event.publish("eventMailsSentFetch", data);
+                        if (self.params.database === SHARED_PREFERENCE.DB.DI) {
+                            self.event.publish("eventMailsInboxFetch", data);
+                            msg = "inbox";
+                        } else if (self.params.database === SHARED_PREFERENCE.DB.DS) {
+                            self.event.publish("eventMailsSentFetch", data);
+                            msg = "sent";
+                        }
                         self.navCtrl.pop();
                         self.notificationService.toast.dismiss();
-                        self.notificationService.notifyInfo("Message sent successfully");
+                        self.notificationService.notifyInfo("Message " + msg + " successfully");
+                        console.log(data);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -53,7 +61,7 @@ export class HttpServiceProvider {
             .catch((error) => {
                 console.error(error);
                 self.notificationService.toast.dismiss();
-                self.notificationService.notifyError("Error, Message not sent");
+                self.notificationService.notifyError("Error, Message not this process");
             });
     }
 
@@ -67,11 +75,12 @@ export class HttpServiceProvider {
                             .then(() => {
                                 if (database === "DATABASE_SENT") {//enviados
                                     self.event.publish("eventMailsSentFetch");
-                                    self.navCtrl.pop();
                                 } else if (database === "DATABASE_INBOX") {//bandeja de entrada
+                                    self.event.publish("eventMailsInboxFetch");
                                 } else if (database === "DATABASE_OUTBOX") {//bandeja de salida
                                 } else if (database === "DATABASE_DRAFTS") {//borradores
                                 }
+                                self.navCtrl.pop();
                             });
                         self.notificationService.toast.dismiss();
                         self.notificationService.notifyInfo("1 element removed successfully");
@@ -100,6 +109,5 @@ export class HttpServiceProvider {
     toAttach(): void {
 
     }
-
 
 }

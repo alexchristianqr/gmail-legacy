@@ -45,10 +45,6 @@ export class MailsSentPage implements OnDestroy {
 
     }
 
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad MailsSentPage');
-    }
-
     fnMailDetail(data, index) {
         this.navCtrl.push(DetailPage, {data: data, index: index});
     }
@@ -78,13 +74,14 @@ export class MailsSentPage implements OnDestroy {
     }
 
     fnClean() {
-        let self = this;
         this.dialogService.dialogQuestion("Warning", "Do you want to clean the database?", () => {
-            self.storage.clear();
-            self.httpService.loadPreferences(self);
-            self.fnFetch();
-            self.notificationService.notifyInfo("Database cleaned");
-            console.log("Storage cleaned!");
+            this.storage.remove("DATABASE_SENT").then(() => {
+                console.log("DATABASE_SENT removido!");
+                this.httpService.loadPreferences(this);
+                this.fnFetch();
+                this.notificationService.notifyInfo("Database cleaned");
+                console.log("Storage cleaned!");
+            });
         });
     }
 

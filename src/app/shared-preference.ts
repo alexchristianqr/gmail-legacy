@@ -1,20 +1,12 @@
 export const SHARED_PREFERENCE = {
-    CONFIRM_BEFORE_SENDING:             false,
-    CONFIRM_BEFORE_REMOVING:            false,
-    CONFIRM_BEFORE_FILING:              false,
-
-    INBOX_SHOW_SYNC:                    false,
-    INBOX_SHOW_CLEAN:                   false,
-    INBOX_SHOW_SEARCH:                  false,
-
-    MAIL_SHOW_BUTTON_SYNC:              false,
-    MAIL_SHOW_BUTTON_CLEAN:             false,
-    MAIL_SHOW_BUTTON_SEARCH:            false,
-    MAIL_SHOW_BUTTON_UN_READ:           false,
-
-    MAIL_SHOW_BUTTON_REMOVE:            false,
-    MAIL_SHOW_BUTTON_ARCHIVE:           false,
-
-    SHOW_BUTTON_SENT:                   false,
-    SHOW_BUTTON_SEARCH:                 false,
+    CONFIRM_BEFORE_SENDING: true,
+    CONFIRM_BEFORE_REMOVING: true,
+    CONFIRM_BEFORE_FILING: true,
+    MAIL_SHOW_BUTTON_SYNC: true,
+    MAIL_SHOW_BUTTON_CLEAN: true,
+    MAIL_SHOW_BUTTON_SEARCH: true,
+    MAIL_SHOW_BUTTON_UN_READ: true,
+    MAIL_SHOW_BUTTON_REMOVE: true,
+    MAIL_SHOW_BUTTON_ARCHIVE: true,
+    DB:{DI:"DATABASE_INBOX",DS:"DATABASE_SENT"}
 };
