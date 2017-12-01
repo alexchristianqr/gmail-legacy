@@ -5,6 +5,7 @@ import {HttpServiceProvider} from "../../providers/http-service/http-service";
 import {Storage} from '@ionic/storage';
 import {NotificationServiceProvider} from "../../providers/notification-service/notification-service";
 import {PopoverCreatePage} from "./popover-create";
+import * as moment from "moment";
 
 @Component({
     selector: 'page-create',
@@ -41,12 +42,12 @@ export class CreatePage {
                 public storage: Storage,
                 public event: Events) {
 
-        let now = new Date();
+        moment.locale("es");
         this.params.database = this.navParams.data.database;
         this.params.name = "";
         this.params.from = "aquispe.developer@idat.edu.pe";
         this.params.to = "teacher2017@idat.edu.pe";
-        this.params.created_at = now.getUTCDay().toFixed(2)+"-"+now.getUTCMonth()+"-"+now.getUTCFullYear();
+        this.params.created_at = moment().format("YYYY-MM-DD HH:mm");
         this.params.is_read = false;
 
     }

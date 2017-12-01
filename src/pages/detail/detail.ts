@@ -5,6 +5,7 @@ import {HttpServiceProvider} from "../../providers/http-service/http-service";
 import {PopoverDetailPage} from "./popover-detail";
 import {Storage} from "@ionic/storage";
 import {DialogServiceProvider} from "../../providers/dialog-service/dialog-service";
+import * as moment from "moment";
 
 @Component({
     selector: 'page-detail',
@@ -14,6 +15,7 @@ export class DetailPage {
 
     index: any;
     data: any = {};
+    newdate :any;
     public MYSHAREDPREFERENCES: any = {};
 
     constructor(public popoverCtrl: PopoverController,
@@ -29,6 +31,7 @@ export class DetailPage {
         this.httpService.loadPreferences(this);
         this.data = this.navParams.data.data;
         this.index = this.navParams.data.index;
+        this.newdate = moment(this.data.created_at).format("ll");
         this.update(this.navParams.data.data, this.navParams.data.index);
 
         this.event.subscribe("eventDetailFetch", () => {
