@@ -8,6 +8,7 @@ import {NotificationServiceProvider} from "../../providers/notification-service/
 import {DialogServiceProvider} from "../../providers/dialog-service/dialog-service";
 import {Storage} from "@ionic/storage";
 import {PopoverMailPage} from "../mail/popover-mail";
+import {SHARED_PREFERENCE} from "../../app/shared-preference";
 
 @Component({
     selector: 'page-mails-sent',
@@ -20,7 +21,7 @@ export class MailsSentPage implements OnDestroy {
         console.log("Events destroyed!");
     }
 
-    private database: any = [];
+    database: any = [];
     public MYSHAREDPREFERENCES: any = {};
 
     constructor(public popoverCtrl: PopoverController,
@@ -54,12 +55,12 @@ export class MailsSentPage implements OnDestroy {
     }
 
     fnViewCreate() {
-        (this.modalCtrl.create(CreatePage)).present();
+        (this.modalCtrl.create(CreatePage,{database:SHARED_PREFERENCE.DB.DS})).present();
     }
 
     fnFetch() {
         this.dialogService.showLoading();
-        this.storage.get(this.navParams.data.database)
+        this.storage.get("DATABASE_SENT")
             .then((data) => {
                 this.database = (data == null) ? [] : data;
                 this.httpService.loadPreferences(this);
@@ -76,7 +77,6 @@ export class MailsSentPage implements OnDestroy {
         this.dialogService.dialogQuestion("Warning", "Do you want to clean the database SENT?", () => {
             this.storage.remove("DATABASE_SENT").then(() => {
                 console.log("DATABASE_SENT removido!");
-                this.httpService.loadPreferences(this);
                 this.fnFetch();
                 this.notificationService.notifyInfo("Database cleaned");
                 console.log("Storage cleaned!");

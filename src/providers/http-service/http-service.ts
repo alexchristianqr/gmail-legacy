@@ -12,13 +12,12 @@ export class HttpServiceProvider {
         self.storage.get("SHARED_PREFERENCE")
             .then((data) => {
                 if (data != null) {
-                    self.MYSHAREDPREFERENCES = data;
-                    console.log(data);
+                    if(self.MYSHAREDPREFERENCES != undefined) self.MYSHAREDPREFERENCES = data;
                     console.log("Loaded shared preferences cache!");
                 } else {
                     self.storage.set("SHARED_PREFERENCE", SHARED_PREFERENCE)
                         .then((data) => {
-                            self.MYSHAREDPREFERENCES = data;
+                            if(self.MYSHAREDPREFERENCES != undefined) self.MYSHAREDPREFERENCES = data;
                             console.log("Loaded shared preferences by default!");
                         })
                         .catch((error) => {

@@ -22,7 +22,7 @@ export class MailsInboxPage implements OnDestroy {
         console.log("Events destroyed!");
     }
 
-    private database: any = [];
+    database: any = [];
     public MYSHAREDPREFERENCES: any = {};
 
     constructor(public popoverCtrl: PopoverController,
@@ -56,13 +56,12 @@ export class MailsInboxPage implements OnDestroy {
     }
 
     fnViewCreate() {
-        (this.modalCtrl.create(CreatePage)).present();
+        (this.modalCtrl.create(CreatePage,{database:SHARED_PREFERENCE.DB.DI})).present();
     }
 
     fnFetch() {
-        let theDB = (this.navParams.data.database != undefined) ? this.navParams.data.database : "DATABASE_SENT";
         this.dialogService.showLoading();
-        this.storage.get(theDB)
+        this.storage.get("DATABASE_INBOX")
             .then((data) => {
                 this.database = (data == null) ? [] : data;
                 this.httpService.loadPreferences(this);
@@ -79,7 +78,6 @@ export class MailsInboxPage implements OnDestroy {
         this.dialogService.dialogQuestion("Warning", "Do you want to clean the database INBOX?", () => {
             this.storage.remove("DATABASE_INBOX").then(() => {
                 console.log("DATABASE_INBOX removido!");
-                this.httpService.loadPreferences(this);
                 this.fnFetch();
                 this.notificationService.notifyInfo("Database cleaned");
                 console.log("Storage cleaned!");

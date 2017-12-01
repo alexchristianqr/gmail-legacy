@@ -1,11 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
+import {Events, Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {Storage} from "@ionic/storage";
 import {HttpServiceProvider} from "../providers/http-service/http-service";
 import {MailsInboxPage} from "../pages/mails-inbox/mails-inbox";
 import {MailsSentPage} from "../pages/mails-sent/mails-sent";
+import {GeneralPage} from "../pages/general/general";
 
 @Component({
     templateUrl: 'app.html'
@@ -14,6 +15,7 @@ export class MyApp {
 
     @ViewChild(Nav)
     nav: Nav;
+    database: any = [];
     rootPage: any = MailsInboxPage;
     activePage: any;
     public MYSHAREDPREFERENCES: any = {};
@@ -23,6 +25,7 @@ export class MyApp {
                 private  statusBar: StatusBar,
                 private splashScreen: SplashScreen,
                 public httpService: HttpServiceProvider,
+                public event: Events,
                 public storage: Storage) {
 
         platform.ready().then(() => {
@@ -43,6 +46,7 @@ export class MyApp {
         this.listComponents = [
             {title: "Inbox", icon: "fa-list-ul", component: MailsInboxPage, db: "DATABASE_INBOX", status: false},
             {title: "Mail Sent", icon: "fa-send", component: MailsSentPage, db: "DATABASE_SENT", status: false},
+            {title: "General", icon: "fa-user-secret", component: GeneralPage, db: "", status: false},
             // {title: "Mail Received", icon: "fa-envelope", component: MailsSentPage, db: "DATABASE_RECEIVED", status: false},
             // {title: "Mail Saved", icon: "fa-envelope-open", component: MailsSentPage, db: "DATABASE_SAVED", status: false},
             // {title: "Mail Span", icon: "fa-trash", component: MailsSentPage, db: "DATABASE_SPAN", status: false}

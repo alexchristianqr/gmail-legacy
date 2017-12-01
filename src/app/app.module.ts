@@ -21,6 +21,7 @@ import {PopoverMailPage} from "../pages/mail/popover-mail";
 import {ModalMailPage} from "../pages/mail/modal-mail";
 import {MailsInboxPage} from "../pages/mails-inbox/mails-inbox";
 import {MailsSentPage} from "../pages/mails-sent/mails-sent";
+import {GeneralPage} from "../pages/general/general";
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import {MailsSentPage} from "../pages/mails-sent/mails-sent";
         CreatePage,
         MailsSentPage,
         MailsInboxPage,
+        GeneralPage,
         PopoverCreatePage,
         PopoverMailPage,
         PopoverDetailPage,
@@ -53,6 +55,7 @@ import {MailsSentPage} from "../pages/mails-sent/mails-sent";
         CreatePage,
         MailsSentPage,
         MailsInboxPage,
+        GeneralPage,
         PopoverCreatePage,
         PopoverDetailPage,
         PopoverMailPage,

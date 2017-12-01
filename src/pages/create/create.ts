@@ -13,7 +13,8 @@ import {PopoverCreatePage} from "./popover-create";
 
 export class CreatePage {
 
-    @ViewChild('myInput') myInput: ElementRef;
+    @ViewChild("myInput")
+    myInput: ElementRef;
 
     resize() {
         this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px';
@@ -32,18 +33,22 @@ export class CreatePage {
 
     constructor(public popoverCtrl: PopoverController,
                 public navCtrl: NavController,
+                public navParams:NavParams,
                 public viewCtrl: ViewController,
                 public dialogService: DialogServiceProvider,
                 public httpService: HttpServiceProvider,
                 public notificationService: NotificationServiceProvider,
                 public storage: Storage,
                 public event: Events) {
-        this.params.database = "DATABASE_SENT";
-        this.params.name = "Alex Christian Quispe Roque";
+
+        let now = new Date();
+        this.params.database = this.navParams.data.database;
+        this.params.name = "";
         this.params.from = "aquispe.developer@idat.edu.pe";
         this.params.to = "teacher2017@idat.edu.pe";
-        this.params.created_at = "2017-11-24";
+        this.params.created_at = now.getUTCDay().toFixed(2)+"-"+now.getUTCMonth()+"-"+now.getUTCFullYear();
         this.params.is_read = false;
+
     }
 
     back() {
@@ -52,7 +57,9 @@ export class CreatePage {
 
     fnCreate() {
         let validate = false;
-        if (this.params.from == null || this.params.from == "") {
+        if (this.params.name == null || this.params.name == "") {
+            validate = false;
+        } else if (this.params.from == null || this.params.from == "") {
             validate = false;
         } else if (this.params.to == null || this.params.to == "") {
             validate = false;

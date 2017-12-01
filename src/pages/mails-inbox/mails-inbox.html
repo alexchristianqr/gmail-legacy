@@ -22,8 +22,8 @@
   <ion-list *ngIf="database.length >= 1">
     <button ion-item unset *ngFor="let data of database;let i = index" detail-none (click)="fnViewDetail(data,i)">
       <ion-avatar item-left style="opacity: 0.8;">
-        <button ion-fab color="default" style="width: 40px;height: 40px;box-shadow: none;">
-          <span style="font-size: 1.5em">{{data.name.charAt(0)}}</span>
+        <button ion-fab [ngClass]="'button-profile color-' + data.name.charAt(0).toUpperCase()">
+          <span style="font-size: 1.8em" >{{data.name.charAt(0).toUpperCase()}}</span>
         </button>
       </ion-avatar>
       <h2 *ngIf="data.is_read">{{data.name}}</h2>

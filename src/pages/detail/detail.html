@@ -20,14 +20,14 @@
     <div style="padding:0 16px">
       <ion-item>
         <ion-avatar item-left style="opacity: 0.8;">
-          <button ion-fab color="default" style="width: 40px;height: 40px;box-shadow: none;">
-            <span *ngIf="data.name != null" style="font-size: 1.5em">{{data.name.charAt(0)}}</span>
+          <button ion-fab [ngClass]="'button-profile color-' + data.name.charAt(0)">
+            <span style="font-size: 1.8em">{{data.name.charAt(0)}}</span>
           </button>
         </ion-avatar>
         <div class="p-t-1 p-b-1">
           <h2>{{data.name}}</h2>
           <p>para</p>
-          <p>Hace 2 días&nbsp;<a style="text-decoration: none" href="#">Ver detalle</a></p>
+          <p>{{data.created_at}}&nbsp;&nbsp;<a style="text-decoration: none" href="#">Ver detalle</a></p>
         </div>
       </ion-item>
       <p [innerHTML]="data.message"></p>

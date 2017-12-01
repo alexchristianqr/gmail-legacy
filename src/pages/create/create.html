@@ -26,11 +26,15 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label fixed >Database</ion-label>
+      <ion-label fixed>Database</ion-label>
       <ion-select [(ngModel)]="params.database">
-        <ion-option value="DATABASE_SENT" selected>Sent</ion-option>
         <ion-option value="DATABASE_INBOX">Inbox</ion-option>
+        <ion-option value="DATABASE_SENT">Sent</ion-option>
       </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed >Name</ion-label>
+      <ion-input [(ngModel)]="params.name" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label fixed >From</ion-label>
