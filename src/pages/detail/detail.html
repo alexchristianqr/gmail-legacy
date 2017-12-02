@@ -20,8 +20,8 @@
     <div style="padding:0 16px">
       <ion-item>
         <ion-avatar item-left style="opacity: 0.8;">
-          <button ion-fab [ngClass]="'button-profile color-' + data.name.charAt(0)">
-            <span style="font-size: 1.8em">{{data.name.charAt(0)}}</span>
+          <button ion-fab [ngClass]="'button-profile color-' + data.name.charAt(0).toUpperCase()">
+            <span style="font-size: 1.8em">{{data.name.charAt(0).toUpperCase()}}</span>
           </button>
         </ion-avatar>
         <div class="p-t-1 p-b-1">
