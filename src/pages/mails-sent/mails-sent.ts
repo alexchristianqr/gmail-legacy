@@ -51,7 +51,7 @@ export class MailsSentPage implements OnDestroy {
     }
 
     fnViewSearch() {
-        (this.modalCtrl.create(SearchPage)).present();
+        (this.modalCtrl.create(SearchPage,{database:SHARED_PREFERENCE.DB.DS})).present();
     }
 
     fnViewCreate() {

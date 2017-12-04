@@ -52,7 +52,7 @@ export class MailsInboxPage implements OnDestroy {
     }
 
     fnViewSearch() {
-        (this.modalCtrl.create(SearchPage)).present();
+        (this.modalCtrl.create(SearchPage,{database:SHARED_PREFERENCE.DB.DI})).present();
     }
 
     fnViewCreate() {

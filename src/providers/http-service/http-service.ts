@@ -40,16 +40,15 @@ export class HttpServiceProvider {
                 self.storage.set(self.params.database, data)
                     .then((data) => {
                         if (self.params.database === SHARED_PREFERENCE.DB.DI) {
-                            self.event.publish("eventMailsInboxFetch", data);
+                            self.event.publish("eventMailsInboxFetch");
                             msg = "inbox";
                         } else if (self.params.database === SHARED_PREFERENCE.DB.DS) {
-                            self.event.publish("eventMailsSentFetch", data);
+                            self.event.publish("eventMailsSentFetch");
                             msg = "sent";
                         }
                         self.navCtrl.pop();
                         self.notificationService.toast.dismiss();
                         self.notificationService.notifyInfo("Message " + msg + " successfully");
-                        console.log(data);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -98,10 +97,6 @@ export class HttpServiceProvider {
     }
 
     unread(objeto: any): void {
-
-    }
-
-    read(objeto: any): void {
 
     }
 

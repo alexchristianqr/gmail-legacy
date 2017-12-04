@@ -7,6 +7,7 @@ import {HttpServiceProvider} from "../providers/http-service/http-service";
 import {MailsInboxPage} from "../pages/mails-inbox/mails-inbox";
 import {MailsSentPage} from "../pages/mails-sent/mails-sent";
 import {GeneralPage} from "../pages/general/general";
+import {HomePage} from "../pages/home/home";
 
 @Component({
     templateUrl: 'app.html'
@@ -46,10 +47,10 @@ export class MyApp {
         this.listComponents = [
             {title: "Inbox", icon: "fa-list-ul", component: MailsInboxPage, db: "DATABASE_INBOX", status: false},
             {title: "Mail Sent", icon: "fa-send", component: MailsSentPage, db: "DATABASE_SENT", status: false},
+            {title: "Mail Received", icon: "fa-envelope", component: HomePage, db: "DATABASE_RECEIVED", status: false},
+            {title: "Mail Saved", icon: "fa-envelope-open", component: HomePage, db: "DATABASE_SAVED", status: false},
+            {title: "Mail Span", icon: "fa-trash", component: HomePage, db: "DATABASE_SPAN", status: false},
             {title: "General", icon: "fa-user-secret", component: GeneralPage, db: "", status: false},
-            // {title: "Mail Received", icon: "fa-envelope", component: MailsSentPage, db: "DATABASE_RECEIVED", status: false},
-            // {title: "Mail Saved", icon: "fa-envelope-open", component: MailsSentPage, db: "DATABASE_SAVED", status: false},
-            // {title: "Mail Span", icon: "fa-trash", component: MailsSentPage, db: "DATABASE_SPAN", status: false}
         ];
 
         this.httpService.loadPreferences(this);

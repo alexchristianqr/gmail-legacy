@@ -6,21 +6,37 @@
 -->
 <ion-header>
   <ion-navbar color="danger">
-    <ion-title>Search</ion-title>
+    <!--<ion-title>Search</ion-title>-->
     <ion-buttons left>
       <button ion-button icon-only class="p-l-15 p-r-15" (click)="back()">
         <ion-icon name="md-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-searchbar [placeholder]="'Search here'" (ionInput)="getItems($event)"></ion-searchbar>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      {{ item }}
-    </ion-item>
+<ion-content>
+    <ion-list *ngIf="items.length >= 1">
+      <button ion-item unset *ngFor="let item of items;let i = index" detail-none (click)="fnViewDetail(item,i)">
+        <ion-avatar item-left style="opacity: 0.8;">
+          <button ion-fab [ngClass]="'button-profile color-' + item.name.charAt(0).toUpperCase()">
+            <span style="font-size: 1.8em" >{{item.name.charAt(0).toUpperCase()}}</span>
+          </button>
+        </ion-avatar>
+        <h2 *ngIf="item.is_read">{{item.name}}</h2>
+        <h2 *ngIf="!item.is_read"><b>{{item.name}}</b></h2>
+        <h3 *ngIf="item.is_read">{{item.subject}}</h3>
+        <h3 *ngIf="!item.is_read"><b>{{item.subject}}</b></h3>
+        <p *ngIf="item.is_read">{{item.message}}</p>
+        <p *ngIf="!item.is_read"><b>{{item.message}}</b></p>
+      </button>
+  </ion-list>
+  <ion-list *ngIf="items.length <= 0">
+    <div class="list-empty">
+      <i class="fa fa-exclamation-triangle fa-2x text-danger"></i>
+      <h4 class="text-muted">Search value not found</h4>
+    </div>
   </ion-list>
 </ion-content>
 
