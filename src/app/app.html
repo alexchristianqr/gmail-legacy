@@ -1,26 +1,19 @@
-<ion-menu [content]="nav">
-    <ion-content no-margin style="background-color: #fff">
-        <ion-toolbar class="p-0">
-            <div style="text-align: center;max-height: 115px;">
-                <img src="assets/imgs/profile.jpg" alt="" width="100%" height="calc(100% - 25%)">
-            </div>
-            <div left botom padding>
-                <div style="color: #fff;"><b style="font-size: 1em">Alex C. Quispe Roque</b></div>
-                <div style="color: #fff;">aquispe.developer@idat.edu.pe</div>
-            </div>
-        </ion-toolbar>
-        <ion-list class="menu-list">
-            <button  menuClose ion-item *ngFor="let item of listComponents" [class.activeLink]="fnCheckActive(item)" [disabled]="item.status" (click)="fnLoadRoot(item)">
-                <i class="fa {{item.icon}} my-icon"></i><span class="p-l-20">{{item.title}}</span>
-            </button>
-        </ion-list>
-    </ion-content>
-    <ion-footer>
-        <ion-list class="menu-list">
-            <button ion-item menuClose>
-                <i class="fa fa-sign-out my-icon"></i><span class="p-l-20">Logout</span>
-            </button>
-        </ion-list>
-    </ion-footer>
+<ion-menu [content]="content" type="overlay">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+
 </ion-menu>
-<ion-nav [root]="rootPage" #nav swipeBackEnabled="false"></ion-nav>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

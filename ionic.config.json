@@ -1,8 +1,7 @@
 {
-  "name": "appGmail",
-  "app_id": "",
-  "type": "ionic-angular",
+  "name": "gmail",
   "integrations": {
-    "cordova": {}
-  }
+    "capacitor": {}
+  },
+  "type": "ionic-angular"
 }
