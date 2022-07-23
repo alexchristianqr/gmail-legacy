@@ -44,8 +44,8 @@ export class CreatePage {
     moment.locale('es');
     this.params.database = this.navParams.data.database;
     this.params.name = '';
-    this.params.from = 'aquispe.developer@idat.edu.pe';
-    this.params.to = 'teacher2017@idat.edu.pe';
+    this.params.from = 'alexchristianqr@utp.edu.pe';
+    this.params.to = 'teacher2022@utp.edu.pe';
     this.params.created_at = moment().format('YYYY-MM-DD HH:mm');
     this.params.is_read = false;
   }
