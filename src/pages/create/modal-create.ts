@@ -2,7 +2,7 @@
  * Created by aquispe on 25/11/2017.
  */
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { SHARED_PREFERENCE } from '../../app/shared-preference';
 
