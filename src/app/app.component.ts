@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core'
 import { Nav, Platform } from 'ionic-angular'
 import { StatusBar } from '@ionic-native/status-bar'
 import { SplashScreen } from '@ionic-native/splash-screen'
-
-// import { HttpServiceProvider } from '../providers/http-service/http-service'
 import { MailsInboxPage } from '../pages/mails-inbox/mails-inbox'
 import { MailsSentPage } from '../pages/mails-sent/mails-sent'
 import { GeneralPage } from '../pages/general/general'
@@ -16,30 +14,23 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav
 
   rootPage: any = MailsInboxPage
+  pagesSection1: Array<{ title: string; component: any; icon: string; status: boolean }>
+  pagesSection2: Array<{ title: string; component: any; icon: string; status: boolean }>
+  pagesSection3: Array<{ title: string; component: any; icon: string; status: boolean }>
 
-  pages: Array<{ title: string; component: any; icon: string; status: boolean }>
-  pagesSecondary: Array<{ title: string; component: any; icon: string; status: boolean }>
-
-  constructor(
-    // public httpService: HttpServiceProvider,
-    public platform: Platform,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen
-  ) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp()
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      // { title: 'Home', component: HomePage },
-      // { title: 'List', component: ListPage },
-
+    this.pagesSection1 = [
       {
         title: 'Inbox',
-        icon: 'home',
+        icon: 'mail',
         component: MailsInboxPage,
         // db: 'DATABASE_INBOX',
         status: false,
       },
+
+    ]
+    this.pagesSection2 = [
       {
         title: 'Social',
         icon: 'people',
@@ -54,8 +45,6 @@ export class MyApp {
         // db: 'DATABASE_RECEIVED',
         status: false,
       },
-    ]
-    this.pagesSecondary = [
       {
         title: 'Mail Saved',
         icon: 'cloud',
@@ -65,36 +54,26 @@ export class MyApp {
       },
       {
         title: 'Mail Span',
-        icon: 'alert',
+        icon: 'bug',
         component: HomePage,
         // db: 'DATABASE_SPAN',
         status: false,
       },
+    ]
+    this.pagesSection3 = [
       {
-        title: 'General',
+        title: 'Settings',
         icon: 'cog',
         component: GeneralPage,
-        // db: '',
         status: false,
       },
       {
-        title: 'Downloads',
-        icon: 'cloud-download',
+        title: 'Sign Out',
+        icon: 'log-out',
         component: GeneralPage,
-        // db: '',
-        status: false,
-      },
-      {
-        title: 'Ayuda',
-        icon: 'hand',
-        component: GeneralPage,
-        // db: '',
         status: false,
       },
     ]
-
-    // this.httpService.loadPreferences(this)
-    // this.activePage = this.listComponents[0]
   }
 
   initializeApp() {

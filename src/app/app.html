@@ -1,31 +1,63 @@
 <ion-menu [content]="content" type="overlay">
   <ion-header>
-    <ion-toolbar color="danger">
-      <ion-title>Menu</ion-title>
+    <ion-toolbar>
+      <ion-title>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-2 style="height: 100%; display: block; vertical-align: middle">
+              <img style="height: 2.75rem; width: 2.75rem" src="./assets/imgs/gmail.svg" />
+            </ion-col>
+            <ion-col col-10 style="padding: 0 0 0 0">
+              <div style="padding: 10px 0 0 0">Gmail <span style="font-size: 0.8rem">(clone)</span></div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
+    <ion-list-header style="margin-bottom: 0">
+      <ion-avatar>
+        <img style="height: 150px; width: 150px" src="./assets/imgs/dev.jpg" />
+      </ion-avatar>
+      <div style="font-size: 1.8rem; font-weight: 600; color: #2d2d2d; padding: 0.6rem 0 0 0; margin: 0.3rem 0">Alex Christian Quispe Roque</div>
+      <p style="margin-bottom: 0.3rem">alexchristianqr@gmail.com</p>
+      <p style="margin-bottom: 0.3rem">Storage used: 8% of 15GB</p>
+      <div style="font-size: 1rem">
+        <a href="#">Privacy Policy</a>
+        <span>.</span>
+        <a href="#">Terms of Service</a>
+      </div>
+    </ion-list-header>
+
+    <ion-list-header style="padding-bottom: 0; margin-bottom: 0">
+      <ion-label>MAIN PRIMARY</ion-label>
+    </ion-list-header>
     <ion-list color="danger">
-      <ion-list-header>
-        <ion-label>PRIMARY</ion-label>
-      </ion-list-header>
-      <ion-item menuClose detail-none icon-only *ngFor="let p of pages" (click)="openPage(p)">
-          <ion-icon [name]="p.icon"></ion-icon>
-          <span>{{p.title}}</span>
+      <ion-item menuClose detail-none *ngFor="let p of pagesSection1" (click)="openPage(p)">
+        <ion-icon [name]="p.icon"></ion-icon>
+        <span>{{p.title}}</span>
       </ion-item>
     </ion-list>
 
-    <ion-list color="danger">
-    <ion-list-header>
-    <ion-label>SECONDARY</ion-label>
+    <ion-list-header style="padding-bottom: 0; margin-bottom: 0">
+      <ion-label>MAIN SECONDARY</ion-label>
     </ion-list-header>
-      <ion-item menuClose detail-none icon-only *ngFor="let p of pagesSecondary" (click)="openPage(p)">
+    <ion-list color="danger">
+      <ion-item menuClose detail-none *ngFor="let p of pagesSection2" (click)="openPage(p)">
         <ion-icon [name]="p.icon"></ion-icon>
         <span>{{p.title}}</span>
       </ion-item>
     </ion-list>
   </ion-content>
+
+  <ion-footer>
+    <ion-item menuClose detail-none *ngFor="let p of pagesSection3" (click)="openPage(p)">
+      <ion-icon [name]="p.icon"></ion-icon>
+      <span>{{p.title}}</span>
+    </ion-item>
+  </ion-footer>
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
