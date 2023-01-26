@@ -63,4 +63,8 @@
       <ion-icon name="create"></ion-icon>
     </button>
   </ion-fab>
+
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

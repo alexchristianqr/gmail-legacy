@@ -12,4 +12,4 @@ export const SHARED_PREFERENCE = {
   MAIL_SHOW_BUTTON_ARCHIVE: false,
 
   DB: { DI: 'DATABASE_INBOX', DS: 'DATABASE_SENT' },
-};
+}

@@ -1,14 +1,14 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Events, ModalController, NavController, NavParams, PopoverController } from 'ionic-angular';
-import { CreatePage } from '../create/create';
-import { SearchPage } from '../search/search';
-import { DetailPage } from '../detail/detail';
-import { HttpServiceProvider } from '../../providers/http-service/http-service';
-import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
-import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service';
-import { Storage } from '@ionic/storage';
-import { PopoverMailPage } from '../mail/popover-mail';
-import { SHARED_PREFERENCE } from '../../app/shared-preference';
+import { Component, OnDestroy } from '@angular/core'
+import { Events, ModalController, NavController, NavParams, PopoverController } from 'ionic-angular'
+import { CreatePage } from '../create/create'
+import { SearchPage } from '../search/search'
+import { DetailPage } from '../detail/detail'
+import { HttpServiceProvider } from '../../providers/http-service/http-service'
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service'
+import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service'
+import { Storage } from '@ionic/storage'
+import { PopoverMailPage } from '../mail/popover-mail'
+import { SHARED_PREFERENCE } from '../../app/shared-preference'
 
 @Component({
   selector: 'page-mails-sent',
@@ -16,12 +16,12 @@ import { SHARED_PREFERENCE } from '../../app/shared-preference';
 })
 export class MailsSentPage implements OnDestroy {
   ngOnDestroy(): void {
-    this.event.unsubscribe('eventMailsSentFetch');
-    console.log('Events destroyed!');
+    this.event.unsubscribe('eventMailsSentFetch')
+    console.log('Events destroyed!')
   }
 
-  database: any = [];
-  public MYSHAREDPREFERENCES: any = {};
+  database: any = []
+  public MYSHAREDPREFERENCES: any = {}
 
   constructor(
     public popoverCtrl: PopoverController,
@@ -32,63 +32,70 @@ export class MailsSentPage implements OnDestroy {
     public modalCtrl: ModalController,
     public dialogService: DialogServiceProvider,
     public storage: Storage,
-    public navParams: NavParams,
+    public navParams: NavParams
   ) {
-    this.fnFetch();
+    this.fnFetch()
 
     this.event.subscribe('eventMailsSentFetch', () => {
-      this.fnFetch();
-    });
+      this.fnFetch()
+    })
 
     this.event.subscribe('eventMailsSentPreferences', () => {
-      this.httpService.loadPreferences(this);
-    });
+      this.httpService.loadPreferences(this)
+    })
   }
 
   async fnViewDetail(data, index) {
-    return this.navCtrl.push(DetailPage, { data: data, index: index });
+    return this.navCtrl.push(DetailPage, { data: data, index: index })
   }
 
   async fnViewSearch() {
-    return this.modalCtrl.create(SearchPage, { database: SHARED_PREFERENCE.DB.DS }).present();
+    return this.modalCtrl.create(SearchPage, { database: SHARED_PREFERENCE.DB.DS }).present()
   }
 
   async fnViewCreate() {
-    return this.modalCtrl.create(CreatePage, { database: SHARED_PREFERENCE.DB.DS }).present();
+    return this.modalCtrl.create(CreatePage, { database: SHARED_PREFERENCE.DB.DS }).present()
   }
 
-  fnFetch() {
-    this.dialogService.showLoading();
-    this.storage
+  async fnFetch() {
+    this.dialogService.showLoading()
+    return this.storage
       .get('DATABASE_SENT')
       .then((data) => {
-        this.database = data == null ? [] : data;
-        this.httpService.loadPreferences(this);
-        this.dialogService.closeLoading();
-        console.log('Fetch storage from Mails Sent!');
+        this.database = data == null ? [] : data
+        this.httpService.loadPreferences(this)
+        this.dialogService.closeLoading()
+        console.log('Fetch storage from Mails Sent!')
       })
       .catch((error) => {
-        console.error(error);
-        this.dialogService.closeLoading();
-      });
+        console.error(error)
+        this.dialogService.closeLoading()
+      })
   }
 
-  fnClean() {
-    this.dialogService.dialogQuestion('Warning', 'Do you want to clean the database SENT?', () => {
-      this.storage.remove('DATABASE_SENT').then(() => {
-        console.log('DATABASE_SENT removido!');
-        this.fnFetch();
-        this.notificationService.notifyInfo('Database cleaned');
-        console.log('Storage cleaned!');
-      });
-    });
+  async fnClean() {
+    return this.dialogService.dialogQuestion(
+      'Warning',
+      'Do you want to clean the database SENT?',
+      () => {
+        this.storage.remove('DATABASE_SENT').then(() => {
+          console.log('DATABASE_SENT removido!')
+          this.fnFetch()
+          this.notificationService.notifyInfo('Database cleaned')
+          console.log('Storage cleaned!')
+        })
+      },
+      () => {
+        console.log('Click on cancelled')
+      }
+    )
   }
 
-  presentPopover(myEvent) {
-    this.popoverCtrl.create(PopoverMailPage).present({ ev: myEvent });
+  async presentPopover(myEvent) {
+    return this.popoverCtrl.create(PopoverMailPage).present({ ev: myEvent })
   }
 
   fnUnRead() {
-    console.log('unread!');
+    console.log('unread!')
   }
 }

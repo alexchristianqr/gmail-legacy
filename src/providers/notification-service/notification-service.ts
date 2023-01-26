@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { ToastController } from 'ionic-angular';
+import { Injectable } from '@angular/core'
+import { ToastController } from 'ionic-angular'
 
 @Injectable()
 export class NotificationServiceProvider {
-  public toast: any;
+  public toast: any
 
   constructor(public toastCtrl: ToastController) {
     // not implement
@@ -16,8 +16,8 @@ export class NotificationServiceProvider {
       position: 'bottom',
       showCloseButton: showButton,
       closeButtonText: 'close',
-    });
-    this.toast.present();
+    })
+    this.toast.present()
   }
 
   public notifyError(message: string): void {
@@ -27,7 +27,7 @@ export class NotificationServiceProvider {
       position: 'bottom',
       showCloseButton: true,
       closeButtonText: 'close',
-    });
-    this.toast.present();
+    })
+    this.toast.present()
   }
 }
