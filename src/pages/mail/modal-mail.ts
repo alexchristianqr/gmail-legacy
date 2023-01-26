@@ -17,8 +17,8 @@ export class ModalMailPage {
     this.httpService.loadPreferences(this)
   }
 
-  back() {
-    this.viewCtrl.dismiss()
+  async back() {
+    return this.viewCtrl.dismiss()
   }
 
   fnFetchMyPreferences() {

@@ -5,7 +5,9 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+
     <ion-title>Inbox</ion-title>
+
     <ion-buttons end>
       <button ion-button icon-only *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SYNC" class="p-r-15 my-icon" (click)="fnFetch()"><ion-icon name="sync"></ion-icon></button>
       <button ion-button icon-only *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_CLEAN" class="p-r-15 my-icon" (click)="fnClean()"><ion-icon name="trash"></ion-icon></button>

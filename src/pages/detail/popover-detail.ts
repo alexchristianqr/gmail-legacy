@@ -1,8 +1,5 @@
-/**
- * Created by aquispe on 26/11/2017.
- */
 import { Component } from '@angular/core'
-import { ModalController, ViewController } from 'ionic-angular'
+import {ModalController, NavController, ViewController} from 'ionic-angular'
 import { ModalDetailPage } from './modal-detail'
 
 @Component({
@@ -12,12 +9,11 @@ import { ModalDetailPage } from './modal-detail'
 export class PopoverDetailPage {
   list: Array<{ title: string; component: any }>
 
-  constructor(public viewCtrl: ViewController, public modalCtrl: ModalController) {
+  constructor(public viewCtrl: ViewController, public modalCtrl: ModalController,public navCtrl: NavController) {
     this.list = [{ title: 'Settings', component: ModalDetailPage }]
   }
 
   async open(objeto) {
-    await this.viewCtrl.dismiss()
-    return this.modalCtrl.create(objeto.component).present()
+    return this.navCtrl.push(objeto.component)
   }
 }

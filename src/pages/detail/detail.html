@@ -1,8 +1,10 @@
 <ion-header>
   <ion-navbar color="danger">
-    <button ion-button icon-only menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
 
     <ion-buttons end>
       <button ion-button icon-only *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_ARCHIVE" class="p-r-15 my-icon"><ion-icon name="archive"></ion-icon></button>

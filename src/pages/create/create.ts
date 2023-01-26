@@ -12,7 +12,7 @@ import * as moment from 'moment'
   templateUrl: 'create.html',
 })
 export class CreatePage {
-  @ViewChild('myInput')
+  // @ViewChild('myInput')
   myInput: ElementRef
 
   resize() {

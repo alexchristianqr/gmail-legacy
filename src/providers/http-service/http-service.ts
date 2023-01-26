@@ -6,8 +6,7 @@ import { SHARED_PREFERENCE } from '../../app/shared-preference'
 
 @Injectable()
 export class HttpServiceProvider {
-  constructor() // private storage: Storage // private event: Events, // private navCtrl: NavController, // private notificationService: NotificationServiceProvider,
-  {}
+  constructor() {} // private storage: Storage // private event: Events, // private navCtrl: NavController, // private notificationService: NotificationServiceProvider,
 
   loadPreferences(self: any) {
     self.storage
