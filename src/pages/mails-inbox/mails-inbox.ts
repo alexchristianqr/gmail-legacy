@@ -67,7 +67,6 @@ export class MailsInboxPage implements OnDestroy {
   }
 
   async fnViewSearch() {
-    // return this.modalCtrl.create(SearchPage, { database: SHARED_PREFERENCE.DB.DI }).present()
     return this.navCtrl.push(SearchPage, { database: SHARED_PREFERENCE.DB.DI })
   }
 
@@ -76,7 +75,7 @@ export class MailsInboxPage implements OnDestroy {
   }
 
   async fnFetch() {
-    // this.dialogService.showLoading()
+    this.dialogService.showLoading()
     return this.storage
       .get('DATABASE_INBOX')
       .then((data) => {
@@ -211,7 +210,7 @@ export class MailsInboxPage implements OnDestroy {
         }
 
         this.httpService.loadPreferences(this)
-        // this.dialogService.closeLoading()
+        this.dialogService.closeLoading()
 
         console.log('Fetch storage from Mails Inbox!')
       })
