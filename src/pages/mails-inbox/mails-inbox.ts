@@ -220,17 +220,6 @@ export class MailsInboxPage implements OnDestroy {
       })
   }
 
-  async fnClean() {
-    return this.dialogService.dialogQuestion('Warning', 'Do you want to clean the database INBOX?', () => {
-      this.storage.remove('DATABASE_INBOX').then(() => {
-        console.log('DATABASE_INBOX removido!')
-        this.fnFetch()
-        this.notificationService.notifyInfo('Database cleaned')
-        console.log('Storage cleaned!')
-      })
-    })
-  }
-
   async presentPopover(myEvent) {
     return this.popoverCtrl.create(PopoverMailPage).present({ ev: myEvent })
   }
