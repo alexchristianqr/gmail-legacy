@@ -20,17 +20,16 @@
     </div>
     <hr />
     <div style="padding: 0 16px">
-      <ion-item>
+      <ion-item text-wrap>
         <ion-avatar item-left style="opacity: 0.8">
           <button ion-fab [ngClass]="'button-profile color-' + data.name.charAt(0).toUpperCase()">
             <span style="font-size: 1.8em">{{data.name.charAt(0).toUpperCase()}}</span>
           </button>
         </ion-avatar>
-        <div class="p-t-1 p-b-1">
-          <h2>{{data.name}}</h2>
-          <p>para</p>
-          <p>{{newdate}}&nbsp;&nbsp;<a style="text-decoration: none" href="#">Ver detalle</a></p>
-        </div>
+        <span class="text-key">{{data.name}}</span>
+        <span class="text-value-second"><{{data.from}}></span>
+        <p>para: {{data.to}}</p>
+        <p>fecha: {{newdate}}&nbsp;&nbsp;<a style="text-decoration: none" href="#">Ver detalle</a></p>
       </ion-item>
       <p [innerHTML]="data.message" style="text-align: justify; text-justify: inter-word"></p>
     </div>

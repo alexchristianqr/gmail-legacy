@@ -30,6 +30,7 @@ export class DetailPage {
   ) {
     this.httpService.loadPreferences(this)
     this.data = this.navParams.data.data
+    console.log(this.data)
     this.index = this.navParams.data.index
     this.newdate = moment(this.data.created_at).format('ll')
     this.update(this.navParams.data.data, this.navParams.data.index)

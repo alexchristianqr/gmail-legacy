@@ -90,7 +90,7 @@ export class MailsInboxPage implements OnDestroy {
               is_read: false,
               message:
                 'Tu matrícula en Verano 2023 se registró correctamente. El detalle de cursos y secciones matriculados lo podrás encontrar líneas abajo. Por favor, toma nota de tu código de operación, el cual deberás proporcionar ante cualquier requerimiento o consulta que tengas respecto al proceso de matrícula.',
-              name: 'Alex',
+              name: 'Alex Christian Quispe Roque',
               subject: 'Funciones lineales',
               to: 'sae@utp.edu.pe',
             },
