@@ -18,6 +18,7 @@ export class MyApp {
   rootPage: any = MailsInboxPage
 
   pages: Array<{ title: string; component: any; icon: string; status: boolean }>
+  pagesSecondary: Array<{ title: string; component: any; icon: string; status: boolean }>
 
   constructor(
     // public httpService: HttpServiceProvider,
@@ -53,23 +54,39 @@ export class MyApp {
         // db: 'DATABASE_RECEIVED',
         status: false,
       },
+    ]
+    this.pagesSecondary = [
       {
         title: 'Mail Saved',
-        icon: 'save',
+        icon: 'cloud',
         component: HomePage,
         // db: 'DATABASE_SAVED',
         status: false,
       },
       {
         title: 'Mail Span',
-        icon: 'fa-trash',
+        icon: 'alert',
         component: HomePage,
         // db: 'DATABASE_SPAN',
         status: false,
       },
       {
         title: 'General',
-        icon: 'fa-user-secret',
+        icon: 'cog',
+        component: GeneralPage,
+        // db: '',
+        status: false,
+      },
+      {
+        title: 'Downloads',
+        icon: 'cloud-download',
+        component: GeneralPage,
+        // db: '',
+        status: false,
+      },
+      {
+        title: 'Ayuda',
+        icon: 'hand',
         component: GeneralPage,
         // db: '',
         status: false,
@@ -89,9 +106,9 @@ export class MyApp {
     })
   }
 
-  openPage(page) {
+  async openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component)
+    return this.nav.setRoot(page.component)
   }
 }

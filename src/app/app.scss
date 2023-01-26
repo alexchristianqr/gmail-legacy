@@ -14,35 +14,35 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
-  border-bottom-color: transparent !important;
-  box-shadow: none !important;
-}
-
-.menu-list {
-  border: none !important;
-  button.item {
-    border-top: none !important;
-    border-bottom: none !important;
-    .item-inner {
-      background-image: inherit !important;
-      border-bottom: none !important;
-    }
-  }
-}
+//.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+//  border-bottom-color: transparent !important;
+//  box-shadow: none !important;
+//}
+//
+//.menu-list {
+//  border: none !important;
+//  button.item {
+//    border-top: none !important;
+//    border-bottom: none !important;
+//    .item-inner {
+//      background-image: inherit !important;
+//      border-bottom: none !important;
+//    }
+//  }
+//}
 
 .activeLink {
   background-color: map_get($colors, light);
 }
 
-.list-empty {
-  position: fixed;
-  display: block;
-  left: 0;
-  right: 0;
-  top: 50%;
-  text-align: center;
-}
+//.list-empty {
+//  position: fixed;
+//  display: block;
+//  left: 0;
+//  right: 0;
+//  top: 50%;
+//  text-align: center;
+//}
 
 #myInput {
   width: calc(100% - 10px);
@@ -74,10 +74,10 @@
 .toolbar-background-md {
   background-color: #fff;
 }
-
-.list-md {
-  margin: 0;
-}
+//
+//.list-md {
+//  margin: 0;
+//}
 
 .footer-md::before,
 .tabs-md[tabsPlacement='bottom'] > .tabbar::before {

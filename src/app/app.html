@@ -7,10 +7,23 @@
 
   <ion-content>
     <ion-list color="danger">
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <ion-list-header>
+        <ion-label>PRIMARY</ion-label>
+      </ion-list-header>
+      <ion-item menuClose detail-none icon-only *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-icon [name]="p.icon"></ion-icon>
+          <span>{{p.title}}</span>
+      </ion-item>
+    </ion-list>
+
+    <ion-list color="danger">
+    <ion-list-header>
+    <ion-label>SECONDARY</ion-label>
+    </ion-list-header>
+      <ion-item menuClose detail-none icon-only *ngFor="let p of pagesSecondary" (click)="openPage(p)">
         <ion-icon [name]="p.icon"></ion-icon>
         <span>{{p.title}}</span>
-      </button>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
