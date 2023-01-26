@@ -9,7 +9,7 @@ export class DialogServiceProvider {
     // not implemented
   }
 
-  public dialogNotification(message: string, btnOut?: Function): void {
+  public async dialogNotification(message: string, btnOut?: Function) {
     let alert = this.alertCtrl.create({
       title: 'Warning',
       message: message,
@@ -21,7 +21,7 @@ export class DialogServiceProvider {
         },
       ],
     } as AlertOptions);
-    alert.present();
+    return alert.present();
   }
 
   public dialogQuestion(title: string = 'Alert', message: string, btnOk: Function, btnCancel?: Function): void {

@@ -14,31 +14,50 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-  <ion-list *ngIf="database.length >= 1">
-    <button ion-item *ngFor="let data of database;let i = index" detail-none (click)="fnViewDetail(data,i)">
-      <ion-avatar item-left style="opacity: 0.8">
-        <button ion-fab [ngClass]="'button-profile color-' + data.name.charAt(0).toUpperCase()">
-          <span style="font-size: 1.8em">{{data.name.charAt(0).toUpperCase()}}</span>
-        </button>
-      </ion-avatar>
-      <h2 *ngIf="data.is_read">{{data.name}}</h2>
-      <h2 *ngIf="!data.is_read"><b>{{data.name}}</b></h2>
-      <h3 *ngIf="data.is_read">{{data.subject}}</h3>
-      <h3 *ngIf="!data.is_read"><b>{{data.subject}}</b></h3>
-      <p *ngIf="data.is_read">{{data.message}}</p>
-      <p *ngIf="!data.is_read"><b>{{data.message}}</b></p>
-    </button>
-  </ion-list>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content> </ion-refresher-content>
+  </ion-refresher>
 
+  <ion-list *ngIf="database.length >= 1">
+    <ion-item-sliding #item *ngFor="let data of database;let i = index" (click)="fnViewDetail(data,i)">
+      <ion-item>
+        <ion-avatar item-left style="opacity: 0.8">
+          <button ion-fab [ngClass]="'button-profile color-' + data.name.charAt(0).toUpperCase()">
+            <span style="font-size: 1.8em">{{data.name.charAt(0).toUpperCase()}}</span>
+          </button>
+        </ion-avatar>
+        <h2 *ngIf="data.is_read">{{data.name}}</h2>
+        <h2 *ngIf="!data.is_read"><b>{{data.name}}</b></h2>
+        <h3 *ngIf="data.is_read">{{data.subject}}</h3>
+        <h3 *ngIf="!data.is_read"><b>{{data.subject}}</b></h3>
+        <p *ngIf="data.is_read">{{data.message}}</p>
+        <p *ngIf="!data.is_read"><b>{{data.message}}</b></p>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="primary">
+          <ion-icon name="archive"></ion-icon>
+          Archivar
+        </button>
+        <button ion-button color="dark" class="my-icon">
+          <ion-icon name="trash"></ion-icon>
+          Eliminar
+        </button>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button ion-button color="dark" class="my-icon">
+          <ion-icon name="trash"></ion-icon>
+          Eliminar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
   <ion-list *ngIf="database.length <= 0">
     <div class="list-empty">
       <i class="fa fa-exclamation-triangle fa-2x text-danger"></i>
       <h4 class="text-muted">There is nothing in the mails inbox</h4>
     </div>
   </ion-list>
-
   <ion-fab right bottom>
     <button ion-fab color="danger" class="my-icon" (click)="fnViewCreate()">
       <ion-icon name="create"></ion-icon>

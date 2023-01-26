@@ -49,7 +49,8 @@
       <ion-input [(ngModel)]="params.subject" type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <textarea [(ngModel)]="params.message" #myInput id="myInput" rows="5" cols="10" maxlength="500" (keyup)="resize()" placeholder="Input Message"></textarea>
+      <textarea [(ngModel)]="params.message" #myInput id="myInput" rows="5" cols="10" (keyup)="resize()" placeholder="Input Message" style="text-align: justify;  text-justify: inter-word;">
+      </textarea>
     </ion-item>
   </ion-list>
 </ion-content>

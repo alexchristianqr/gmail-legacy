@@ -45,16 +45,16 @@ export class MailsSentPage implements OnDestroy {
     });
   }
 
-  fnViewDetail(data, index) {
-    this.navCtrl.push(DetailPage, { data: data, index: index });
+  async fnViewDetail(data, index) {
+    return this.navCtrl.push(DetailPage, { data: data, index: index });
   }
 
-  fnViewSearch() {
-    this.modalCtrl.create(SearchPage, { database: SHARED_PREFERENCE.DB.DS }).present();
+  async fnViewSearch() {
+    return this.modalCtrl.create(SearchPage, { database: SHARED_PREFERENCE.DB.DS }).present();
   }
 
-  fnViewCreate() {
-    this.modalCtrl.create(CreatePage, { database: SHARED_PREFERENCE.DB.DS }).present();
+  async fnViewCreate() {
+    return this.modalCtrl.create(CreatePage, { database: SHARED_PREFERENCE.DB.DS }).present();
   }
 
   fnFetch() {

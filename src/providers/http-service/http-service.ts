@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { SHARED_PREFERENCE } from '../../app/shared-preference';
+// import { Storage } from '@ionic/storage';
+// import { Events, NavController } from 'ionic-angular';
+// import { NotificationServiceProvider } from '../notification-service/notification-service';
 
 @Injectable()
 export class HttpServiceProvider {
-  constructor() {}
+  constructor() // private event: Events, // private navCtrl: NavController, // private notificationService: NotificationServiceProvider,
+  // private storage: Storage
+  {}
 
   loadPreferences(self: any) {
     self.storage
@@ -40,19 +45,91 @@ export class HttpServiceProvider {
     self.storage
       .get(self.params.database)
       .then((data) => {
-        console.log({ data });
-        data = data == null ? [] : data;
+        console.log({ data }, 'jejej');
+
+        const init = [
+          {
+            created_at: '2023-01-25 11:50',
+            database: 'DATABASE_INBOX',
+            from: 'alexchristianqr@utp.edu.pe',
+            is_read: true,
+            message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
+            name: 'Alex',
+            subject: 'Clase 001',
+            to: 'teacher2022@utp.edu.pe',
+          },
+          {
+            created_at: '2023-01-25 11:50',
+            database: 'DATABASE_INBOX',
+            from: 'alexchristianqr@utp.edu.pe',
+            is_read: true,
+            message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
+            name: 'Alex',
+            subject: 'Clase 001',
+            to: 'teacher2022@utp.edu.pe',
+          },
+          {
+            created_at: '2023-01-25 11:50',
+            database: 'DATABASE_INBOX',
+            from: 'alexchristianqr@utp.edu.pe',
+            is_read: true,
+            message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
+            name: 'Alex',
+            subject: 'Clase 001',
+            to: 'teacher2022@utp.edu.pe',
+          },
+          {
+            created_at: '2023-01-25 11:50',
+            database: 'DATABASE_INBOX',
+            from: 'alexchristianqr@utp.edu.pe',
+            is_read: true,
+            message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
+            name: 'Alex',
+            subject: 'Clase 001',
+            to: 'teacher2022@utp.edu.pe',
+          },
+          {
+            created_at: '2023-01-25 11:50',
+            database: 'DATABASE_INBOX',
+            from: 'alexchristianqr@utp.edu.pe',
+            is_read: true,
+            message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
+            name: 'Alex',
+            subject: 'Clase 001',
+            to: 'teacher2022@utp.edu.pe',
+          },
+          {
+            created_at: '2023-01-25 11:50',
+            database: 'DATABASE_INBOX',
+            from: 'alexchristianqr@utp.edu.pe',
+            is_read: true,
+            message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
+            name: 'Yolanda',
+            subject: 'Clase 001',
+            to: 'teacher2022@utp.edu.pe',
+          },
+        ];
+        if (!data) {
+          data = init;
+        }
+
+        // data = data == null ? [] : data;
         data.unshift(self.params);
         // Set storage
         self.storage
           .set(self.params.database, data)
           .then((data) => {
-            if (self.params.database === SHARED_PREFERENCE.DB.DI) {
-              self.event.publish('eventMailsInboxFetch');
-              msg = 'inbox';
-            } else if (self.params.database === SHARED_PREFERENCE.DB.DS) {
-              self.event.publish('eventMailsSentFetch');
-              msg = 'sent';
+            switch (self.params.database) {
+              case SHARED_PREFERENCE.DB.DI:
+                self.event.publish('eventMailsInboxFetch');
+                msg = 'inbox';
+                break;
+              case SHARED_PREFERENCE.DB.DS:
+                self.event.publish('eventMailsSentFetch');
+                msg = 'sent';
+                break;
+              default:
+                throw new Error('Not shared preference database');
             }
             self.navCtrl.pop();
             self.notificationService.toast.dismiss();
@@ -68,6 +145,20 @@ export class HttpServiceProvider {
         console.error(error);
         self.notificationService.toast.dismiss();
         self.notificationService.notifyError('Error, Message not this process');
+      });
+  }
+
+  async savedInitialize({ data, database, self }) {
+    if (!data) throw new Error('Not found data');
+
+    // Set storage
+    return self.storage
+      .set(database, data)
+      .then((response) => {
+        console.log({ response });
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
 

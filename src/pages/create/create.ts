@@ -50,8 +50,8 @@ export class CreatePage {
     this.params.is_read = false;
   }
 
-  back() {
-    this.viewCtrl.dismiss();
+  async back() {
+    return this.viewCtrl.dismiss();
   }
 
   fnCreate() {
@@ -65,38 +65,37 @@ export class CreatePage {
     } else if (this.params.subject == null || this.params.subject == '') {
       validate = false;
     } else validate = !(this.params.message == null || this.params.message == '');
-    // Validation
-    if (validate) {
-      let self = this;
-      this.storage
-        .get('SHARED_PREFERENCE')
-        .then((data) => {
-          function doFunc() {
-            self.notificationService.notifyInfo('Sending...', 0);
-            self.httpService.create(self);
-          }
 
-          if (data != null) {
-            if (data.CONFIRM_BEFORE_SENDING) {
-              this.dialogService.dialogQuestion('', 'Do you want to send this message?', () => {
-                doFunc();
-              });
-            } else {
+    // Validation
+    if (!validate) return this.dialogService.dialogNotification('Fields detected empty!');
+
+    let self = this;
+    this.storage
+      .get('SHARED_PREFERENCE')
+      .then((data) => {
+        function doFunc() {
+          self.notificationService.notifyInfo('Sending...', 0);
+          self.httpService.create(self);
+        }
+
+        if (data != null) {
+          if (data.CONFIRM_BEFORE_SENDING) {
+            this.dialogService.dialogQuestion('', 'Do you want to send this message?', () => {
               doFunc();
-            }
+            });
           } else {
             doFunc();
           }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else {
-      this.dialogService.dialogNotification('Fields detected empty!');
-    }
+        } else {
+          doFunc();
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
-  presentPopover(myEvent) {
-    this.popoverCtrl.create(PopoverCreatePage).present({ ev: myEvent });
+  async presentPopover(myEvent) {
+    return this.popoverCtrl.create(PopoverCreatePage).present({ ev: myEvent });
   }
 }
