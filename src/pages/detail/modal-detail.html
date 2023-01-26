@@ -15,6 +15,7 @@
     <ion-list-header>
       <h2>Request Confirmations</h2>
     </ion-list-header>
+
     <ion-item>
       <ion-label>
         <span>Confirm before remove mail</span>
@@ -23,10 +24,14 @@
       <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.CONFIRM_BEFORE_REMOVING" (click)="fnFetchMyPreferences()"></ion-checkbox>
     </ion-item>
   </ion-list>
+
+  <ion-item-divider></ion-item-divider>
+
   <ion-list>
     <ion-list-header>
       <h2>Allow Actions</h2>
     </ion-list-header>
+
     <ion-item>
       <ion-label>
         <span>Show remove</span>
