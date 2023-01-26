@@ -5,9 +5,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-
     <ion-title>Inbox</ion-title>
-
     <ion-buttons end>
       <button ion-button icon-only *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SEARCH" class="p-r-15 my-icon" (click)="fnViewSearch()"><ion-icon name="search"></ion-icon></button>
       <button ion-button icon-only class="p-r-15 my-icon" (click)="presentPopover($event)"><ion-icon name="more"></ion-icon></button>
@@ -54,11 +52,16 @@
     </ion-item-sliding>
   </ion-list>
   <ion-list *ngIf="database.length <= 0">
-    <div class="list-empty">
-      <i class="fa fa-exclamation-triangle fa-2x text-danger"></i>
-      <h4 class="text-muted">There is nothing in the mails inbox</h4>
-    </div>
+    <ion-grid>
+      <ion-row style="height: 100vw">
+        <ion-col text-center icon-only style="top: 75%; bottom: 50%">
+          <ion-icon text-center name="sad" large></ion-icon>
+          <p>There is nothing in the mails inbox</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-list>
+
   <ion-fab right bottom>
     <button ion-fab color="danger" class="my-icon" (click)="fnViewCreate()">
       <ion-icon name="create"></ion-icon>

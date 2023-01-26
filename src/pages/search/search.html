@@ -5,7 +5,6 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-
     <ion-searchbar [placeholder]="'Search here'" (ionInput)="getItems($event)"></ion-searchbar>
   </ion-navbar>
 </ion-header>
@@ -27,9 +26,13 @@
     </button>
   </ion-list>
   <ion-list *ngIf="items.length <= 0">
-    <div class="list-empty">
-      <i class="fa fa-exclamation-triangle fa-2x text-danger"></i>
-      <h4 class="text-muted">Search value not found</h4>
-    </div>
+    <ion-grid>
+      <ion-row style="height: 100vw">
+        <ion-col text-center icon-only style="top: 75%; bottom: 50%">
+          <ion-icon text-center name="sad" large></ion-icon>
+          <p>Search value not found</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-list>
 </ion-content>
