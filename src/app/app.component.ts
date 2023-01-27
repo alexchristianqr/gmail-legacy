@@ -68,7 +68,7 @@ export class MyApp {
         status: false,
       },
       {
-        title: 'Sign Out',
+        title: 'Logout',
         icon: 'log-out',
         component: GeneralPage,
         status: false,
