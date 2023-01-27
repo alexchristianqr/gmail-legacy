@@ -5,7 +5,7 @@ import { HttpServiceProvider } from '../../providers/http-service/http-service'
 import { Storage } from '@ionic/storage'
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service'
 import { PopoverCreatePage } from './popover-create'
-import * as moment from 'moment'
+import * as moment from 'dayjs'
 
 @Component({
   selector: 'page-create',

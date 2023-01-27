@@ -33,7 +33,6 @@ export class DetailPage {
     this.index = this.navParams.data.index
     this.newdate = moment(this.data.created_at).format('ll')
     this.update(this.navParams.data.data, this.navParams.data.index)
-
     this.event.subscribe('eventDetailFetch', () => {
       this.httpService.loadPreferences(this)
     })
