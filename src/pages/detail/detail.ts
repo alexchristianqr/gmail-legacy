@@ -5,7 +5,7 @@ import { HttpServiceProvider } from '../../providers/http-service/http-service'
 import { PopoverDetailPage } from './popover-detail'
 import { Storage } from '@ionic/storage'
 import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service'
-import * as moment from 'moment'
+import * as moment from 'dayjs'
 
 @Component({
   selector: 'page-detail',

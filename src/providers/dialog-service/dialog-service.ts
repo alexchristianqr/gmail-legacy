@@ -5,9 +5,7 @@ import { AlertController, AlertOptions, LoadingController } from 'ionic-angular'
 export class DialogServiceProvider {
   public loading: any
 
-  constructor(public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
-    // not implemented
-  }
+  constructor(public alertCtrl: AlertController, public loadingCtrl: LoadingController) {}
 
   public async dialogNotification(message: string, btnOut?: Function) {
     let alert = this.alertCtrl.create({
@@ -24,7 +22,7 @@ export class DialogServiceProvider {
     return alert.present()
   }
 
-  public dialogQuestion(title: string = 'Alert', message: string, btnOk: Function, btnCancel?: Function): void {
+  public async dialogQuestion(title: string = 'Alert', message: string, btnOk: Function, btnCancel?: Function) {
     let alert = this.alertCtrl.create({
       title: title,
       message: message,
@@ -40,17 +38,17 @@ export class DialogServiceProvider {
         },
       ],
     } as AlertOptions)
-    alert.present()
+    return alert.present()
   }
 
-  public showLoading(content: string = 'Loading Please Wait...') {
+  public async showLoading(content: string = 'Loading Please Wait...') {
     this.loading = this.loadingCtrl.create({
       content: content,
     })
-    this.loading.present()
+    return this.loading.present()
   }
 
-  public closeLoading() {
-    this.loading.dismiss()
+  public async closeLoading() {
+    return this.loading.dismiss()
   }
 }
