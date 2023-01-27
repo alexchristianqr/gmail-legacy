@@ -1,4 +1,4 @@
-# Project: gmail
+# Project: Gmail (clone)
 
 Aplicación móvil híbrida clone de gmail es un gestor de correo electrónico con ionic v3.
 
