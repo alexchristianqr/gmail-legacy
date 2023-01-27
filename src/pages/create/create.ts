@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core'
+import { Component, ElementRef } from '@angular/core'
 import { Events, NavController, NavParams, PopoverController, ViewController } from 'ionic-angular'
 import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service'
 import { HttpServiceProvider } from '../../providers/http-service/http-service'
