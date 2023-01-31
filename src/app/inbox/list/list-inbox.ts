@@ -1,16 +1,9 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core'
-import { ModalController, NavController, NavParams, PopoverController } from '@ionic/angular'
-import { CreatePage } from '../../create/create'
-import { SearchPage } from '../../shared/search/search'
-import { DetailPage } from '../detail/detail'
+import { Component, ViewChild } from '@angular/core'
+import { NavController, PopoverController } from '@ionic/angular'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
-import { NotificationServiceProvider } from '../../../providers/notification-service/notification-service'
-import { DialogServiceProvider } from '../../../providers/dialog-service/dialog-service'
 import { Storage } from '@ionic/storage'
 import { PopoverMailPage } from './layouts/popover-list-inbox'
-// import { SHARED_PREFERENCE } from '../../app/shared-preference'
 import { Router } from '@angular/router'
-import { resize } from 'ionicons/icons'
 
 @Component({
   selector: 'page-mails-inbox',
@@ -20,17 +13,9 @@ import { resize } from 'ionicons/icons'
 export class MailsInboxPage {
   @ViewChild('popover') popover: any
   database: any = []
-  isOpen = false
   public MYSHAREDPREFERENCES: any = {}
 
-  constructor(
-    public popoverCtrl: PopoverController,
-    public httpService: HttpServiceProvider,
-    public navCtrl: NavController,
-    public dialogService: DialogServiceProvider,
-    public storage: Storage,
-    public router: Router
-  ) {
+  constructor(public popoverCtrl: PopoverController, public httpService: HttpServiceProvider, public navCtrl: NavController, public storage: Storage, public router: Router) {
     this.fnFetch()
   }
 

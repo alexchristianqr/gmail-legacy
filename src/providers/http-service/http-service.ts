@@ -134,7 +134,7 @@ export class HttpServiceProvider implements OnInit {
         to: 'sae@utp.edu.pe',
       },
     ]
-    this.storage.set('DATABASE_INBOX',initDB)
+    this.storage.set('DATABASE_INBOX', initDB)
   } // private storage: Storage // private event: Events, // private navCtrl: NavController, // private notificationService: NotificationServiceProvider,
 
   async ngOnInit() {
@@ -179,69 +179,6 @@ export class HttpServiceProvider implements OnInit {
       .get(self.params.database)
       .then((data: any) => {
         console.log({ data }, 'jejej')
-
-        // const init = [
-        //   {
-        //     created_at: '2023-01-25 11:50',
-        //     database: 'DATABASE_INBOX',
-        //     from: 'alexchristianqr@utp.edu.pe',
-        //     is_read: true,
-        //     message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
-        //     name: 'Alex',
-        //     subject: 'Clase 001',
-        //     to: 'teacher2022@utp.edu.pe',
-        //   },
-        //   {
-        //     created_at: '2023-01-25 11:50',
-        //     database: 'DATABASE_INBOX',
-        //     from: 'alexchristianqr@utp.edu.pe',
-        //     is_read: true,
-        //     message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
-        //     name: 'Alex',
-        //     subject: 'Clase 001',
-        //     to: 'teacher2022@utp.edu.pe',
-        //   },
-        //   {
-        //     created_at: '2023-01-25 11:50',
-        //     database: 'DATABASE_INBOX',
-        //     from: 'alexchristianqr@utp.edu.pe',
-        //     is_read: true,
-        //     message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
-        //     name: 'Alex',
-        //     subject: 'Clase 001',
-        //     to: 'teacher2022@utp.edu.pe',
-        //   },
-        //   {
-        //     created_at: '2023-01-25 11:50',
-        //     database: 'DATABASE_INBOX',
-        //     from: 'alexchristianqr@utp.edu.pe',
-        //     is_read: true,
-        //     message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
-        //     name: 'Alex',
-        //     subject: 'Clase 001',
-        //     to: 'teacher2022@utp.edu.pe',
-        //   },
-        //   {
-        //     created_at: '2023-01-25 11:50',
-        //     database: 'DATABASE_INBOX',
-        //     from: 'alexchristianqr@utp.edu.pe',
-        //     is_read: true,
-        //     message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
-        //     name: 'Alex',
-        //     subject: 'Clase 001',
-        //     to: 'teacher2022@utp.edu.pe',
-        //   },
-        //   {
-        //     created_at: '2023-01-25 11:50',
-        //     database: 'DATABASE_INBOX',
-        //     from: 'alexchristianqr@utp.edu.pe',
-        //     is_read: true,
-        //     message: 'Hola profesor\nLe escribo para consultarle sobre el tema de Funciones Lineales;  como puedo hacer para x-5 = 0 solo si X e R y X <= 1',
-        //     name: 'Yolanda',
-        //     subject: 'Clase 001',
-        //     to: 'teacher2022@utp.edu.pe',
-        //   },
-        // ]
 
         const init = [
           {

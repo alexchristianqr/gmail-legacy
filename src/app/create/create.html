@@ -7,7 +7,7 @@
     </ion-buttons>
     <ion-title>Create</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="fnCreate()">
+      <ion-button (click)="onSubmit()">
         <ion-icon slot="icon-only" name="send"></ion-icon>
       </ion-button>
       <ion-button (click)="presentPopover($event)">
@@ -18,32 +18,34 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label fixed>Database</ion-label>
-      <!--      <ion-select [(ngModel)]="params.database">-->
-      <!--        <ion-option value="DATABASE_INBOX">Inbox</ion-option>-->
-      <!--        <ion-option value="DATABASE_SENT">Sent</ion-option>-->
-      <!--      </ion-select>-->
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>Name</ion-label>
-      <!--      <ion-input [(ngModel)]="params.name" type="text"></ion-input>-->
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>From</ion-label>
-      <!--      <ion-input [(ngModel)]="params.from" type="text"></ion-input>-->
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>To</ion-label>
-      <!--      <ion-input [(ngModel)]="params.to" type="text"></ion-input>-->
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>Subject</ion-label>
-      <!--      <ion-input [(ngModel)]="params.subject" type="text"></ion-input>-->
-    </ion-item>
-    <ion-item>
-      <!--      <textarea [(ngModel)]="params.message" #myInput id="myInput" rows="5" cols="10" (keyup)="resize()" placeholder="Input Message" style="text-align: justify; text-justify: inter-word"> </textarea>-->
-    </ion-item>
-  </ion-list>
+  <form [formGroup]="formGroup">
+    <ion-list>
+      <ion-item>
+        <ion-label>Base de datos</ion-label>
+        <ion-select formControlName="database">
+          <ion-select-option value="DATABASE_INBOX">Inbox</ion-select-option>
+          <ion-select-option value="DATABASE_SENT">Sent</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input formControlName="name" type="text" value="{{formGroup}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>From</ion-label>
+        <ion-input formControlName="from" type="text" value="{{formGroup}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>To</ion-label>
+        <ion-input formControlName="to" type="text" value="{{formGroup}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Subject</ion-label>
+        <ion-input formControlName="subject" type="text" value="{{formGroup}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea formControlName="message" rows="10" cols="10"> </ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
 </ion-content>
