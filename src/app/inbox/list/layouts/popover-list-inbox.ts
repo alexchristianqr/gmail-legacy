@@ -1,13 +1,13 @@
 import { Component } from '@angular/core'
 import { ModalController, NavController } from '@ionic/angular'
-import { ModalMailPage } from './modal-mail'
-import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service'
+import { ModalMailPage } from './modal-settings-list-inbox'
+import { DialogServiceProvider } from '../../../../providers/dialog-service/dialog-service'
 import { Storage } from '@ionic/storage'
-import { NotificationServiceProvider } from '../../providers/notification-service/notification-service'
+import { NotificationServiceProvider } from '../../../../providers/notification-service/notification-service'
 
 @Component({
   selector: 'page-popover-mail',
-  templateUrl: 'popover-mail.html',
+  templateUrl: './popover-list-inbox.html',
 })
 export class PopoverMailPage {
   list: Array<{ title: string; component: null | undefined | Object; dispatch: null | undefined | string }>

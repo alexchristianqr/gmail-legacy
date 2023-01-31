@@ -1,18 +1,18 @@
 import { Component, OnDestroy } from '@angular/core'
 import { ModalController, NavController, NavParams, PopoverController } from '@ionic/angular'
-import { CreatePage } from '../create/create'
-import { SearchPage } from '../search/search'
-import { DetailPage } from '../detail/detail'
-import { HttpServiceProvider } from '../../providers/http-service/http-service'
-import { NotificationServiceProvider } from '../../providers/notification-service/notification-service'
-import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service'
+import { CreatePage } from '../../create/create'
+import { SearchPage } from '../../shared/search/search'
+import { DetailPage } from '../../inbox/detail/detail'
+import { HttpServiceProvider } from '../../../providers/http-service/http-service'
+import { NotificationServiceProvider } from '../../../providers/notification-service/notification-service'
+import { DialogServiceProvider } from '../../../providers/dialog-service/dialog-service'
 import { Storage } from '@ionic/storage'
-import { PopoverMailPage } from '../mail/popover-mail'
-import { SHARED_PREFERENCE } from '../../app/shared-preference'
+import { PopoverMailPage } from '../../inbox/list/layouts/popover-list-inbox'
+import { SHARED_PREFERENCE } from '../../shared-preference'
 
 @Component({
   selector: 'page-mails-sent',
-  templateUrl: 'mails-sent.html',
+  templateUrl: './list-sent.html',
 })
 export class MailsSentPage implements OnDestroy {
   ngOnDestroy(): void {

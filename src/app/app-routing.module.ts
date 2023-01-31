@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core'
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router'
 
-import { DetailPage } from './detail/detail'
-import { SearchPage } from './search/search'
+import { DetailPage } from './inbox/detail/detail'
+import { SearchPage } from './shared/search/search'
 import { CreatePage } from './create/create'
-import { MailsSentPage } from './mails-sent/mails-sent'
-import { ModalMailPage } from './mail/modal-mail'
-import { HomePage } from './home/home'
-import { ModalDetailPage } from './detail/modal-detail'
-import { PopoverMailPage } from './mail/popover-mail'
-import { ModalCreatePage } from './create/modal-create'
-import { MailsInboxPage } from './mails-inbox/mails-inbox'
-import { PopoverCreatePage } from './create/popover-create'
-import { GeneralPage } from './general/general'
-import { PopoverDetailPage } from './detail/popover-detail'
+import { MailsSentPage } from './sent/list/list-sent'
+import { ModalMailPage } from './inbox/list/layouts/modal-settings-list-inbox'
+import { HomePage } from './shared/home/home'
+import { ModalSettingsDetail } from './inbox/detail/layouts/modal-settings-detail'
+import { PopoverMailPage } from './inbox/list/layouts/popover-list-inbox'
+import { ModalCreatePage } from './create/layouts/modal-create'
+import { MailsInboxPage } from './inbox/list/list-inbox'
+import { PopoverCreatePage } from './create/layouts/popover-create'
+import { GeneralPage } from './shared/general/general'
+import { PopoverDetailPage } from './inbox/detail/layouts/popover-detail'
 
 const routes: Routes = [
   {
@@ -22,7 +22,7 @@ const routes: Routes = [
     children: [
       {
         path: 'detail',
-        component: ModalDetailPage,
+        component: ModalSettingsDetail,
         // loadChildren: () => PopoverDetailPage,
       },
       // {

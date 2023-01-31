@@ -1,9 +1,9 @@
 import { Component } from '@angular/core'
 import { NavController, NavParams } from '@ionic/angular'
-import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service'
+import { DialogServiceProvider } from '../../../providers/dialog-service/dialog-service'
 import { Storage } from '@ionic/storage'
-import { NotificationServiceProvider } from '../../providers/notification-service/notification-service'
-import { HttpServiceProvider } from '../../providers/http-service/http-service'
+import { NotificationServiceProvider } from '../../../providers/notification-service/notification-service'
+import { HttpServiceProvider } from '../../../providers/http-service/http-service'
 
 @Component({
   selector: 'page-general',

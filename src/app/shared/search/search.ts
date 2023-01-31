@@ -1,8 +1,8 @@
 import { Component } from '@angular/core'
 import { NavController, NavParams } from '@ionic/angular'
 import { Storage } from '@ionic/storage'
-import { DetailPage } from '../detail/detail'
-import { SHARED_PREFERENCE } from '../../app/shared-preference'
+import { DetailPage } from '../../inbox/detail/detail'
+import { SHARED_PREFERENCE } from '../../shared-preference'
 
 @Component({
   selector: 'page-search',

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core'
 import { Storage } from '@ionic/storage'
-import { HttpServiceProvider } from '../../providers/http-service/http-service'
+import { HttpServiceProvider } from '../../../../providers/http-service/http-service'
 
 @Component({
   selector: 'page-modal-mail',
-  templateUrl: 'modal-mail.html',
+  templateUrl: './modal-settings-list-inbox.html',
 })
 export class ModalMailPage {
   public MYSHAREDPREFERENCES: any = {}

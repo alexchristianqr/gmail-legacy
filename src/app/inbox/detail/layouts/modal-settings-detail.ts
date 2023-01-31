@@ -4,13 +4,13 @@
 import { Component } from '@angular/core'
 // import { ViewController } from '@ionic/angular'
 import { Storage } from '@ionic/storage'
-import { HttpServiceProvider } from '../../providers/http-service/http-service'
+import { HttpServiceProvider } from '../../../../providers/http-service/http-service'
 
 @Component({
   selector: 'page-modal-detail',
-  templateUrl: 'modal-detail.html',
+  templateUrl: 'modal-settings-detail.html',
 })
-export class ModalDetailPage {
+export class ModalSettingsDetail {
   public MYSHAREDPREFERENCES: any = {}
 
   constructor(public storage: Storage, public httpService: HttpServiceProvider) {

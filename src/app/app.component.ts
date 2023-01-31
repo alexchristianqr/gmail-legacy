@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core'
-import { MailsInboxPage } from './mails-inbox/mails-inbox'
+import { MailsInboxPage } from './inbox/list/list-inbox'
 import { Platform } from '@ionic/angular'
-import { MailsSentPage } from './mails-sent/mails-sent'
-import { HomePage } from './home/home'
-import { GeneralPage } from './general/general'
+import { MailsSentPage } from './sent/list/list-sent'
+import { HomePage } from './shared/home/home'
+import { GeneralPage } from './shared/general/general'
 
 @Component({
   selector: 'app-root',

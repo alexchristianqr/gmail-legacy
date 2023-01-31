@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Storage } from '@ionic/storage'
-import { SHARED_PREFERENCE } from '../../app/shared-preference'
+import { SHARED_PREFERENCE } from '../../shared-preference'
 
 @Component({
   selector: 'page-modal-create',

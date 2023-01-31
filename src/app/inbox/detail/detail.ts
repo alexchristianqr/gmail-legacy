@@ -1,10 +1,10 @@
 import { Component } from '@angular/core'
 import { NavController, NavParams, PopoverController } from '@ionic/angular'
-import { NotificationServiceProvider } from '../../providers/notification-service/notification-service'
-import { HttpServiceProvider } from '../../providers/http-service/http-service'
-import { PopoverDetailPage } from './popover-detail'
+import { NotificationServiceProvider } from '../../../providers/notification-service/notification-service'
+import { HttpServiceProvider } from '../../../providers/http-service/http-service'
+import { PopoverDetailPage } from './layouts/popover-detail'
 import { Storage } from '@ionic/storage'
-import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service'
+import { DialogServiceProvider } from '../../../providers/dialog-service/dialog-service'
 import * as moment from 'dayjs'
 
 @Component({

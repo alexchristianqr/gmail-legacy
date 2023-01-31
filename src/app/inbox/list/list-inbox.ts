@@ -1,20 +1,20 @@
 import { Component, OnDestroy } from '@angular/core'
 import { ModalController, NavController, NavParams, PopoverController } from '@ionic/angular'
-import { CreatePage } from '../create/create'
-import { SearchPage } from '../search/search'
+import { CreatePage } from '../../create/create'
+import { SearchPage } from '../../shared/search/search'
 import { DetailPage } from '../detail/detail'
-import { HttpServiceProvider } from '../../providers/http-service/http-service'
-import { NotificationServiceProvider } from '../../providers/notification-service/notification-service'
-import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service'
+import { HttpServiceProvider } from '../../../providers/http-service/http-service'
+import { NotificationServiceProvider } from '../../../providers/notification-service/notification-service'
+import { DialogServiceProvider } from '../../../providers/dialog-service/dialog-service'
 import { Storage } from '@ionic/storage'
-import { PopoverMailPage } from '../mail/popover-mail'
+import { PopoverMailPage } from './layouts/popover-list-inbox'
 // import { SHARED_PREFERENCE } from '../../app/shared-preference'
 import { Router } from '@angular/router'
 
 @Component({
   selector: 'page-mails-inbox',
-  templateUrl: 'mails-inbox.html',
-  styleUrls: ['mails-inbox.scss'],
+  templateUrl: 'list-inbox.html',
+  styleUrls: ['list-inbox.scss'],
 })
 export class MailsInboxPage {
   database: any = []
