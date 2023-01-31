@@ -1,43 +1,41 @@
-import { Component } from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 import { NavController, NavParams, PopoverController } from '@ionic/angular'
 import { NotificationServiceProvider } from '../../../providers/notification-service/notification-service'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
 import { PopoverDetailPage } from './layouts/popover-detail'
 import { Storage } from '@ionic/storage'
 import { DialogServiceProvider } from '../../../providers/dialog-service/dialog-service'
-import * as moment from 'dayjs'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'page-detail',
   templateUrl: 'detail.html',
 })
-export class DetailPage {
+export class DetailPage implements OnInit{
   index: any
   data: any = {}
   newdate: any
   public MYSHAREDPREFERENCES: any = {}
 
   constructor(
-    public popoverCtrl: PopoverController,
     public httpService: HttpServiceProvider,
     public notificationService: NotificationServiceProvider,
     public dialogService: DialogServiceProvider,
     public navCtrl: NavController,
-    public navParams: NavParams,
-    public storage: Storage
+    public storage: Storage,
+    private router: Router
   ) {
     this.httpService.loadPreferences(this)
-    this.data = this.navParams.data['data']
-    this.index = this.navParams.data['index']
-    this.newdate = moment(this.data.created_at).format('ll')
-    // this.update(this.navParams.data.data, this.navParams.data.index)
-    // this.event.subscribe('eventDetailFetch', () => {
-    //   this.httpService.loadPreferences(this)
-    // })
+    this.data = this.router.getCurrentNavigation()?.extras.state
   }
 
+  ngOnInit(): void {
+    this.httpService.loadPreferences(this)
+    this.data = this.router.getCurrentNavigation()?.extras.state
+    }
+
   async back() {
-    // return this.viewCtrl.dismiss()
+    await this.router.navigate(['inbox'])
   }
 
   async fnRemove() {

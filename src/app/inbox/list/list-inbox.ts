@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { NavController, PopoverController } from '@ionic/angular'
+import { PopoverController } from '@ionic/angular'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
 import { Storage } from '@ionic/storage'
 import { PopoverMailPage } from './layouts/popover-list-inbox'
@@ -15,7 +15,7 @@ export class MailsInboxPage {
   database: any = []
   public MYSHAREDPREFERENCES: any = {}
 
-  constructor(public popoverCtrl: PopoverController, public httpService: HttpServiceProvider, public navCtrl: NavController, public storage: Storage, public router: Router) {
+  constructor(public popoverCtrl: PopoverController, public httpService: HttpServiceProvider, public storage: Storage, private router: Router) {
     this.fnFetch()
   }
 
@@ -41,9 +41,8 @@ export class MailsInboxPage {
       })
   }
 
-  async fnViewDetail(data: any, index: any) {
-    // return this.navCtrl.push(DetailPage, { data: data, index: index })
-    return this.navCtrl.navigateRoot('inbox/detail', { queryParams: { data: data, index: index } })
+  async fnViewDetail(data: any) {
+    await this.router.navigate(['inbox-detail'], { state: data })
   }
 
   async fnViewSearch() {
