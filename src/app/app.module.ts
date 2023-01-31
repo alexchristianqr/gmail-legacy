@@ -12,7 +12,7 @@ import { DetailPage } from './inbox/detail/detail'
 import { SearchPage } from './shared/search/search'
 import { CreatePage } from './create/create'
 import { MailsSentPage } from './sent/list/list-sent'
-import { ModalMailPage } from './inbox/list/layouts/modal-settings-list-inbox'
+import { ModalSettingsListInbox } from './inbox/list/layouts/modal-settings-list-inbox'
 import { HomePage } from './shared/home/home'
 import { ModalSettingsDetail } from './inbox/detail/layouts/modal-settings-detail'
 import { PopoverMailPage } from './inbox/list/layouts/popover-list-inbox'
@@ -37,7 +37,7 @@ import { PopoverDetailPage } from './inbox/detail/layouts/popover-detail'
     PopoverDetailPage,
     ModalCreatePage,
     ModalSettingsDetail,
-    ModalMailPage,
+    ModalSettingsListInbox,
   ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

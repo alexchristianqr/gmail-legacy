@@ -1,14 +1,13 @@
 <ion-header>
   <ion-toolbar color="danger">
-    <ion-buttons left>
-      <button ion-button icon-only menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>Mail Setting</ion-title>
+    <ion-title>Configuración de Inbox</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-list>
     <ion-list-header>
@@ -19,7 +18,7 @@
         <span>Show sync</span>
         <p>button</p>
       </ion-label>
-      <!--      <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SYNC" (click)="fnFetchMyPreferences()"></ion-checkbox>-->
+<!--            <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SYNC" (click)="fnFetchMyPreferences()"></ion-checkbox>-->
     </ion-item>
     <ion-item>
       <ion-label>

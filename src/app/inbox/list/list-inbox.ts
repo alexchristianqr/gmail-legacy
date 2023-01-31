@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core'
+import { Component, OnDestroy, ViewChild } from '@angular/core'
 import { ModalController, NavController, NavParams, PopoverController } from '@ionic/angular'
 import { CreatePage } from '../../create/create'
 import { SearchPage } from '../../shared/search/search'
@@ -10,6 +10,7 @@ import { Storage } from '@ionic/storage'
 import { PopoverMailPage } from './layouts/popover-list-inbox'
 // import { SHARED_PREFERENCE } from '../../app/shared-preference'
 import { Router } from '@angular/router'
+import { resize } from 'ionicons/icons'
 
 @Component({
   selector: 'page-mails-inbox',
@@ -17,7 +18,9 @@ import { Router } from '@angular/router'
   styleUrls: ['list-inbox.scss'],
 })
 export class MailsInboxPage {
+  @ViewChild('popover') popover: any
   database: any = []
+  isOpen = false
   public MYSHAREDPREFERENCES: any = {}
 
   constructor(
@@ -217,7 +220,7 @@ export class MailsInboxPage {
       })
   }
 
-  async presentPopover(myEvent: any) {
-    return this.popoverCtrl.create({ component: PopoverMailPage, componentProps: { ev: myEvent } })
+  presentPopover(event: Event) {
+    return this.popoverCtrl.create({ component: PopoverMailPage, event: event, dismissOnSelect: true }).then((res) => res.present())
   }
 }

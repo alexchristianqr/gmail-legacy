@@ -1,26 +1,25 @@
 import { Component } from '@angular/core'
-import { ModalController, NavController } from '@ionic/angular'
-import { ModalMailPage } from './modal-settings-list-inbox'
+// import { ModalMailPage } from './modal-settings-list-inbox'
 import { DialogServiceProvider } from '../../../../providers/dialog-service/dialog-service'
 import { Storage } from '@ionic/storage'
 import { NotificationServiceProvider } from '../../../../providers/notification-service/notification-service'
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'page-popover-mail',
-  templateUrl: './popover-list-inbox.html',
+  templateUrl: 'popover-list-inbox.html',
 })
 export class PopoverMailPage {
   list: Array<{ title: string; component: null | undefined | Object; dispatch: null | undefined | string }>
 
   constructor(
     public notificationService: NotificationServiceProvider,
-    public modalCtrl: ModalController,
-    public navCtrl: NavController,
     public dialogService: DialogServiceProvider,
-    public storage: Storage
+    public storage: Storage,
+    public router: Router,
   ) {
     this.list = [
-      { title: 'Settings', component: ModalMailPage, dispatch: null },
+      { title: 'Settings', component: 'inbox-settings', dispatch: null },
       { title: 'Clean database', component: null, dispatch: 'fnClean' },
     ]
   }
@@ -38,7 +37,8 @@ export class PopoverMailPage {
 
   async open(objeto: any) {
     if (objeto.component) {
-      // await this.navCtrl.push(objeto.component)
+      console.log({objeto})
+      await this.router.navigate([objeto.component])
     } else {
       switch (objeto.dispatch) {
         case 'fnClean':

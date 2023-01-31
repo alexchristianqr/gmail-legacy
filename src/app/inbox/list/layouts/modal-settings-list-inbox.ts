@@ -1,20 +1,21 @@
 import { Component } from '@angular/core'
 import { Storage } from '@ionic/storage'
 import { HttpServiceProvider } from '../../../../providers/http-service/http-service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'page-modal-mail',
-  templateUrl: './modal-settings-list-inbox.html',
+  templateUrl: 'modal-settings-list-inbox.html',
 })
-export class ModalMailPage {
+export class ModalSettingsListInbox {
   public MYSHAREDPREFERENCES: any = {}
 
-  constructor(public httpService: HttpServiceProvider, public storage: Storage) {
+  constructor(public httpService: HttpServiceProvider, public storage: Storage, public router: Router) {
     this.httpService.loadPreferences(this)
   }
 
   async back() {
-    // return this.viewCtrl.dismiss()
+    await this.router.navigate(['inbox'])
   }
 
   fnFetchMyPreferences() {
