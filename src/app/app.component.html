@@ -1,92 +1,72 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <!--    <ion-menu contentId="main-content" type="overlay">-->
-    <!--      <ion-header>-->
-    <!--        <ion-toolbar>-->
-    <!--          <ion-title>-->
-    <!--            <ion-grid>-->
-    <!--              <ion-row>-->
-    <!--                <ion-col col-2 style="height: 100%; display: block; vertical-align: middle">-->
-    <!--                  <img style="height: 2.75rem; width: 2.75rem" src="./assets/imgs/gmail.svg" />-->
-    <!--                </ion-col>-->
-    <!--                <ion-col col-10 style="padding: 0 0 0 0">-->
-    <!--                  <div style="padding: 10px 0 0 0">Gmail <span style="font-size: 1rem">(clone)</span></div>-->
-    <!--                </ion-col>-->
-    <!--              </ion-row>-->
-    <!--            </ion-grid>-->
-    <!--          </ion-title>-->
-    <!--        </ion-toolbar>-->
-    <!--      </ion-header>-->
-
-    <!--      <ion-content>-->
-    <!--        <ion-list-header style="margin-bottom: 0">-->
-    <!--          <ion-avatar>-->
-    <!--            <img style="height: 100px; width: 100px" src="./assets/imgs/profile.jpg" />-->
-    <!--          </ion-avatar>-->
-
-    <!--          <div style="font-size: 1.8rem; font-weight: 500; color: #2d2d2d; padding: 0.8rem 0 0 0; margin-bottom: 0.3rem">Alex Christian Quispe Roque</div>-->
-    <!--          <p style="font-size: 1.3rem; margin-bottom: 0.3rem">alexchristianqr@gmail.com</p>-->
-    <!--          <p style="font-size: 1.3rem; margin-bottom: 0.3rem">storage used: 10% of 15GB</p>-->
-
-    <!--          <div style="font-size: 1rem; padding: 0">-->
-    <!--            <a href="#" style="text-decoration: none">Privacy Policy</a>-->
-    <!--            <span>&nbsp;.&nbsp;</span>-->
-    <!--            <a href="#" style="text-decoration: none">Terms of Service</a>-->
-    <!--          </div>-->
-    <!--        </ion-list-header>-->
-
-    <!--        <ion-list-header style="padding-bottom: 0; margin-bottom: 0">-->
-    <!--          <ion-label>MAIN PRIMARY</ion-label>-->
-    <!--        </ion-list-header>-->
-    <!--        <ion-list color="danger">-->
-    <!--          <ion-item menuClose detail-none *ngFor="let p of pagesSection1" (click)="openPage(p)">-->
-    <!--            <ion-icon [name]="p.icon"></ion-icon>-->
-    <!--            <span>{{p.title}}</span>-->
-    <!--          </ion-item>-->
-    <!--        </ion-list>-->
-
-    <!--        <ion-list-header style="padding-bottom: 0; margin-bottom: 0">-->
-    <!--          <ion-label>MAIN SECONDARY</ion-label>-->
-    <!--        </ion-list-header>-->
-    <!--        <ion-list color="danger">-->
-    <!--          <ion-item menuClose detail-none *ngFor="let p of pagesSection2" (click)="openPage(p)">-->
-    <!--            <ion-icon [name]="p.icon"></ion-icon>-->
-    <!--            <span>{{p.title}}</span>-->
-    <!--          </ion-item>-->
-    <!--        </ion-list>-->
-    <!--      </ion-content>-->
-
-    <!--      <ion-footer>-->
-    <!--        <ion-item menuClose detail-none *ngFor="let p of pagesSection3" (click)="openPage(p)">-->
-    <!--          <ion-icon [name]="p.icon"></ion-icon>-->
-    <!--          <span>{{p.title}}</span>-->
-    <!--        </ion-item>-->
-    <!--      </ion-footer>-->
-    <!--    </ion-menu>-->
-
     <ion-menu contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="2" style="height: 100%; display: block; vertical-align: middle">
+                  <img style="height: 2.75rem; width: 2.75rem" src="./assets/imgs/gmail.svg" />
+                </ion-col>
+                <ion-col size="10" style="padding: 0 0 0 0">
+                  <div style="padding: 20px 0 0 0">Gmail <span style="font-size: 0.75rem; font-weight: 400">(clone)</span></div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
       <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
-
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of pagesSection1; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.path]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+        <ion-list-header>
+          <ion-avatar style="width: 100px; height: auto">
+            <img src="./assets/imgs/profile.jpg" />
+          </ion-avatar>
+        </ion-list-header>
+        <ion-note>
+          <ion-label>
+            <div style="font-size: 1.2rem; font-weight: 500; margin: 0.5rem 0 0 0">Alex Christian Quispe Roque</div>
+            <div style="font-size: 0.975rem">alexchristianqr@gmail.com</div>
+            <div style="font-size: 0.975rem">storage used: 10% of 15GB</div>
+            <div style="font-size: 0.675rem; padding: 0.125rem 0">
+              <a href="#" style="text-decoration: none">Privacy Policy</a>
+              <span>&nbsp;.&nbsp;</span>
+              <a href="#" style="text-decoration: none">Terms of Service</a>
+            </div>
+          </ion-label>
+        </ion-note>
+        <ion-label>
+          <ion-text>PRIMARY</ion-text>
+        </ion-label>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let page of pagesSection1; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[page.path]" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" [ios]="page.icon + '-outline'" [md]="page.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ page.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
 
-        <!--        <ion-list id="labels-list">-->
-        <!--          <ion-list-header>Labels</ion-list-header>-->
-
-        <!--          <ion-item *ngFor="let label of labels" lines="none">-->
-        <!--            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>-->
-        <!--            <ion-label>{{ label }}</ion-label>-->
-        <!--          </ion-item>-->
-        <!--        </ion-list>-->
+        <ion-label>
+          <ion-text>SECONDARY</ion-text>
+        </ion-label>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let page of pagesSection2; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[page.path]" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" [ios]="page.icon + '-outline'" [md]="page.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ page.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
       </ion-content>
+      <ion-footer>
+        <ion-menu-toggle auto-hide="false" *ngFor="let page of pagesSection3; let i = index">
+          <ion-item routerDirection="root" [routerLink]="[page.path]" lines="none" detail="false" routerLinkActive="selected">
+            <ion-icon slot="start" [ios]="page.icon + '-outline'" [md]="page.icon + '-sharp'"></ion-icon>
+            <span>{{ page.title }}</span>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-footer>
     </ion-menu>
 
     <ion-router-outlet id="main-content"></ion-router-outlet>

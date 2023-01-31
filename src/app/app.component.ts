@@ -48,7 +48,7 @@ export class AppComponent {
         component: MailsSentPage,
         // db: 'DATABASE_SENT',
         status: false,
-        path: 'inbox',
+        path: 'social',
       },
       {
         title: 'Promotions',
@@ -56,7 +56,7 @@ export class AppComponent {
         component: HomePage,
         // db: 'DATABASE_RECEIVED',
         status: false,
-        path: 'inbox',
+        path: 'promotions',
       },
       {
         title: 'Mail Saved',
@@ -64,7 +64,7 @@ export class AppComponent {
         component: HomePage,
         // db: 'DATABASE_SAVED',
         status: false,
-        path: 'inbox',
+        path: 'saved',
       },
       {
         title: 'Mail Span',
@@ -72,7 +72,7 @@ export class AppComponent {
         component: HomePage,
         // db: 'DATABASE_SPAN',
         status: false,
-        path: 'inbox',
+        path: 'span',
       },
     ]
     this.pagesSection3 = [
@@ -82,14 +82,14 @@ export class AppComponent {
         component: GeneralPage,
 
         status: false,
-        path: 'inbox',
+        path: 'settings',
       },
       {
         title: 'Logout',
         icon: 'log-out',
         component: GeneralPage,
         status: false,
-        path: 'inbox',
+        path: 'logout',
       },
     ]
   }
