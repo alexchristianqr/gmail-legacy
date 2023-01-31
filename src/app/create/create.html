@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <!--      <ion-menu-toggle>-->
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+      <!--      </ion-menu-toggle>-->
+    </ion-buttons>
+    <ion-title>Create</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fnCreate()">
+        <ion-icon slot="icon-only" name="send"></ion-icon>
+      </ion-button>
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <!--    <ion-buttons left>-->
+    <!--          <button ion-button icon-only class="p-l-15 p-r-15" (click)="back()">-->
+    <!--            <ion-icon name="md-arrow-back"></ion-icon>-->
+    <!--          </button>-->
+    <!--    </ion-buttons>-->
+    <!--    <ion-title>Create</ion-title>-->
+    <!--    <ion-buttons right>-->
+    <!--      <button ion-button (click)="fnCreate()">-->
+    <!--        <ion-icon name="send"></ion-icon>-->
+    <!--      </button>-->
+    <!--      <button ion-button (click)="presentPopover($event)">-->
+    <!--        <ion-icon name="more" md="md-more"></ion-icon>-->
+    <!--      </button>-->
+    <!--    </ion-buttons>-->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>Database</ion-label>
+      <!--      <ion-select [(ngModel)]="params.database">-->
+      <!--        <ion-option value="DATABASE_INBOX">Inbox</ion-option>-->
+      <!--        <ion-option value="DATABASE_SENT">Sent</ion-option>-->
+      <!--      </ion-select>-->
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Name</ion-label>
+      <!--      <ion-input [(ngModel)]="params.name" type="text"></ion-input>-->
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>From</ion-label>
+      <!--      <ion-input [(ngModel)]="params.from" type="text"></ion-input>-->
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>To</ion-label>
+      <!--      <ion-input [(ngModel)]="params.to" type="text"></ion-input>-->
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Subject</ion-label>
+      <!--      <ion-input [(ngModel)]="params.subject" type="text"></ion-input>-->
+    </ion-item>
+    <ion-item>
+      <!--      <textarea [(ngModel)]="params.message" #myInput id="myInput" rows="5" cols="10" (keyup)="resize()" placeholder="Input Message" style="text-align: justify; text-justify: inter-word"> </textarea>-->
+    </ion-item>
+  </ion-list>
+</ion-content>

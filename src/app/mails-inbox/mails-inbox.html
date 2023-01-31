@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title>Inbox</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SEARCH" (click)="fnViewSearch()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--  <ion-refresher (ionRefresh)="doRefresh($event)">-->
+  <!--    <ion-refresher-content> </ion-refresher-content>-->
+  <!--  </ion-refresher>-->
+
+  <ion-list *ngIf="database.length >= 1">
+    <ion-item-sliding #item *ngFor="let data of database;let i = index" (click)="fnViewDetail(data,i)">
+      <ion-item>
+        <ion-avatar style="opacity: 0.8">
+          <ion-button [ngClass]="'button-profile color-' + data.name.charAt(0).toUpperCase()">
+            <span style="font-size: 1.8em">{{data.name.charAt(0).toUpperCase()}}</span>
+          </ion-button>
+        </ion-avatar>
+        <h2 *ngIf="data.is_read">{{data.name}}</h2>
+        <h2 *ngIf="!data.is_read"><b>{{data.name}}</b></h2>
+        <h3 *ngIf="data.is_read">{{data.subject}}</h3>
+        <h3 *ngIf="!data.is_read"><b>{{data.subject}}</b></h3>
+        <p *ngIf="data.is_read">{{data.message}}</p>
+        <p *ngIf="!data.is_read"><b>{{data.message}}</b></p>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option color="primary">
+          <ion-icon slot="start" name="archive"></ion-icon>
+          <!--          <ion-icon name="archive"></ion-icon>-->
+          Archivar
+        </ion-item-option>
+        <ion-item-option color="dark">
+          <ion-icon slot="start" name="trash"></ion-icon>
+          Eliminar
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="end">
+        <ion-item-option color="dark">
+          <ion-icon slot="start" name="trash"></ion-icon>
+          Eliminar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-list *ngIf="database.length <= 0">
+    <ion-grid>
+      <ion-row style="height: 100vw">
+        <ion-col style="top: 75%; bottom: 50%">
+          <ion-icon name="sad"></ion-icon>
+          <p>There is nothing in the mails inbox</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button color="danger" class="my-icon" (click)="fnViewCreate()">
+      <ion-icon name="create"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!--  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">-->
+  <!--  <ion-infinite-scroll>-->
+  <!--    <ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+  <!--  </ion-infinite-scroll>-->
+  <ion-router-outlet></ion-router-outlet>
+</ion-content>

@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_ARCHIVE" class="p-r-15 my-icon"><ion-icon name="archive"></ion-icon></button>
+      <button ion-button icon-only *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_REMOVE" class="p-r-15 my-icon" (click)="fnRemove()"><ion-icon name="trash"></ion-icon></button>
+      <button ion-button icon-only *ngIf="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_UN_READ" class="p-r-15 my-icon" (click)="fnUnRead()"><ion-icon name="mail"></ion-icon></button>
+      <button ion-button icon-only class="p-r-15 my-icon" (click)="presentPopover($event)"><ion-icon name="more"></ion-icon></button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div style="padding: 0 16px">
+      <h2>{{data.subject}}</h2>
+    </div>
+    <hr />
+    <div style="padding: 0 16px">
+      <ion-item text-wrap>
+        <ion-avatar item-left style="opacity: 0.8">
+          <button ion-fab [ngClass]="'button-profile color-' + data.name.charAt(0).toUpperCase()">
+            <span style="font-size: 1.8em">{{data.name.charAt(0).toUpperCase()}}</span>
+          </button>
+        </ion-avatar>
+        <span class="text-key">{{data.name}}</span>
+        <span class="text-value-second"><{{data.from}}></span>
+        <p>para: {{data.to}}</p>
+        <p>fecha: {{newdate}}&nbsp;&nbsp;<a style="text-decoration: none" href="#">Ver detalle</a></p>
+      </ion-item>
+      <p [innerHTML]="data.message" style="text-align: justify; text-justify: inter-word"></p>
+    </div>
+  </ion-list>
+</ion-content>
+
+<ion-footer no-border>
+  <div text-center>
+    <ion-row>
+      <ion-col>
+        <button ion-button clear class="text-muted">
+          <div>
+            <ion-icon name="undo"></ion-icon>
+            <br />
+            <span class="text-capitalize">Reply</span>
+          </div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button clear class="text-muted">
+          <div>
+            <ion-icon name="send"></ion-icon>
+            <br />
+            <span class="text-capitalize">Reply All</span>
+          </div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button clear class="text-muted">
+          <div>
+            <ion-icon name="redo"></ion-icon>
+            <br />
+            <span class="text-capitalize">Forward</span>
+          </div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-footer>
