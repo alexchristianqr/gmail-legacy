@@ -10,7 +10,7 @@ import { Router } from '@angular/router'
 export class ModalSettingsListInbox {
   public MYSHAREDPREFERENCES: any = {}
 
-  constructor(public httpService: HttpServiceProvider, public storage: Storage, public router: Router) {
+  constructor(private httpService: HttpServiceProvider, private storage: Storage, private router: Router) {
     this.httpService.loadPreferences(this)
   }
 

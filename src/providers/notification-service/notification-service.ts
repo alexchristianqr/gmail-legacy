@@ -16,10 +16,10 @@ export class NotificationServiceProvider {
       message: message,
       duration: duration,
       position: 'bottom',
+
       // showCloseButton: showButton,
       // closeButtonText: 'close',
     })
-    this.toast.present()
   }
 
   public notifyError(message: string): void {

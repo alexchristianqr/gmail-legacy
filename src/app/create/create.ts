@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage'
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service'
 import * as moment from 'dayjs'
 import { Router } from '@angular/router'
+import {PopoverCreatePage} from "../create/layouts/popover-create";
+import {PopoverController} from "@ionic/angular";
 
 @Component({
   selector: 'page-create',
@@ -31,6 +33,7 @@ export class CreatePage {
   }
 
   constructor(
+    public popoverCtrl: PopoverController,
     public dialogService: DialogServiceProvider,
     public httpService: HttpServiceProvider,
     public notificationService: NotificationServiceProvider,
@@ -92,7 +95,11 @@ export class CreatePage {
       })
   }
 
-  async presentPopover(myEvent: any) {
-    // return this.popoverCtrl.create(PopoverCreatePage).present({ ev: myEvent })
+  // async presentPopover(myEvent: any) {
+  //   // return this.popoverCtrl.create(PopoverCreatePage).present({ ev: myEvent })
+  // }
+
+  presentPopover(event: Event) {
+    return this.popoverCtrl.create({ component: PopoverCreatePage, event: event, dismissOnSelect: true }).then((res) => res.present())
   }
 }

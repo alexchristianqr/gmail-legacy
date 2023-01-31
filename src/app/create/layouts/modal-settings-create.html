@@ -1,14 +1,13 @@
 <ion-header>
   <ion-toolbar color="danger">
-    <ion-buttons left>
-      <button ion-button icon-only class="p-l-15 p-r-15" (click)="back()">
-        <ion-icon name="md-arrow-back"></ion-icon>
-      </button>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>Create Setting</ion-title>
+    <ion-title>Configuración para Nuevo Mensaje</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-list>
     <ion-list-header>

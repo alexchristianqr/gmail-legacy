@@ -1,19 +1,20 @@
 import { Component } from '@angular/core'
 import { Storage } from '@ionic/storage'
 import { SHARED_PREFERENCE } from '../../shared-preference'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'page-modal-create',
-  templateUrl: 'modal-create.html',
+  templateUrl: 'modal-settings-create.html',
 })
-export class ModalCreatePage {
+export class ModalSettingsCreate {
   public MYSHAREDPREFERENCES: object = {
     CONFIRM_BEFORE_SENDING: false,
     CONFIRM_BEFORE_REMOVING: false,
     CONFIRM_BEFORE_FILING: false,
   }
 
-  constructor(public storage: Storage) {
+  constructor(private storage: Storage, private router: Router) {
     this.storage
       .get('SHARED_PREFERENCE')
       .then((data) => {
@@ -36,8 +37,8 @@ export class ModalCreatePage {
       })
   }
 
-  back() {
-    // this.viewCtrl.dismiss()
+  async back() {
+    await this.router.navigate(['create'])
   }
 
   fnFetchMyPreferences() {

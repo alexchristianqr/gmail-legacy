@@ -16,7 +16,7 @@ import { ModalSettingsListInbox } from './inbox/list/layouts/modal-settings-list
 import { HomePage } from './shared/home/home'
 import { ModalSettingsDetail } from './inbox/detail/layouts/modal-settings-detail'
 import { PopoverMailPage } from './inbox/list/layouts/popover-list-inbox'
-import { ModalCreatePage } from './create/layouts/modal-create'
+import { ModalSettingsCreate } from './create/layouts/modal-settings-create'
 import { MailsInboxPage } from './inbox/list/list-inbox'
 import { PopoverCreatePage } from './create/layouts/popover-create'
 import { GeneralPage } from './shared/general/general'
@@ -35,7 +35,7 @@ import { PopoverDetailPage } from './inbox/detail/layouts/popover-detail'
     PopoverCreatePage,
     PopoverMailPage,
     PopoverDetailPage,
-    ModalCreatePage,
+    ModalSettingsCreate,
     ModalSettingsDetail,
     ModalSettingsListInbox,
   ],
