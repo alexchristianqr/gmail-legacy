@@ -8,12 +8,13 @@ import { NotificationServiceProvider } from '../../providers/notification-servic
 import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service'
 import { Storage } from '@ionic/storage'
 import { PopoverMailPage } from '../mail/popover-mail'
-import { SHARED_PREFERENCE } from '../../app/shared-preference'
+// import { SHARED_PREFERENCE } from '../../app/shared-preference'
 import { Router } from '@angular/router'
 
 @Component({
   selector: 'page-mails-inbox',
   templateUrl: 'mails-inbox.html',
+  styleUrls: ['mails-inbox.scss'],
 })
 export class MailsInboxPage {
   database: any = []
@@ -22,14 +23,11 @@ export class MailsInboxPage {
   constructor(
     public popoverCtrl: PopoverController,
     public httpService: HttpServiceProvider,
-    // public notificationService: NotificationServiceProvider,
     public navCtrl: NavController,
-    // public modalCtrl: ModalController,
     public dialogService: DialogServiceProvider,
     public storage: Storage,
     public router: Router
-  ) // public navParams: NavParams
-  {
+  ) {
     this.fnFetch()
   }
 
@@ -37,8 +35,8 @@ export class MailsInboxPage {
     console.log('infinite')
   }
 
-  async doRefresh(refresher: any) {
-    console.log('Begin async operation', { refresher })
+  async doRefresh(event: any) {
+    console.log('Begin async operation', { event })
     return this.storage
       .get('DATABASE_INBOX')
       .then((data) => {
@@ -46,7 +44,7 @@ export class MailsInboxPage {
           this.database = data
           this.httpService.loadPreferences(this)
           console.log('Async operation has ended')
-          refresher.complete()
+          event.target.complete()
         }, 2000)
       })
       .catch((error) => {
@@ -75,7 +73,7 @@ export class MailsInboxPage {
     // const res =  this.storage.get('DATABASE_INBOX')
     // console.log({res})
     // return res
-    return this.storage
+    this.storage
       .get('DATABASE_INBOX')
       .then((data) => {
         if (data) {

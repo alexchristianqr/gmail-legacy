@@ -20,29 +20,52 @@
 </ion-header>
 
 <ion-content>
-  <!--  <ion-refresher (ionRefresh)="doRefresh($event)">-->
-  <!--    <ion-refresher-content> </ion-refresher-content>-->
-  <!--  </ion-refresher>-->
+  <ion-router-outlet></ion-router-outlet>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <ion-list *ngIf="database.length >= 1">
     <ion-item-sliding #item *ngFor="let data of database;let i = index" (click)="fnViewDetail(data,i)">
       <ion-item>
-        <ion-avatar style="opacity: 0.8">
-          <ion-button [ngClass]="'button-profile color-' + data.name.charAt(0).toUpperCase()">
-            <span style="font-size: 1.8em">{{data.name.charAt(0).toUpperCase()}}</span>
-          </ion-button>
-        </ion-avatar>
-        <h2 *ngIf="data.is_read">{{data.name}}</h2>
-        <h2 *ngIf="!data.is_read"><b>{{data.name}}</b></h2>
-        <h3 *ngIf="data.is_read">{{data.subject}}</h3>
-        <h3 *ngIf="!data.is_read"><b>{{data.subject}}</b></h3>
-        <p *ngIf="data.is_read">{{data.message}}</p>
-        <p *ngIf="!data.is_read"><b>{{data.message}}</b></p>
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col size-xs="3" size-sm="2" size-md="2" size-lg="2" size-xl="1">
+                <ion-avatar [ngClass]="'color-' + data.name.charAt(0).toUpperCase()"> {{data.name.charAt(0).toUpperCase()}} </ion-avatar>
+              </ion-col>
+              <ion-col size-xs="9" size-sm="10" size-md="10" size-lg="10" size-xl="11">
+                <ion-text *ngIf="!data.is_read">
+                  <div style="font-weight: 600">{{data.name}}</div>
+                  <div style="font-weight: 600">{{data.subject}}</div>
+                  <div style="font-weight: 600">{{data.message}}</div>
+                </ion-text>
+                <ion-text *ngIf="data.is_read">
+                  <div>{{data.name}}</div>
+                  <div>{{data.subject}}</div>
+                  <div>{{data.message}}</div>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+
+        <!--        <ion-avatar style="opacity: 0.8">-->
+        <!--          <ion-button [ngClass]="'button-profile color-' + data.name.charAt(0).toUpperCase()">-->
+        <!--            <span style="font-size: 1.8em">{{data.name.charAt(0).toUpperCase()}}</span>-->
+        <!--          </ion-button>-->
+        <!--        </ion-avatar>-->
+        <!--        <h2 *ngIf="data.is_read">{{data.name}}</h2>-->
+        <!--        <h2 *ngIf="!data.is_read"><b>{{data.name}}</b></h2>-->
+        <!--        <h3 *ngIf="data.is_read">{{data.subject}}</h3>-->
+        <!--        <h3 *ngIf="!data.is_read"><b>{{data.subject}}</b></h3>-->
+        <!--        <p *ngIf="data.is_read">{{data.message}}</p>-->
+        <!--        <p *ngIf="!data.is_read"><b>{{data.message}}</b></p>-->
       </ion-item>
       <ion-item-options side="start">
         <ion-item-option color="primary">
           <ion-icon slot="start" name="archive"></ion-icon>
-          <!--          <ion-icon name="archive"></ion-icon>-->
           Archivar
         </ion-item-option>
         <ion-item-option color="dark">
@@ -80,5 +103,4 @@
   <!--  <ion-infinite-scroll>-->
   <!--    <ion-infinite-scroll-content></ion-infinite-scroll-content>-->
   <!--  </ion-infinite-scroll>-->
-  <ion-router-outlet></ion-router-outlet>
 </ion-content>
