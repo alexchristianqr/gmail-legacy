@@ -15,7 +15,7 @@ export class MailsInboxPage {
   database: any = []
   public MYSHAREDPREFERENCES: any = {}
 
-  constructor(public popoverCtrl: PopoverController, public httpService: HttpServiceProvider, public storage: Storage, private router: Router) {
+  constructor(private popoverCtrl: PopoverController, private httpService: HttpServiceProvider, private storage: Storage, private router: Router) {
     this.fnFetch()
   }
 
@@ -204,7 +204,8 @@ export class MailsInboxPage {
       })
   }
 
-  presentPopover(event: Event) {
-    return this.popoverCtrl.create({ component: PopoverMailPage, event: event, dismissOnSelect: true }).then((res) => res.present())
+  async presentPopover(event: Event) {
+    const popover = await this.popoverCtrl.create({ component: PopoverMailPage, event: event, dismissOnSelect: true })
+    await popover.present()
   }
 }

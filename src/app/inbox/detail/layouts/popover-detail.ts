@@ -1,19 +1,24 @@
 import { Component } from '@angular/core'
-import { ModalController, NavController } from '@ionic/angular'
-import { ModalSettingsDetail } from './modal-settings-detail'
+import { Storage } from '@ionic/storage'
+import { Router } from '@angular/router'
+
+type MyPopover = {
+  title: string
+  path: string | null
+}
 
 @Component({
   selector: 'page-popover-detail',
   templateUrl: 'popover-detail.html',
 })
 export class PopoverDetailPage {
-  list: Array<{ title: string; component: any }>
+  list: Array<MyPopover>
 
-  constructor(public modalCtrl: ModalController, public navCtrl: NavController) {
-    this.list = [{ title: 'Settings', component: ModalSettingsDetail }]
+  constructor(public storage: Storage, public router: Router) {
+    this.list = [{ title: 'Settings', path: 'inbox-detail-settings' }]
   }
 
-  async open(objeto: any) {
-    // return this.navCtrl.push(objeto.component)
+  async open(payload: MyPopover) {
+    await this.router.navigate([payload.path])
   }
 }

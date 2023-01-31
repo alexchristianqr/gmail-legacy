@@ -41,16 +41,6 @@ export class CreatePage implements OnInit {
       message: this.formBuilder.control('', [Validators.required]),
       subject: this.formBuilder.control('', [Validators.required]),
     })
-    // this.formGroup = this.formBuilder.group({
-    //   name: this.formBuilder.control(null, [Validators.required]),
-    //   database: this.formBuilder.control('DATABASE_INBOX', [Validators.required]),
-    //   from: this.formBuilder.control('alexchristianqr@utp.edu.pe', [Validators.required, Validators.email]),
-    //   to: this.formBuilder.control('teacher2022@utp.edu.pe', [Validators.required, Validators.email]),
-    //   created_at: this.formBuilder.control(new Date(), [Validators.required]),
-    //   is_read: this.formBuilder.control(false, [Validators.required]),
-    //   message: this.formBuilder.control('', [Validators.required]),
-    //   subject: this.formBuilder.control('', [Validators.required]),
-    // })
   }
 
   async back() {

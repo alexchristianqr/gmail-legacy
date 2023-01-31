@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core'
-import { NavController, NavParams, PopoverController } from '@ionic/angular'
+import { Component, OnInit } from '@angular/core'
+import { NavController, PopoverController } from '@ionic/angular'
 import { NotificationServiceProvider } from '../../../providers/notification-service/notification-service'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
 import { PopoverDetailPage } from './layouts/popover-detail'
@@ -11,18 +11,19 @@ import { Router } from '@angular/router'
   selector: 'page-detail',
   templateUrl: 'detail.html',
 })
-export class DetailPage implements OnInit{
+export class DetailPage implements OnInit {
   index: any
   data: any = {}
   newdate: any
   public MYSHAREDPREFERENCES: any = {}
 
   constructor(
-    public httpService: HttpServiceProvider,
-    public notificationService: NotificationServiceProvider,
-    public dialogService: DialogServiceProvider,
-    public navCtrl: NavController,
-    public storage: Storage,
+    private popoverCtrl: PopoverController,
+    private httpService: HttpServiceProvider,
+    private notificationService: NotificationServiceProvider,
+    private dialogService: DialogServiceProvider,
+    private navCtrl: NavController,
+    private storage: Storage,
     private router: Router
   ) {
     this.httpService.loadPreferences(this)
@@ -32,7 +33,7 @@ export class DetailPage implements OnInit{
   ngOnInit(): void {
     this.httpService.loadPreferences(this)
     this.data = this.router.getCurrentNavigation()?.extras.state
-    }
+  }
 
   async back() {
     await this.router.navigate(['inbox'])
@@ -64,8 +65,9 @@ export class DetailPage implements OnInit{
       })
   }
 
-  async presentPopover(myEvent: any) {
-    // return this.popoverCtrl.create(PopoverDetailPage).present({ ev: myEvent })
+  async presentPopover(event: Event) {
+    const popover = await this.popoverCtrl.create({ component: PopoverDetailPage, event: event, dismissOnSelect: true })
+    await popover.present()
   }
 
   update(objeto: any, index: any, bool = null) {
