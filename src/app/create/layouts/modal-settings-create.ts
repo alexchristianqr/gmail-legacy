@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { Storage } from '@ionic/storage'
-import { SHARED_PREFERENCE } from '../../shared-preference'
+import { SHARED_PREFERENCES } from '../../shared-preferences'
 import { Router } from '@angular/router'
 
 @Component({
@@ -22,7 +22,7 @@ export class ModalSettingsCreate {
           this.MYSHAREDPREFERENCES = data
         } else {
           this.storage
-            .set('SHARED_PREFERENCE', SHARED_PREFERENCE)
+            .set('SHARED_PREFERENCE', SHARED_PREFERENCES)
             .then((data) => {
               this.MYSHAREDPREFERENCES = data
               console.log('Loaded shared preferences by default!')

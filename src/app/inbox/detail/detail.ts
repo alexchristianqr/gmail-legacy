@@ -8,6 +8,8 @@ import { DialogServiceProvider } from '../../../providers/dialog-service/dialog-
 import { Router } from '@angular/router'
 import { MyMessage } from '../../core/types/MyMessage'
 import { MyParams } from '../../core/types/MyParams'
+import { MyPreferences } from '../../core/types/MyPreferences'
+import { resize } from 'ionicons/icons'
 
 @Component({
   selector: 'page-detail',
@@ -16,7 +18,9 @@ import { MyParams } from '../../core/types/MyParams'
 export class DetailPage implements OnInit {
   data: MyParams | any
   item?: MyMessage
-  public MYSHAREDPREFERENCES: any = {}
+  myDatabase: string = 'DATABASE_INBOX'
+  mySharedPreferences: string = 'SHARED_PREFERENCES'
+  public MYSHAREDPREFERENCES: MyPreferences
 
   constructor(
     private popoverCtrl: PopoverController,
@@ -27,18 +31,20 @@ export class DetailPage implements OnInit {
     private storage: Storage,
     private router: Router
   ) {
-    this.httpService.loadPreferences(this)
+    this.MYSHAREDPREFERENCES = this.httpService.initSharedPreferences
     this.getState()
   }
 
-  ngOnInit(): void {
-    this.httpService.loadPreferences(this)
+  ngOnInit() {
+    this.httpService.loadPreferences(this.myDatabase, this)
+    this.httpService.loadPreferences(this.mySharedPreferences, this)
     this.getState()
   }
 
   getState(): void {
     this.data = this.router.getCurrentNavigation()?.extras.state
     this.item = this.data?.item
+    console.log(this.item)
   }
 
   async back() {

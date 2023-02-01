@@ -8,13 +8,15 @@ import { NotificationServiceProvider } from '../../../providers/notification-ser
 import { DialogServiceProvider } from '../../../providers/dialog-service/dialog-service'
 import { Storage } from '@ionic/storage'
 import { PopoverMailPage } from '../../inbox/list/layouts/popover-list-inbox'
-import { SHARED_PREFERENCE } from '../../shared-preference'
+import { SHARED_PREFERENCES } from '../../shared-preferences'
 
 @Component({
   selector: 'page-mails-sent',
   templateUrl: './list-sent.html',
 })
 export class MailsSentPage implements OnDestroy {
+  myDatabase : string = 'DATABASE_INBOX'
+
   ngOnDestroy(): void {
     // this.event.unsubscribe('eventMailsSentFetch')
     console.log('Events destroyed!')
@@ -50,11 +52,11 @@ export class MailsSentPage implements OnDestroy {
   }
 
   async fnViewSearch() {
-    return this.modalCtrl.create({ component: SearchPage, componentProps: { database: SHARED_PREFERENCE.DB.DS } })
+    return this.modalCtrl.create({ component: SearchPage, componentProps: { database: SHARED_PREFERENCES.DB.DS } })
   }
 
   async fnViewCreate() {
-    return this.modalCtrl.create({ component: CreatePage, componentProps: { database: SHARED_PREFERENCE.DB.DS } })
+    return this.modalCtrl.create({ component: CreatePage, componentProps: { database: SHARED_PREFERENCES.DB.DS } })
   }
 
   fnFetch() {
@@ -63,7 +65,7 @@ export class MailsSentPage implements OnDestroy {
       .get('DATABASE_SENT')
       .then((data) => {
         this.database = data == null ? [] : data
-        this.httpService.loadPreferences(this)
+        this.httpService.loadPreferences(this.myDatabase)
         // this.dialogService.closeLoading()
         console.log('Fetch storage from Mails Sent!')
       })

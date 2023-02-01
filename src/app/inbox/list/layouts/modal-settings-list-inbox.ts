@@ -8,10 +8,11 @@ import { Router } from '@angular/router'
   templateUrl: 'modal-settings-list-inbox.html',
 })
 export class ModalSettingsListInbox {
+  myDatabase : string = 'DATABASE_INBOX'
   public MYSHAREDPREFERENCES: any = {}
 
   constructor(private httpService: HttpServiceProvider, private storage: Storage, private router: Router) {
-    this.httpService.loadPreferences(this)
+    this.httpService.loadPreferences(this.myDatabase)
   }
 
   async back() {

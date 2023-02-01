@@ -1,4 +1,5 @@
 export type MyMessage = {
+  database: string
   name: string
   subject: string
   message: string

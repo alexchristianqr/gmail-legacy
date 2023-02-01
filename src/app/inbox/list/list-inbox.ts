@@ -6,6 +6,7 @@ import { PopoverMailPage } from './layouts/popover-list-inbox'
 import { Router } from '@angular/router'
 import { MyMessage } from '../../core/types/MyMessage'
 import { MyParams } from '../../core/types/MyParams'
+import { MyPreferences } from '../../core/types/MyPreferences'
 
 @Component({
   selector: 'page-mails-inbox',
@@ -15,7 +16,9 @@ import { MyParams } from '../../core/types/MyParams'
 export class MailsInboxPage {
   @ViewChild('popover') popover: any
   items: Array<MyMessage> = []
-  public MYSHAREDPREFERENCES: any = {}
+  myDatabase: string = 'DATABASE_INBOX'
+  mySharedPreferences: string = 'SHARED_PREFERENCES'
+  MYSHAREDPREFERENCES?: MyPreferences
 
   constructor(private popoverCtrl: PopoverController, private httpService: HttpServiceProvider, private storage: Storage, private router: Router) {
     this.fnFetch()
@@ -28,11 +31,11 @@ export class MailsInboxPage {
   async doRefresh(event: any) {
     console.log('Begin async operation', { event })
     return this.storage
-      .get('DATABASE_INBOX')
+      .get(this.myDatabase)
       .then((data) => {
         setTimeout(() => {
           this.items = data
-          this.httpService.loadPreferences(this)
+          this.httpService.loadPreferences(this.myDatabase,{self: this})
           console.log('Async operation has ended')
           event.target.complete()
         }, 2000)
@@ -45,11 +48,13 @@ export class MailsInboxPage {
 
   async fnViewDetail(item: MyMessage) {
     const data: MyParams = { item: item, path: 'inbox' }
+    console.log({data})
     await this.router.navigate(['inbox-detail'], { state: data })
   }
 
   async fnViewSearch() {
     const data: MyParams = { database: 'DATABASE_INBOX', path: 'inbox' }
+    console.log({data})
     await this.router.navigate(['search'], { state: data })
   }
 
@@ -63,15 +68,19 @@ export class MailsInboxPage {
     // console.log({res})
     // return res
     this.storage
-      .get('DATABASE_INBOX')
-      .then((data) => {
+      .get(this.myDatabase)
+      .then(async (data) => {
         if (data) {
           this.items = data
         } else {
           this.items = []
         }
 
-        this.httpService.loadPreferences(this)
+        await this.httpService.loadPreferences(this.myDatabase)
+        await this.httpService.loadPreferences(this.mySharedPreferences)
+
+        this.MYSHAREDPREFERENCES = await this.httpService.getStorage(this.mySharedPreferences)
+        console.log('ALEXXXX',this.MYSHAREDPREFERENCES)
         // this.dialogService.closeLoading()
 
         console.log('Fetch storage from Mails Inbox!')

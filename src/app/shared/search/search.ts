@@ -12,13 +12,14 @@ import { MyParams } from '../../core/types/MyParams'
 export class SearchPage implements OnInit {
   data: MyParams | any
   items: Array<MyMessage> = []
+  myDatabase: string = 'DATABASE_INBOX'
 
   constructor(private httpService: HttpServiceProvider, private storage: Storage, private router: Router) {
     this.getState()
   }
 
   ngOnInit(): void {
-    this.httpService.loadPreferences(this)
+    this.httpService.loadPreferences(this.myDatabase)
     this.getState()
   }
 
