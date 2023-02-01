@@ -1,21 +1,24 @@
-import { Component, NgModule } from '@angular/core'
+import { NgModule } from '@angular/core'
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router'
 
-import { DetailPage } from './inbox/detail/detail'
-import { ModalSettingsDetail } from './inbox/detail/layouts/modal-settings-detail'
-
+// NUEVO MENSAJE
 import { CreatePage } from './create/create'
 import { ModalSettingsCreate } from './create/layouts/modal-settings-create'
 
+// BANDEJA DE ENTRADA
 import { MailsInboxPage } from './inbox/list/list-inbox'
 import { ModalSettingsListInbox } from './inbox/list/layouts/modal-settings-list-inbox'
 
-import { SearchPage } from './shared/search/search'
-import { MailsSentPage } from './sent/list/list-sent'
-import { HomePage } from './shared/home/home'
-import { GeneralPage } from './shared/general/general'
+// DETALLE DEL MENSAJE
+import { DetailPage } from './inbox/detail/detail'
+import { ModalSettingsDetail } from './inbox/detail/layouts/modal-settings-detail'
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/inbox',
+    pathMatch: 'full',
+  },
   // BANDEJA DE ENTRADA
   {
     path: 'inbox',
