@@ -3,38 +3,46 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-header>
         <ion-toolbar>
-          <ion-title>
-            <ion-grid>
-              <ion-row>
-                <ion-col size="2" style="height: 100%; display: block; vertical-align: middle">
-                  <img style="height: 1.75rem; width: 1.75rem" src="./assets/imgs/gmail.svg" />
-                </ion-col>
-                <ion-col size="10" style="padding: 0 0 0 0">
-                  <div style="font-size: 1.12rem; font-weight: 500; padding: 0.25rem 0 0 0">Gmail<span style="font-size: 0.5rem; font-weight: 300; margin-left: 0.2rem">(clone)</span></div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <table>
+                  <tr>
+                    <td>
+                      <img style="height: 1.75rem; width: 1.75rem" src="./assets/imgs/gmail.svg" />
+                    </td>
+                    <td>
+                      <div style="font-size: 1.12rem; font-weight: 500; padding: 0.25rem 0 0 0; margin-left: 0.2rem">
+                        Gmail<span style="font-size: 0.7rem; font-weight: 300; margin-left: 0.2rem">(clone)</span>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-list-header>
-          <ion-avatar style="width: 100px; height: auto">
-            <img src="./assets/imgs/profile.jpg" />
-          </ion-avatar>
-        </ion-list-header>
-        <ion-note>
-          <ion-label>
-            <div style="font-size: 1.2rem; font-weight: 500; margin: 0.5rem 0 0 0">Alex Christian Quispe Roque</div>
-            <div style="font-size: 0.975rem">alexchristianqr@gmail.com</div>
-            <div style="font-size: 0.975rem">storage used: 10% of 15GB</div>
-            <div style="font-size: 0.675rem; padding: 0.125rem 0">
-              <a href="#" style="text-decoration: none">Privacy Policy</a>
-              <span>&nbsp;.&nbsp;</span>
-              <a href="#" style="text-decoration: none">Terms of Service</a>
-            </div>
-          </ion-label>
-        </ion-note>
+        <table>
+          <tr>
+            <td style="vertical-align: middle">
+              <ion-avatar>
+                <img src="./assets/imgs/profile.jpg" />
+              </ion-avatar>
+            </td>
+            <td style="padding: 0.5rem; vertical-align: middle">
+              <div style="font-size: 1rem; font-weight: 500; margin: 0">Alex Christian Quispe Roque</div>
+              <div style="font-size: 0.75rem">alexchristianqr@gmail.com</div>
+              <div style="font-size: 0.6rem; padding: 0.125rem 0">
+                <a href="#" style="text-decoration: none">Privacy Policy</a>
+                <span>&nbsp;.&nbsp;</span>
+                <a href="#" style="text-decoration: none">Terms of Service</a>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <ion-item-divider style="margin: 1rem 0"></ion-item-divider>
         <ion-label>
           <ion-text>PRIMARY</ion-text>
         </ion-label>
