@@ -19,23 +19,21 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col>
-        <ion-label>
-          <div style="font-size: 1.7rem; font-weight: 600">{{item?.subject}}</div>
-        </ion-label>
+      <ion-col size="12" style="padding-top: 0.5rem; padding-bottom: 0.5rem">
+        <div style="font-size: 1.5rem; font-weight: 500">{{item?.subject}}</div>
       </ion-col>
       <ion-col size="12">
         <table>
           <tr>
-            <td style="margin: 0.5rem 0.25rem 0 0">
+            <td>
               <ion-avatar style="opacity: 0.8; width: 3.85rem; height: 3.85rem" [ngClass]="'color-' + item?.name?.charAt(0)?.toUpperCase()"> {{item?.name?.charAt(0)?.toUpperCase()}} </ion-avatar>
             </td>
-            <td style="padding: 0.5rem 0.5rem 0.5rem 0.75rem">
+            <td style="padding: 0 0 0 0.75rem; vertical-align: middle">
               <ion-text>
-                <div style="font-size: 1.01rem; font-weight: 500; margin: 0.5rem 0 0 0">{{item?.name}}</div>
-                <div style="font-size: 0.9rem"><{{item?.from}}></div>
-                <div style="font-size: 0.9rem">para: {{item?.to}}</div>
-                <div style="font-size: 0.9rem">fecha: {{item?.created_at}}&nbsp;&nbsp;<a style="text-decoration: none" href="#">Ver detalle</a></div>
+                <div style="font-size: 1rem; font-weight: 500; margin: 0.5rem 0 0 0">{{item?.name}}</div>
+                <div style="font-size: 0.8rem"><{{item?.from}}></div>
+                <div style="font-size: 0.8rem">para: {{item?.to}}</div>
+                <div style="font-size: 0.8rem">fecha: {{item?.created_at}}&nbsp;&nbsp;<a style="text-decoration: none" href="#">Ver detalle</a></div>
               </ion-text>
             </td>
           </tr>
@@ -45,7 +43,7 @@
         <ion-item-divider></ion-item-divider>
       </ion-col>
       <ion-col size="12">
-        <div [innerHTML]="item?.message" style="text-align: justify; text-justify: inter-word"></div>
+        <div [innerHTML]="item?.message" style="white-space: pre-line; text-align: justify; text-justify: inter-word"></div>
       </ion-col>
     </ion-row>
   </ion-grid>
