@@ -23,7 +23,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-list *ngIf="items.length >= 1">
-    <ion-item-sliding #item *ngFor="let item of items;let i = index" (click)="fnViewDetail(item)">
+    <ion-item-sliding *ngFor="let item of items;let i = index" (click)="fnViewDetail(item)">
       <ion-item>
         <ion-label>
           <ion-grid>

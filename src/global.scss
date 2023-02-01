@@ -25,6 +25,11 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+ion-item-divider {
+  margin: 0.25rem 0;
+  min-height: 0;
+}
+
 ion-grid {
   height: 100%;
 }
@@ -32,7 +37,6 @@ ion-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
 }
 
 ion-avatar {
@@ -41,10 +45,10 @@ ion-avatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ccc;
+  //background-color: #ccc;
   border-radius: 50%;
   font-family: sans-serif;
-  color: #fff;
+  //color: #fff;
   font-weight: bold;
   font-size: 16px;
 }
