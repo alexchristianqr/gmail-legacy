@@ -15,22 +15,13 @@
       <ion-button (click)="presentPopover($event)">
         <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </ion-button>
-
-      <!--      <ion-button (click)="presentPopover($event)">Click Me</ion-button>-->
-      <!--      <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">-->
-      <!--        <ng-template>-->
-      <!--          <ion-content class="ion-padding">Hello World!</ion-content>-->
-      <!--        </ng-template>-->
-      <!--      </ion-popover>-->
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
   <ion-list *ngIf="database.length >= 1">
     <ion-item-sliding #item *ngFor="let data of database;let i = index" (click)="fnViewDetail(data)">
       <ion-item>
@@ -74,24 +65,23 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-
   <ion-list *ngIf="database.length <= 0">
     <ion-grid>
-      <ion-row style="height: 100vw">
-        <ion-col style="top: 75%; bottom: 50%">
-          <ion-icon name="sad"></ion-icon>
-          <p>There is nothing in the mails inbox</p>
+      <ion-row style="height: 100vh">
+        <ion-col size="12" style="top: -15%; text-align: center">
+          <ion-label>
+            <ion-icon slot="icon-only" name="sad-outline" size="large"></ion-icon>
+            <div>No tienes mensajes en tu inbox.</div>
+          </ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-list>
-
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button color="danger" class="my-icon" (click)="fnViewCreate()">
       <ion-icon name="create"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
   <!--  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">-->
   <!--  <ion-infinite-scroll>-->
   <!--    <ion-infinite-scroll-content></ion-infinite-scroll-content>-->
