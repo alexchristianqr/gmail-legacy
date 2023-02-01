@@ -59,7 +59,7 @@
         </ion-label>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let page of pagesSection2; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[page.path]" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item class="activeLink" routerDirection="root" [routerLink]="[page.path]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" [ios]="page.icon + '-outline'" [md]="page.icon + '-sharp'"></ion-icon>
               <ion-label>{{ page.title }}</ion-label>
             </ion-item>
