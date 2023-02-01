@@ -12,13 +12,13 @@
   <ion-list *ngIf="items.length >= 1">
     <ion-item-sliding *ngFor="let item of items;let i = index" (click)="fnViewDetail(item)">
       <ion-item>
-        <ion-label>
-          <ion-grid>
-            <ion-row>
-              <ion-col size-xs="3" size-sm="2" size-md="2" size-lg="2" size-xl="1">
+        <ion-label style="margin: 0; padding: 0">
+          <table>
+            <tr>
+              <td style="padding: 0.75rem">
                 <ion-avatar style="opacity: 0.8" [ngClass]="'color-' + item.name.charAt(0).toUpperCase()"> {{item.name.charAt(0).toUpperCase()}} </ion-avatar>
-              </ion-col>
-              <ion-col size-xs="9" size-sm="10" size-md="10" size-lg="10" size-xl="11">
+              </td>
+              <td style="padding: 0.75rem 0.75rem 0.75rem 0.25rem">
                 <ion-text *ngIf="!item.is_read">
                   <div style="font-size: 1.01rem; font-weight: 700">{{item.name}}</div>
                   <div style="font-size: 0.975rem; font-weight: 600">{{item.subject}}</div>
@@ -29,9 +29,9 @@
                   <div style="font-size: 0.9rem">{{item.subject}}</div>
                   <div style="font-size: 0.75rem">{{item.message}}</div>
                 </ion-text>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+              </td>
+            </tr>
+          </table>
         </ion-label>
       </ion-item>
       <ion-item-options side="start">
