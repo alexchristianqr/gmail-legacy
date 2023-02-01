@@ -1,53 +1,64 @@
-import { Component } from '@angular/core'
-import { NavController, NavParams } from '@ionic/angular'
+import { Component, OnInit } from '@angular/core'
 import { Storage } from '@ionic/storage'
-import { DetailPage } from '../../inbox/detail/detail'
-import { SHARED_PREFERENCE } from '../../shared-preference'
+import { HttpServiceProvider } from '../../../providers/http-service/http-service'
+import { Router } from '@angular/router'
+import { MyMessage } from '../../core/types/MyMessage'
+import { MyParams } from '../../core/types/MyParams'
 
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html',
 })
-export class SearchPage {
-  items: any = []
+export class SearchPage implements OnInit {
+  data: MyParams | any
+  items: Array<MyMessage> = []
 
-  constructor(public navCtrl: NavController, public storage: Storage, public navParams: NavParams) {}
-
-  // async back() {
-  //   if (this.navParams.data.database === SHARED_PREFERENCE.DB.DI) {
-  //     // this.event.publish('eventMailsInboxFetch')
-  //   } else if (this.navParams.data.database === SHARED_PREFERENCE.DB.DS) {
-  //     // this.event.publish('eventMailsSentFetch')
-  //   }
-  //   // return this.viewCtrl.dismiss()
-  // }
-
-  async fnViewDetail(data: any, index: any) {
-    // return this.navCtrl.push(DetailPage, { data: data, index: index })
-    return this.navCtrl.navigateRoot('inbox/detail', { queryParams: { data: data, index: index } })
+  constructor(private httpService: HttpServiceProvider, private storage: Storage, private router: Router) {
+    this.getState()
   }
 
-  async getItems(e: any) {
-    let text = e.target.value
-    await this.storage.set('text_search', e.target.value)
+  ngOnInit(): void {
+    this.httpService.loadPreferences(this)
+    this.getState()
+  }
+
+  getState(): void {
+    this.data = this.router.getCurrentNavigation()?.extras.state
+  }
+
+  async back() {
+    await this.router.navigate([this.data.path])
+  }
+
+  async fnViewDetail(item: MyMessage) {
+    const data: MyParams = { item: item, path: 'search' }
+    await this.router.navigate(['inbox-detail'], { state: data })
+  }
+
+  async getItems(event: any) {
+    const textSearch = event.target.value
+    if (!textSearch) return
+    await this.storage.set('text_search', textSearch)
 
     this.items = []
     return this.storage
-      .get(this.navParams.data['database'])
-      .then((data) => {
-        // if (data != null) {
-        //   if (text.toLowerCase().length == 0) {
+      .get(this.data.database)
+      .then((res: Array<MyMessage>) => {
+        console.log({ res })
+        if (!res) return
+        //   if (value.toLowerCase().length == 0) {
         //     return (this.items = [])
         //   } else {
-        //     // return (this.items = data.filter((objeto: {name:string,subject: string, message:string}) => {
-        //     //   if (
-        //     //     objeto.name.toLowerCase().indexOf(text.toLowerCase()) > -1 ||
-        //     //     objeto.subject.toLowerCase().indexOf(text.toLowerCase()) > -1 ||
-        //     //     objeto.message.toLowerCase().indexOf(text.toLowerCase()) > -1
-        //     //   ) {
-        //     //     return true
-        //     //   }
-        //     // }))
+        // @ts-ignore
+        this.items = res.filter((value: MyMessage, index: number, test) => {
+          if (
+            value.name.toLowerCase().indexOf(textSearch.toLowerCase()) > -1 ||
+            value.subject.toLowerCase().indexOf(textSearch.toLowerCase()) > -1 ||
+            value.message.toLowerCase().indexOf(textSearch.toLowerCase()) > -1
+          ) {
+            return true
+          }
+        })
         //   }
         // }
       })

@@ -6,15 +6,16 @@ import { PopoverDetailPage } from './layouts/popover-detail'
 import { Storage } from '@ionic/storage'
 import { DialogServiceProvider } from '../../../providers/dialog-service/dialog-service'
 import { Router } from '@angular/router'
+import { MyMessage } from '../../core/types/MyMessage'
+import { MyParams } from '../../core/types/MyParams'
 
 @Component({
   selector: 'page-detail',
   templateUrl: 'detail.html',
 })
 export class DetailPage implements OnInit {
-  index: any
-  data: any = {}
-  newdate: any
+  data: MyParams | any
+  item?: MyMessage
   public MYSHAREDPREFERENCES: any = {}
 
   constructor(
@@ -27,16 +28,21 @@ export class DetailPage implements OnInit {
     private router: Router
   ) {
     this.httpService.loadPreferences(this)
-    this.data = this.router.getCurrentNavigation()?.extras.state
+    this.getState()
   }
 
   ngOnInit(): void {
     this.httpService.loadPreferences(this)
+    this.getState()
+  }
+
+  getState(): void {
     this.data = this.router.getCurrentNavigation()?.extras.state
+    this.item = this.data?.item
   }
 
   async back() {
-    await this.router.navigate(['inbox'])
+    await this.router.navigate([this.data.path])
   }
 
   async fnRemove() {

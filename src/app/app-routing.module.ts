@@ -13,6 +13,9 @@ import { ModalSettingsListInbox } from './inbox/list/layouts/modal-settings-list
 import { DetailPage } from './inbox/detail/detail'
 import { ModalSettingsDetail } from './inbox/detail/layouts/modal-settings-detail'
 
+// SHARED
+import { SearchPage } from './shared/search/search'
+
 const routes: Routes = [
   {
     path: '',
@@ -48,6 +51,11 @@ const routes: Routes = [
     title: 'Configuración',
     path: 'create-settings',
     component: ModalSettingsCreate,
+  },
+  // SHARED
+  {
+    path: 'search',
+    component: SearchPage,
   },
 ]
 
