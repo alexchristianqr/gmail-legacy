@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { PopoverController } from '@ionic/angular'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
 import { Storage } from '@ionic/storage'
@@ -7,25 +7,50 @@ import { Router } from '@angular/router'
 import { MyMessage } from '../../core/types/MyMessage'
 import { MyParams } from '../../core/types/MyParams'
 import { MyPreferences } from '../../core/types/MyPreferences'
+import { EventService } from '../../core/services/events/event.service'
+import { Subscription } from 'rxjs'
+import { SHARED_PREFERENCES } from '../../shared-preferences'
 
 @Component({
   selector: 'page-mails-inbox',
   templateUrl: 'list-inbox.html',
   styleUrls: ['list-inbox.scss'],
 })
-export class MailsInboxPage {
+export class MailsInboxPage implements OnDestroy {
   @ViewChild('popover') popover: any
-  items: Array<MyMessage> = []
   myDatabase: string = 'DATABASE_INBOX'
-  mySharedPreferences: string = 'SHARED_PREFERENCES'
-  MYSHAREDPREFERENCES?: MyPreferences
+  MY_SHARED_PREFERENCES: MyPreferences = SHARED_PREFERENCES
+  mySubscribe$: Subscription
+  items: Array<MyMessage> = []
 
-  constructor(private popoverCtrl: PopoverController, private httpService: HttpServiceProvider, private storage: Storage, private router: Router) {
-    this.fnFetch()
+  constructor(
+    private eventService: EventService,
+    private popoverCtrl: PopoverController,
+    private httpService: HttpServiceProvider,
+    private storage: Storage,
+    private router: Router
+  ) {
+    console.log('[MailsInboxPage.constructor]')
+    this.mySubscribe$ = this.eventService.dataSource.subscribe(() => this.listInbox(true))
+    this.listInbox()
   }
 
-  async doInfinite() {
-    console.log('infinite')
+  ngOnDestroy() {
+    console.log('[MailsInboxPage.ngOnDestroy]')
+    this.mySubscribe$.unsubscribe()
+  }
+
+  listInbox(loadPreferences: boolean = false): void {
+    this.httpService.loadDatabaseStorage(this.myDatabase).then((data) => {
+      this.items = data
+      if (!loadPreferences) return
+      this.httpService.loadSharedPreferences().then((data) => {
+        this.MY_SHARED_PREFERENCES.create = data.create
+        this.MY_SHARED_PREFERENCES.inbox = data.inbox
+        this.MY_SHARED_PREFERENCES.detail = data.detail
+        this.MY_SHARED_PREFERENCES.general = data.general
+      })
+    })
   }
 
   async doRefresh(event: any) {
@@ -35,7 +60,7 @@ export class MailsInboxPage {
       .then((data) => {
         setTimeout(() => {
           this.items = data
-          this.httpService.loadPreferences(this.myDatabase,{self: this})
+          this.httpService.loadPreferences(this.myDatabase, this)
           console.log('Async operation has ended')
           event.target.complete()
         }, 2000)
@@ -48,47 +73,19 @@ export class MailsInboxPage {
 
   async fnViewDetail(item: MyMessage) {
     const data: MyParams = { item: item, path: 'inbox' }
-    console.log({data})
+    // console.log({ data })
     await this.router.navigate(['inbox-detail'], { state: data })
+    // this.ngOnDestroy()
   }
 
   async fnViewSearch() {
     const data: MyParams = { database: 'DATABASE_INBOX', path: 'inbox' }
-    console.log({data})
+    // console.log({ data })
     await this.router.navigate(['search'], { state: data })
   }
 
   async fnViewCreate() {
     await this.router.navigate(['create'])
-  }
-
-  public fnFetch() {
-    // this.dialogService.showLoading()
-    // const res =  this.storage.get('DATABASE_INBOX')
-    // console.log({res})
-    // return res
-    this.storage
-      .get(this.myDatabase)
-      .then(async (data) => {
-        if (data) {
-          this.items = data
-        } else {
-          this.items = []
-        }
-
-        await this.httpService.loadPreferences(this.myDatabase)
-        await this.httpService.loadPreferences(this.mySharedPreferences)
-
-        this.MYSHAREDPREFERENCES = await this.httpService.getStorage(this.mySharedPreferences)
-        console.log('ALEXXXX',this.MYSHAREDPREFERENCES)
-        // this.dialogService.closeLoading()
-
-        console.log('Fetch storage from Mails Inbox!')
-      })
-      .catch((error) => {
-        console.error(error)
-        // this.dialogService.closeLoading()
-      })
   }
 
   async presentPopover(event: Event) {

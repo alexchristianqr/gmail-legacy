@@ -15,7 +15,7 @@ import { SHARED_PREFERENCES } from '../../shared-preferences'
   templateUrl: './list-sent.html',
 })
 export class MailsSentPage implements OnDestroy {
-  myDatabase : string = 'DATABASE_INBOX'
+  myDatabase: string = 'DATABASE_INBOX'
 
   ngOnDestroy(): void {
     // this.event.unsubscribe('eventMailsSentFetch')

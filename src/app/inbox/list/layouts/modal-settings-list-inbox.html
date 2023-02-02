@@ -13,27 +13,26 @@
     <ion-list-header>
       <h2>Allow Actions</h2>
     </ion-list-header>
-    <ion-item>
-      <ion-label>
-        <span>Show sync</span>
-        <p>button</p>
-      </ion-label>
-      <!--            <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SYNC" (click)="fnFetchMyPreferences()"></ion-checkbox>-->
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <span>Show clean</span>
-        <p>button</p>
-      </ion-label>
-      <!--      <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_CLEAN" (click)="fnFetchMyPreferences()"></ion-checkbox>-->
-    </ion-item>
+    <!--    <ion-item>-->
+    <!--      <ion-label>-->
+    <!--        <span>Show sync</span>-->
+    <!--        <p>button</p>-->
+    <!--      </ion-label>-->
+    <!--      <ion-checkbox [(ngModel)]="MY_SHARED_PREFERENCES.inbox.MAIL_SHOW_BUTTON_SYNC" (click)="updateMyPreferences()"></ion-checkbox>-->
+    <!--    </ion-item>-->
+    <!--    <ion-item>-->
+    <!--      <ion-label>-->
+    <!--        <span>Show clean</span>-->
+    <!--        <p>button</p>-->
+    <!--      </ion-label>-->
+    <!--      <ion-checkbox [(ngModel)]="MY_SHARED_PREFERENCES.inbox.MAIL_SHOW_BUTTON_CLEAN" (click)="updateMyPreferences()"></ion-checkbox>-->
+    <!--    </ion-item>-->
     <ion-item>
       <ion-label>
         <span>Show search</span>
         <p>button</p>
       </ion-label>
-      <!--      <ion-checkbox [(ngModel)]="MYSHAREDPREFERENCES.MAIL_SHOW_BUTTON_SEARCH" (click)="fnFetchMyPreferences()"></ion-checkbox>-->
-      <!--      <ion-checkbox  (click)="fnFetchMyPreferences()"></ion-checkbox>-->
+      <ion-checkbox [(ngModel)]="MY_SHARED_PREFERENCES.MAIL_SHOW_BUTTON_SEARCH" (click)="updateMyPreferences()"></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>

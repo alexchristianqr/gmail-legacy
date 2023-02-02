@@ -17,7 +17,6 @@ export class ModalSettingsDetail implements OnInit {
 
   constructor(private storage: Storage, private httpService: HttpServiceProvider, private router: Router) {
     this.MYSHAREDPREFERENCES = this.httpService.initSharedPreferences
-    console.log('jajajajajajaj', this.MYSHAREDPREFERENCES)
     // this.httpService.loadPreferences(this.myDatabase)
     this.httpService.loadPreferences(this.mySharedPreferences, this)
     // this.httpService.getStorage(this.mySharedPreferences).then((res) => {
@@ -26,8 +25,8 @@ export class ModalSettingsDetail implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpService.loadPreferences(this.mySharedPreferences,this)
-    this.httpService.loadPreferences(this.myDatabase,this)
+    this.httpService.loadPreferences(this.mySharedPreferences, this)
+    this.httpService.loadPreferences(this.myDatabase, this)
     this.httpService.getStorage(this.mySharedPreferences).then((res) => {
       this.MYSHAREDPREFERENCES = res
     })

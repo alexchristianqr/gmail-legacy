@@ -1,13 +1,12 @@
-import { Injectable, OnInit } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { SHARED_PREFERENCES } from '../../app/shared-preferences'
 import { Storage } from '@ionic/storage-angular'
-import { resize } from 'ionicons/icons'
 import { MyPreferences } from '../../app/core/types/MyPreferences'
 
 @Injectable({
   providedIn: 'root',
 })
-export class HttpServiceProvider implements OnInit {
+export class HttpServiceProvider {
   private initDataDB: Array<any> = [
     {
       created_at: '2023-01-25 11:50',
@@ -131,50 +130,35 @@ export class HttpServiceProvider implements OnInit {
       to: 'sae@utp.edu.pe',
     },
   ]
-  public initSharedPreferences: MyPreferences = {
-    inbox: {
-      MAIL_SHOW_BUTTON_SYNC: true,
-      MAIL_SHOW_BUTTON_CLEAN: false,
-      MAIL_SHOW_BUTTON_SEARCH: true,
-    },
-    create: {
-      CONFIRM_BEFORE_SENDING: false,
-      CONFIRM_BEFORE_REMOVING: true,
-      CONFIRM_BEFORE_FILING: true,
-    },
-    detail: {
-      MAIL_SHOW_BUTTON_UN_READ: true,
-      MAIL_SHOW_BUTTON_REMOVE: true,
-      MAIL_SHOW_BUTTON_ARCHIVE: true,
-      CONFIRM_BEFORE_REMOVING: true,
-    },
-    general: {
-      DB: { DI: 'DATABASE_INBOX', DS: 'DATABASE_SENT' },
-    },
-  }
+  public initSharedPreferences: MyPreferences = SHARED_PREFERENCES
   public myDatabase: string = 'DATABASE_INBOX'
   public mySharedPreferences: string = 'SHARED_PREFERENCES'
 
   constructor(private storage: Storage) {
-    this.storeInitialize()
-  }
-
-  async ngOnInit() {
+    console.log('[HttpServiceProvider.constructor]')
     this.storeInitialize()
   }
 
   storeInitialize(): void {
+    console.log('[HttpServiceProvider.storeInitialize]')
+    this.storage = new Storage({
+      /* add your config here */
+    })
     this.storage.create().then(async () => {
-      await this.storage.set('DATABASE_INBOX', this.initDataDB)
-      await this.storage.set('SHARED_PREFERENCES', this.initSharedPreferences)
+      await this.loadDatabaseStorage(this.myDatabase)
+      await this.loadSharedPreferences()
+      // await this.storage.set('DATABASE_INBOX', this.initDataDB)
+      // await this.storage.set('SHARED_PREFERENCES', this.initSharedPreferences)
     })
   }
 
   async getStorage(label: string) {
-    return await this.storage.get(label)
+    console.log('[HttpServiceProvider.getStorage]', { label })
+    return this.storage.get(label)
   }
 
   async setStorage(key: string, value: any) {
+    console.log('[HttpServiceProvider.setStorage]', { key, value })
     return this.storage.set(key, value)
   }
 
@@ -208,66 +192,70 @@ export class HttpServiceProvider implements OnInit {
   }
 
   loadPreferences(label: string, self?: any): void {
-    console.log('Cargar base de datos (', label, ')')
+    console.log('[HttpServiceProvider.loadPreferences]')
 
-    this.getStorage(label).then((data) => {
+    // this.getStorage(label).then((data) => {
+    //   if (!data) {
+    //     switch (label) {
+    //       case 'SHARED_PREFERENCES':
+    //         this.setStorage(label, this.initSharedPreferences).then((res) => {
+    //           self.MYSHAREDPREFERENCES = res
+    //           console.log('Carga de bd por default!')
+    //         })
+    //         break
+    //       case 'DATABASE_INBOX':
+    //         this.setStorage(label, this.initDataDB).then((res) => {
+    //           console.log('Carga de bd por default!')
+    //         })
+    //         break
+    //     }
+    //     return
+    //   }
+    //   this.setStorage(label, data).then(() => {
+    //     console.log('Cargar de base de datos por caché!')
+    //   })
+    // })
+  }
+
+  async loadDatabaseStorage(label: string) {
+    console.log('[HttpServiceProvider.loadDatabaseStorage]')
+
+    return this.getStorage(label).then((data) => {
       if (!data) {
-        switch (label) {
-          case 'SHARED_PREFERENCES':
-            this.setStorage(label, this.initSharedPreferences).then((res) => {
-              console.log('okiii', self)
-              console.log(self.MYSHAREDPREFERENCES, 'aquii')
-              self.MYSHAREDPREFERENCES = res
-              console.log('Carga de bd por default!')
-            })
-            break
-          case 'DATABASE_INBOX':
-            this.setStorage(label, this.initDataDB).then((res) => {
-              console.log('Carga de bd por default!')
-            })
-            break
-        }
-        return
+        return this.setStorage(label, this.initDataDB).then(() => {
+          console.log(`Cargar BD ${label} por defecto`)
+          return this.getStorage(label)
+        })
       }
-      this.setStorage(label, data).then((res) => {
-        console.log('Carga de base de datos por caché!')
+      return this.setStorage(label, data).then(() => {
+        console.log(`Cargar BD ${label} por caché`)
+        return this.getStorage(label)
       })
     })
-    // if (!data) {
-    //   await this.setStorage(label, this.initSharedPreferences)
-    //   console.log('Carga de base de datos por default!')
-    //   return
-    // // }
-    // await this.setStorage(label, data)
-    // console.log('Carga de base de datos por caché!')
-    // return
+  }
 
-    // this.storage
-    //   .get('SHARED_PREFERENCE')
-    //   .then((data: any) => {
-    //     if (data != null) {
-    //       if (self.MYSHAREDPREFERENCES != undefined) {
-    //         self.MYSHAREDPREFERENCES = data
-    //         console.log(data)
-    //       }
-    //       console.log('Loaded shared preferences cache!')
-    //     } else {
-    //       self.storage
-    //         .set('SHARED_PREFERENCE', this.initSharedPreferences)
-    //         .then((data: any) => {
-    //           if (self.MYSHAREDPREFERENCES != undefined) {
-    //             self.MYSHAREDPREFERENCES = data
-    //           }
-    //           console.log('Loaded shared preferences by default!')
-    //         })
-    //         .catch((error: any) => {
-    //           console.log(error)
-    //         })
-    //     }
-    //   })
-    //   .catch((error: any) => {
-    //     console.error(error)
-    //   })
+  async loadSharedPreferences() {
+    console.log('[HttpServiceProvider.loadSharedPreferences]')
+
+    return this.getStorage(this.mySharedPreferences).then((data) => {
+      if (!data) {
+        return this.setStorage(this.mySharedPreferences, this.initSharedPreferences).then((data) => {
+          console.log({ data })
+          // SHARED_PREFERENCES.create = data.create
+          // SHARED_PREFERENCES.inbox = data.inbox
+          // SHARED_PREFERENCES.detail = data.detail
+          // SHARED_PREFERENCES.general = data.general
+          console.log(`Cargar BD ${this.mySharedPreferences} por defecto`)
+          return this.getStorage(this.mySharedPreferences)
+          // .then(data => console.log({data}))
+        })
+      }
+      return this.setStorage(this.mySharedPreferences, data).then(() => {
+        console.log(`Cargar BD ${this.mySharedPreferences} por caché`)
+        return this.getStorage(this.mySharedPreferences)
+        // .then(data => console.log({data}))
+      })
+    })
   }
 
   create(self: any) {

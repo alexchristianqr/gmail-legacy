@@ -14,7 +14,7 @@ export const SHARED_PREFERENCES = {
   DB: { DI: 'DATABASE_INBOX', DS: 'DATABASE_SENT' },
 
   inbox: {
-    MAIL_SHOW_BUTTON_SYNC: true,
+    MAIL_SHOW_BUTTON_SYNC: false,
     MAIL_SHOW_BUTTON_CLEAN: false,
     MAIL_SHOW_BUTTON_SEARCH: true,
   },

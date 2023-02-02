@@ -10,6 +10,7 @@ import { MyMessage } from '../../core/types/MyMessage'
 import { MyParams } from '../../core/types/MyParams'
 import { MyPreferences } from '../../core/types/MyPreferences'
 import { resize } from 'ionicons/icons'
+import { EventService } from '../../core/services/events/event.service'
 
 @Component({
   selector: 'page-detail',
@@ -23,6 +24,7 @@ export class DetailPage implements OnInit {
   public MYSHAREDPREFERENCES: MyPreferences
 
   constructor(
+    private eventService: EventService,
     private popoverCtrl: PopoverController,
     private httpService: HttpServiceProvider,
     private notificationService: NotificationServiceProvider,
@@ -31,23 +33,28 @@ export class DetailPage implements OnInit {
     private storage: Storage,
     private router: Router
   ) {
+    console.log('[DetailPage.constructor]')
     this.MYSHAREDPREFERENCES = this.httpService.initSharedPreferences
     this.getState()
   }
 
   ngOnInit() {
-    this.httpService.loadPreferences(this.myDatabase, this)
-    this.httpService.loadPreferences(this.mySharedPreferences, this)
+    console.log('[DetailPage.ngOnInit]')
+    // this.httpService.loadPreferences(this.myDatabase, this)
+    // this.httpService.loadPreferences(this.mySharedPreferences, this)
     this.getState()
   }
 
   getState(): void {
+    console.log('[DetailPage.getState]')
     this.data = this.router.getCurrentNavigation()?.extras.state
+    // console.log(data)
     this.item = this.data?.item
-    console.log(this.item)
+    // this.eventService.publish(this.item)
   }
 
   async back() {
+    this.eventService.publish(this.item)
     await this.router.navigate([this.data.path])
   }
 

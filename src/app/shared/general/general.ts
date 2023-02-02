@@ -9,9 +9,14 @@ import { HttpServiceProvider } from '../../../providers/http-service/http-servic
   templateUrl: 'general.html',
 })
 export class GeneralPage {
-  myDatabase : string = 'DATABASE_INBOX'
+  myDatabase: string = 'DATABASE_INBOX'
 
-  constructor(public httpService: HttpServiceProvider, public dialogService: DialogServiceProvider, public storage: Storage, public notificationService: NotificationServiceProvider) {
+  constructor(
+    public httpService: HttpServiceProvider,
+    public dialogService: DialogServiceProvider,
+    public storage: Storage,
+    public notificationService: NotificationServiceProvider
+  ) {
     console.log('GeneralPage!')
   }
 
