@@ -1,45 +1,28 @@
-import { Component, OnInit } from '@angular/core'
-import { Storage } from '@ionic/storage'
+import { Component } from '@angular/core'
 import { HttpServiceProvider } from '../../../../providers/http-service/http-service'
 import { Router } from '@angular/router'
 import { MyPreferences } from '../../../core/types/MyPreferences'
-import { resize } from 'ionicons/icons'
+import { SHARED_PREFERENCES } from '../../../shared-preferences'
 
 @Component({
   selector: 'page-modal-detail',
   templateUrl: 'modal-settings-detail.html',
 })
-export class ModalSettingsDetail implements OnInit {
-  myDatabase: string = 'DATABASE_INBOX'
+export class ModalSettingsDetail {
   mySharedPreferences: string = 'SHARED_PREFERENCES'
-  public MYSHAREDPREFERENCES: MyPreferences
-  mivalor = false
+  MY_SHARED_PREFERENCES: MyPreferences = SHARED_PREFERENCES
 
-  constructor(private storage: Storage, private httpService: HttpServiceProvider, private router: Router) {
-    this.MYSHAREDPREFERENCES = this.httpService.initSharedPreferences
-    // this.httpService.loadPreferences(this.myDatabase)
-    this.httpService.loadPreferences(this.mySharedPreferences, this)
-    // this.httpService.getStorage(this.mySharedPreferences).then((res) => {
-    //   this.MYSHAREDPREFERENCES = res
-    // })
-  }
-
-  ngOnInit(): void {
-    this.httpService.loadPreferences(this.mySharedPreferences, this)
-    this.httpService.loadPreferences(this.myDatabase, this)
-    this.httpService.getStorage(this.mySharedPreferences).then((res) => {
-      this.MYSHAREDPREFERENCES = res
-    })
+  constructor(private httpService: HttpServiceProvider, private router: Router) {
+    console.log('[ModalSettingsDetail.constructor]')
   }
 
   async back() {
+    console.log('[ModalSettingsDetail.back]')
     await this.router.navigate(['inbox-detail'])
   }
 
   async updateMyPreferences() {
-    return this.httpService.setStorage(this.mySharedPreferences, this.MYSHAREDPREFERENCES).then((res) => {
-      console.log('Shared preferences actualizado!')
-      this.httpService.loadPreferences(this.mySharedPreferences, { self: this })
-    })
+    console.log('[ModalSettingsDetail.updateMyPreferences]')
+    await this.httpService.setRemoveStorage(this.mySharedPreferences, this.MY_SHARED_PREFERENCES)
   }
 }

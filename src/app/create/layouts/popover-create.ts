@@ -1,22 +1,18 @@
 import { Component } from '@angular/core'
 import { ModalController } from '@ionic/angular'
-import { ModalSettingsCreate } from './modal-settings-create'
 import { Router } from '@angular/router'
-
-type MyPopover = {
-  title: string
-  path: string
-}
+import { MyPopover } from '../../core/types/MyPopover'
 
 @Component({
   selector: 'page-popover-create',
   templateUrl: 'popover-create.html',
 })
 export class PopoverCreatePage {
-  list: Array<MyPopover>
+  items: Array<MyPopover>
 
-  constructor(public modalCtrl: ModalController, public router: Router) {
-    this.list = [
+  constructor(private router: Router) {
+    console.log('[PopoverCreatePage.constructor]')
+    this.items = [
       { title: 'Add Contacts', path: 'create-settings' },
       { title: 'Discard', path: 'create-settings' },
       { title: 'Settings', path: 'create-settings' },
@@ -25,6 +21,7 @@ export class PopoverCreatePage {
   }
 
   async open(payload: MyPopover) {
+    console.log('[PopoverCreatePage.open]')
     await this.router.navigate([payload.path])
   }
 }

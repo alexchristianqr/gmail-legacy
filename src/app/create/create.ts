@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core'
-import { Storage } from '@ionic/storage'
 import { Router } from '@angular/router'
 import { PopoverCreatePage } from './layouts/popover-create'
 import { AlertController, PopoverController } from '@ionic/angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { StorageService } from '../core/services/storage/storage.service'
+import { HttpServiceProvider } from '../../providers/http-service/http-service'
+import { MyMessage } from '../core/types/MyMessage'
 
 @Component({
   selector: 'page-create',
@@ -16,21 +17,24 @@ export class CreatePage implements OnInit {
   loading: boolean = false
 
   constructor(
+    private httpService: HttpServiceProvider,
     private storageService: StorageService,
     private formBuilder: FormBuilder,
     public popoverCtrl: PopoverController,
-    public storage: Storage,
     public router: Router,
     private alertController: AlertController
   ) {
+    console.log('[CreatePage.constructor]')
     this.formGroup = this.formGroupInitialize()
   }
 
   ngOnInit(): void {
+    console.log('[CreatePage.ngOnInit]')
     this.formGroup = this.formGroupInitialize()
   }
 
   formGroupInitialize(): FormGroup {
+    console.log('[CreatePage.formGroupInitialize]')
     return this.formBuilder.group({
       name: this.formBuilder.control(null, [Validators.required]),
       database: this.formBuilder.control('DATABASE_INBOX', [Validators.required]),
@@ -44,10 +48,13 @@ export class CreatePage implements OnInit {
   }
 
   async back() {
+    console.log('[CreatePage.back]')
     await this.router.navigate(['inbox'])
   }
 
   async presentAlert() {
+    console.log('[CreatePage.presentAlert]')
+
     const alert = await this.alertController.create({
       header: 'Alerta',
       message: 'No se puede enviar tu mensaje, porque hay campos vacios.',
@@ -62,11 +69,15 @@ export class CreatePage implements OnInit {
   }
 
   async presentPopover(event: Event) {
+    console.log('[CreatePage.presentPopover]')
+
     const popover = await this.popoverCtrl.create({ component: PopoverCreatePage, event: event, dismissOnSelect: true })
     await popover.present()
   }
 
   async onSubmit() {
+    console.log('[CreatePage.onSubmit]')
+
     this.submitted = true
 
     // Detener envío del formulario
@@ -77,32 +88,16 @@ export class CreatePage implements OnInit {
     // Set data
     this.loading = true
     const data = this.formGroup.value
-    console.log({ data })
 
     // API
-    return this.storage
-      .get(data.database)
-      .then((res) => {
-        const messages: Array<object> = [...res]
+    return this.httpService
+      .getStorage(data.database)
+      .then(async (res) => {
+        const messages: Array<MyMessage> = [...res]
         messages.unshift(data)
-        this.storage.set(data.database, messages)
-        this.back()
-        // function doFunc() {
-        //   // self.notificationService.notifyInfo('Sending...', 0)
-        //   this.httpService.create(self)
-        // }
 
-        // if (data != null) {
-        //   if (data.CONFIRM_BEFORE_SENDING) {
-        //     this.dialogService.dialogQuestion('', 'Do you want to send this message?', () => {
-        //       doFunc()
-        //     })
-        //   } else {
-        //     doFunc()
-        //   }
-        // } else {
-        //   doFunc()
-        // }
+        await this.httpService.setStorage(data.database, messages)
+        await this.back()
       })
       .catch((error) => {
         console.error(error)

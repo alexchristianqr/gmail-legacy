@@ -31,7 +31,7 @@ export class MailsInboxPage implements OnDestroy {
     private router: Router
   ) {
     console.log('[MailsInboxPage.constructor]')
-    this.mySubscribe$ = this.eventService.dataSource.subscribe(() => this.listInbox(true))
+    this.mySubscribe$ = this.eventService.dataSource.subscribe(() => this.listInbox())
     this.listInbox()
   }
 
@@ -40,15 +40,11 @@ export class MailsInboxPage implements OnDestroy {
     this.mySubscribe$.unsubscribe()
   }
 
-  listInbox(loadPreferences: boolean = false): void {
-    this.httpService.loadDatabaseStorage(this.myDatabase).then((data) => {
-      this.items = data
-      if (!loadPreferences) return
-      this.httpService.loadSharedPreferences().then((data) => {
-        this.MY_SHARED_PREFERENCES.create = data.create
-        this.MY_SHARED_PREFERENCES.inbox = data.inbox
-        this.MY_SHARED_PREFERENCES.detail = data.detail
-        this.MY_SHARED_PREFERENCES.general = data.general
+  listInbox(): void {
+    this.httpService.loadSharedPreferences().then((data: MyPreferences) => {
+      this.MY_SHARED_PREFERENCES.SETTINGS = data.SETTINGS
+      this.httpService.loadDatabaseStorage(this.myDatabase).then((data) => {
+        this.items = data
       })
     })
   }

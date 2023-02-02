@@ -9,19 +9,18 @@ import { Router } from '@angular/router'
 import { MyMessage } from '../../core/types/MyMessage'
 import { MyParams } from '../../core/types/MyParams'
 import { MyPreferences } from '../../core/types/MyPreferences'
-import { resize } from 'ionicons/icons'
 import { EventService } from '../../core/services/events/event.service'
+import { SHARED_PREFERENCES } from '../../shared-preferences'
 
 @Component({
   selector: 'page-detail',
   templateUrl: 'detail.html',
 })
 export class DetailPage implements OnInit {
+  myDatabase: string = 'DATABASE_INBOX'
+  MY_SHARED_PREFERENCES: MyPreferences = SHARED_PREFERENCES
   data: MyParams | any
   item?: MyMessage
-  myDatabase: string = 'DATABASE_INBOX'
-  mySharedPreferences: string = 'SHARED_PREFERENCES'
-  public MYSHAREDPREFERENCES: MyPreferences
 
   constructor(
     private eventService: EventService,
@@ -34,92 +33,55 @@ export class DetailPage implements OnInit {
     private router: Router
   ) {
     console.log('[DetailPage.constructor]')
-    this.MYSHAREDPREFERENCES = this.httpService.initSharedPreferences
     this.getState()
+    this.updateMessageReadOrUnread('Mensaje leido', true)
   }
 
   ngOnInit() {
     console.log('[DetailPage.ngOnInit]')
-    // this.httpService.loadPreferences(this.myDatabase, this)
-    // this.httpService.loadPreferences(this.mySharedPreferences, this)
     this.getState()
   }
 
   getState(): void {
     console.log('[DetailPage.getState]')
     this.data = this.router.getCurrentNavigation()?.extras.state
-    // console.log(data)
     this.item = this.data?.item
     // this.eventService.publish(this.item)
   }
 
   async back() {
+    console.log('[DetailPage.back]')
     this.eventService.publish(this.item)
     await this.router.navigate([this.data.path])
   }
 
-  async fnRemove() {
-    return this.storage
-      .get('SHARED_PREFERENCE')
-      .then((data) => {
-        let doFunc = () => {
-          this.notificationService.notifyInfo('Removing...', 0)
-          this.httpService.remove(this, this.data.database)
-        }
+  /**
+   * Eliminar mensaje
+   */
+  async deleteMessage() {
+    console.log('[DetailPage.deleteMessage]')
+    return this.httpService.removeItem(this.myDatabase, this.item).then(() => {
+      console.log('item eliminado')
+      this.back()
+    })
+  }
 
-        if (data != null) {
-          if (data.CONFIRM_BEFORE_REMOVING) {
-            this.dialogService.dialogQuestion('', 'Do you want to remove this mail?', () => {
-              doFunc()
-            })
-          } else {
-            doFunc()
-          }
-        } else {
-          doFunc()
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+  /**
+   * Aatualizar mensaje como leído o no leído
+   * @param label
+   * @param value
+   */
+  updateMessageReadOrUnread(label: string, value: boolean): void {
+    console.log('[DetailPage.markMessageReadOrUnread]')
+    this.httpService.updateItem(this.myDatabase, this.item, 'is_read', value).then(async () => {
+      console.log(label)
+      if (!value) await this.back() // Solamente al marcar como no leido volver a INBOX
+    })
   }
 
   async presentPopover(event: Event) {
+    console.log('[DetailPage.presentPopover]')
     const popover = await this.popoverCtrl.create({ component: PopoverDetailPage, event: event, dismissOnSelect: true })
     await popover.present()
-  }
-
-  update(objeto: any, index: any, bool = null) {
-    objeto.is_read = bool != null ? bool : true
-    this.storage
-      .get(objeto.database)
-      .then((data) => {
-        if (data != null) {
-          data.forEach((value: any, key: any) => {
-            if (key == index) {
-              data[key] = objeto
-            }
-          })
-          this.storage
-            .set(objeto.database, data)
-            .then(() => {
-              console.log('Object of database storage updated!')
-            })
-            .catch((error) => {
-              console.error(error)
-            })
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-  }
-
-  async fnUnRead() {
-    this.notificationService.notifyInfo('Changing...', 0)
-    // await this.update(this.data, this.index, false)
-    await this.navCtrl.pop()
-    this.notificationService.toast.dismiss()
-    this.notificationService.notifyInfo('Changed mail to unread')
   }
 }

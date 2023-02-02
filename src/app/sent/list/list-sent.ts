@@ -52,11 +52,11 @@ export class MailsSentPage implements OnDestroy {
   }
 
   async fnViewSearch() {
-    return this.modalCtrl.create({ component: SearchPage, componentProps: { database: SHARED_PREFERENCES.DB.DS } })
+    return this.modalCtrl.create({ component: SearchPage, componentProps: { database: SHARED_PREFERENCES.SETTINGS.DB.DS } })
   }
 
   async fnViewCreate() {
-    return this.modalCtrl.create({ component: CreatePage, componentProps: { database: SHARED_PREFERENCES.DB.DS } })
+    return this.modalCtrl.create({ component: CreatePage, componentProps: { database: SHARED_PREFERENCES.SETTINGS.DB.DS } })
   }
 
   fnFetch() {

@@ -1,45 +1,28 @@
 import { Component } from '@angular/core'
-import { DialogServiceProvider } from '../../../../providers/dialog-service/dialog-service'
-import { Storage } from '@ionic/storage'
-import { NotificationServiceProvider } from '../../../../providers/notification-service/notification-service'
 import { Router } from '@angular/router'
 import { AlertController } from '@ionic/angular'
-
-type MyPopover = {
-  title: string
-  path: string | null
-  dispatch: string | null
-}
+import { MyPopover } from '../../../core/types/MyPopover'
+import { HttpServiceProvider } from '../../../../providers/http-service/http-service'
 
 @Component({
   selector: 'page-popover-mail',
   templateUrl: 'popover-list-inbox.html',
 })
 export class PopoverMailPage {
-  list: Array<MyPopover>
+  myDatabase: string = 'DATABASE_INBOX'
+  items: Array<MyPopover>
 
-  constructor(
-    public notificationService: NotificationServiceProvider,
-    public dialogService: DialogServiceProvider,
-    public storage: Storage,
-    public router: Router,
-    private alertController: AlertController
-  ) {
-    this.list = [
-      { title: 'Settings', path: 'inbox-settings', dispatch: null },
-      { title: 'Clean database', path: null, dispatch: 'fnClean' },
+  constructor(private httpService: HttpServiceProvider, private router: Router, private alertController: AlertController) {
+    console.log('[PopoverMailPage.constructor]')
+    this.items = [
+      { title: 'Settings', path: 'inbox-settings' },
+      { title: 'Clean database', dispatch: 'presentAlert' },
     ]
   }
 
-  async fnClean() {
-    return this.dialogService.dialogQuestion('Warning', 'Do you want to clean the database INBOX?', () => {
-      this.storage.remove('DATABASE_INBOX').then(() => {
-        this.notificationService.notifyInfo('Database cleaned')
-      })
-    })
-  }
-
   async presentAlert() {
+    console.log('[PopoverMailPage.presentAlert]')
+
     const alert = await this.alertController.create({
       header: 'Alerta',
       subHeader: '¿Seguro que quieres limpiar la base de datos INBOX?',
@@ -49,8 +32,9 @@ export class PopoverMailPage {
           text: 'OK',
           role: 'cancel',
           handler: () => {
-            this.storage.remove('DATABASE_INBOX').then(() => {
-              this.notificationService.notifyInfo('Database cleaned')
+            this.httpService.removeStorage(this.myDatabase).then(() => {
+              console.log('eliminado')
+              // this.notificationService.notifyInfo('Database cleaned')
             })
           },
         },
@@ -65,11 +49,12 @@ export class PopoverMailPage {
   }
 
   async open(payload: MyPopover) {
+    console.log('[PopoverMailPage.open]')
     if (payload.path) {
       await this.router.navigate([payload.path])
     } else {
       switch (payload.dispatch) {
-        case 'fnClean':
+        case 'presentAlert':
           await this.presentAlert()
           break
       }
