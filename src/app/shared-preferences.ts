@@ -13,5 +13,5 @@ export let SHARED_PREFERENCES = {
     MAIL_SHOW_BUTTON_ARCHIVE: false,
 
     DB: { DI: 'DATABASE_INBOX', DS: 'DATABASE_SENT' },
-  }
+  },
 }
