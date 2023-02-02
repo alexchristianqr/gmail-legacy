@@ -10,7 +10,7 @@
       <ion-button *ngIf="MY_SHARED_PREFERENCES.SETTINGS.MAIL_SHOW_BUTTON_REMOVE" class="p-r-15 my-icon" (click)="deleteMessage()">
         <ion-icon slot="icon-only" name="trash"></ion-icon
       ></ion-button>
-      <ion-button *ngIf="MY_SHARED_PREFERENCES.SETTINGS.MAIL_SHOW_BUTTON_UN_READ" class="p-r-15 my-icon" (click)="updateMessageReadOrUnread('Mensaje leido', false)">
+      <ion-button *ngIf="MY_SHARED_PREFERENCES.SETTINGS.MAIL_SHOW_BUTTON_UN_READ" class="p-r-15 my-icon" (click)="updateMessageReadOrUnread('Mensaje no leido', false)">
         <ion-icon slot="icon-only" name="mail"></ion-icon
       ></ion-button>
       <ion-button class="p-r-15 my-icon" (click)="presentPopover($event)">

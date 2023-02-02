@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { NavController, PopoverController } from '@ionic/angular'
-import { NotificationServiceProvider } from '../../../providers/notification-service/notification-service'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
 import { PopoverDetailPage } from './layouts/popover-detail'
 import { Storage } from '@ionic/storage'
@@ -11,6 +10,7 @@ import { MyParams } from '../../core/types/MyParams'
 import { MyPreferences } from '../../core/types/MyPreferences'
 import { EventService } from '../../core/services/events/event.service'
 import { SHARED_PREFERENCES } from '../../shared-preferences'
+import { ToastController } from '@ionic/angular'
 
 @Component({
   selector: 'page-detail',
@@ -22,11 +22,14 @@ export class DetailPage implements OnInit {
   data: MyParams | any
   item?: MyMessage
 
+  // handlerMessage = '';
+  // roleMessage = '';
+
   constructor(
+    private toastController: ToastController,
     private eventService: EventService,
     private popoverCtrl: PopoverController,
     private httpService: HttpServiceProvider,
-    private notificationService: NotificationServiceProvider,
     private dialogService: DialogServiceProvider,
     private navCtrl: NavController,
     private storage: Storage,
@@ -60,6 +63,7 @@ export class DetailPage implements OnInit {
    */
   async deleteMessage() {
     console.log('[DetailPage.deleteMessage]')
+
     return this.httpService.removeItem(this.myDatabase, this.item).then(() => {
       console.log('item eliminado')
       this.back()
@@ -72,10 +76,14 @@ export class DetailPage implements OnInit {
    * @param value
    */
   updateMessageReadOrUnread(label: string, value: boolean): void {
-    console.log('[DetailPage.markMessageReadOrUnread]')
+    console.log('[DetailPage.updateMessageReadOrUnread]')
+
     this.httpService.updateItem(this.myDatabase, this.item, 'is_read', value).then(async () => {
       console.log(label)
-      if (!value) await this.back() // Solamente al marcar como no leido volver a INBOX
+      if (!value) {
+        await this.back()
+        await this.presentToast(label)
+      } // Solamente al marcar como no leido volver a INBOX
     })
   }
 
@@ -83,5 +91,15 @@ export class DetailPage implements OnInit {
     console.log('[DetailPage.presentPopover]')
     const popover = await this.popoverCtrl.create({ component: PopoverDetailPage, event: event, dismissOnSelect: true })
     await popover.present()
+  }
+
+  async presentToast(message: string, duration: number = 1500) {
+    console.log('[DetailPage.presentToast]')
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration,
+      position: 'bottom',
+    })
+    await toast.present()
   }
 }

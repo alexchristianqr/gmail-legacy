@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { SHARED_PREFERENCES } from '../../app/shared-preferences'
-import { Storage } from '@ionic/storage-angular'
+import { Storage } from '@ionic/storage'
 import { MyPreferences } from '../../app/core/types/MyPreferences'
 import { MyMessage } from '../../app/core/types/MyMessage'
 
