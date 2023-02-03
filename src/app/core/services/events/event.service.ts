@@ -12,7 +12,7 @@ export class EventService {
     console.log('[EventService.constructor]')
   }
 
-  publish(value: any): void {
+  publish(value?: any): void {
     console.log('[EventService.publish]')
     this.dataSource.next(value)
   }

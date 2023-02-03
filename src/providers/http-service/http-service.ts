@@ -305,37 +305,30 @@ export class HttpServiceProvider {
       })
   }
 
-  remove2(self: any, database: any): void {
-    self.storage
-      .get(database)
-      .then((data: any) => {
-        data.forEach((item: any, i: any) => {
-          if (self.index === i) {
-            data.splice(i, 1)
-            self.storage.set(database, data).then(() => {
-              if (database === 'DATABASE_SENT') {
-                //enviados
-                self.event.publish('eventMailsSentFetch')
-              } else if (database === 'DATABASE_INBOX') {
-                //bandeja de entrada
-                self.event.publish('eventMailsInboxFetch')
-              } else if (database === 'DATABASE_OUTBOX') {
-                //bandeja de salida
-              } else if (database === 'DATABASE_DRAFTS') {
-                //borradores
-              }
-              self.navCtrl.pop()
-            })
-            self.notificationService.toast.dismiss()
-            self.notificationService.notifyInfo('1 element removed successfully')
-          }
-        })
-      })
-      .catch((error: any) => {
-        console.error(error)
-        self.notificationService.toast.dismiss()
-        self.notificationService.notifyError('Error, element not removed')
-      })
+  async addItem(database: string, item: MyMessage | any) {
+    console.log('[HttpServiceProvider.addItem]', { database, item })
+
+    return this.getStorage(database).then((data: Array<MyMessage>) => {
+      // Agregar un item
+      data.unshift(item)
+
+      // Actualizar almacenamiento
+      this.setStorage(database, data)
+    })
+  }
+
+  async updateItem(database: string, item: MyMessage | any, keyItem: string, valueItem: any) {
+    console.log('[HttpServiceProvider.updateItem]', { database, item, keyItem, valueItem })
+
+    return this.getStorage(database).then((data: Array<MyMessage>) => {
+      // Encontrar un item
+      const dataFounded: any = data.find((value) => value.uid === item.uid)
+      if (!dataFounded) return
+      dataFounded[keyItem] = valueItem // Actualizar campo
+
+      // Actualizar almacenamiento
+      this.setStorage(database, data)
+    })
   }
 
   async removeItem(database: any, item: any) {
@@ -350,17 +343,21 @@ export class HttpServiceProvider {
     })
   }
 
-  async updateItem(database: string, item: MyMessage | any, keyItem: string, valueItem: any) {
-    console.log('[HttpServiceProvider.updateItem]', { database, item, keyItem, valueItem })
-
-    return this.getStorage(database).then((data: Array<MyMessage>) => {
-      // Encontrar item
-      const dataFounded: any = data.find((value) => value.uid === item.uid)
-      if (!dataFounded) return
-      dataFounded[keyItem] = valueItem // Actualizar campo
-
-      // Actualizar almacenamiento
-      this.setStorage(database, data)
-    })
+  async getUniqueUID(database: string) {
+    let uniqueUID
+    // this.getStorage(database).then((data:Array<any>) => {
+    //   const lastIndex = data.length - 1
+    //   const lastItem = data[lastIndex]
+    //   uniqueUID = (parseInt(lastItem.uid) + 1).toString()
+    //   console.log(uniqueUID)
+    //   return uniqueUID
+    // })
+    const data = await this.getStorage(database)
+    const lastIndex = data.length - 1
+    const lastItem = data[lastIndex]
+    uniqueUID = (parseInt(lastItem.uid) + 1).toString()
+    console.log(uniqueUID)
+    return uniqueUID
+    // return uniqueUID
   }
 }

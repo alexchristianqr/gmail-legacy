@@ -1,5 +1,5 @@
 export type MyMessage = {
-  uid?: string
+  uid: string
   database: string
   name: string
   subject: string
@@ -7,5 +7,5 @@ export type MyMessage = {
   from: string
   to: string
   is_read: boolean
-  created_at: string
+  created_at: Date | string
 }
