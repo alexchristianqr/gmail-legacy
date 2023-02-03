@@ -3,7 +3,6 @@ import { NavController, PopoverController } from '@ionic/angular'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
 import { PopoverDetailPage } from './layouts/popover-detail'
 import { Storage } from '@ionic/storage'
-import { DialogServiceProvider } from '../../../providers/dialog-service/dialog-service'
 import { Router } from '@angular/router'
 import { MyMessage } from '../../core/types/MyMessage'
 import { MyParams } from '../../core/types/MyParams'
@@ -27,7 +26,6 @@ export class DetailPage implements OnInit {
     private eventService: EventService,
     private popoverCtrl: PopoverController,
     private httpService: HttpServiceProvider,
-    private dialogService: DialogServiceProvider,
     private navCtrl: NavController,
     private storage: Storage,
     private router: Router
