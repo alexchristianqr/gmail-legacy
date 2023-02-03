@@ -61,7 +61,6 @@ export class CreatePage implements OnInit {
 
     // Obtener UID
     const uniqueUID = await this.getUniqueUID()
-    console.log({ uniqueUID })
     this.formGroup.patchValue({ uid: uniqueUID })
 
     // Detener envío del formulario
@@ -84,6 +83,9 @@ export class CreatePage implements OnInit {
       })
   }
 
+  /**
+   * Obtener UUID
+   */
   getUniqueUID() {
     return this.httpService.getUniqueUID()
   }
