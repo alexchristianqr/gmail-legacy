@@ -45,20 +45,16 @@ export class SearchPage implements OnInit {
     return this.storage
       .get(this.data.database)
       .then((res: Array<MyMessage>) => {
-        console.log({ res })
         if (!res) return
         //   if (value.toLowerCase().length == 0) {
         //     return (this.items = [])
         //   } else {
-        // @ts-ignore
-        this.items = res.filter((value: MyMessage, index: number, test) => {
-          if (
+        this.items = res.filter((value: any) => {
+          return (
             value.name.toLowerCase().indexOf(textSearch.toLowerCase()) > -1 ||
             value.subject.toLowerCase().indexOf(textSearch.toLowerCase()) > -1 ||
             value.message.toLowerCase().indexOf(textSearch.toLowerCase()) > -1
-          ) {
-            return true
-          }
+          )
         })
         //   }
         // }
