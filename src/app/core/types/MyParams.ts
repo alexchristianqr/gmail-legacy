@@ -1,8 +1,6 @@
-import { MyMessage } from './MyMessage'
-
 export type MyParams = {
-  database?: string | undefined // Un objeto simple
-  item?: MyMessage // Un objeto simple
-  items?: Array<Object> | null | undefined // Array de objetos de una clase
-  path?: string | undefined // Ruta de angular
+  database?: string // Un objeto simple
+  item?: object // Un objeto simple
+  items?: Array<object | any> // Array de objetos de una clase
+  path?: string // Ruta de angular
 }

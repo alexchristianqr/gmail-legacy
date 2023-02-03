@@ -5,11 +5,11 @@
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-searchbar placeholder="Buscar" (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-searchbar animated="true" placeholder="Buscar mensaje" (ionInput)="searchByEvent($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list *ngIf="items.length >= 1">
+  <ion-list *ngIf="items.length > 0">
     <ion-item-sliding *ngFor="let item of items;let i = index" (click)="fnViewDetail(item)">
       <ion-item>
         <ion-label style="margin: 0; padding: 0">
@@ -51,29 +51,27 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
-    <!--      <ion-button ion-item unset *ngFor="let item of items;let i = index" (click)="fnViewDetail(item)">-->
-    <!--        <ion-avatar item-left style="opacity: 0.8">-->
-    <!--          <button ion-fab [ngClass]="'button-profile color-' + item.name.charAt(0).toUpperCase()">-->
-    <!--            <span style="font-size: 1.8em">{{item.name.charAt(0).toUpperCase()}}</span>-->
-    <!--          </button>-->
-    <!--        </ion-avatar>-->
-    <!--        <h2 *ngIf="item.is_read">{{item.name}}</h2>-->
-    <!--        <h2 *ngIf="!item.is_read"><b>{{item.name}}</b></h2>-->
-    <!--        <h3 *ngIf="item.is_read">{{item.subject}}</h3>-->
-    <!--        <h3 *ngIf="!item.is_read"><b>{{item.subject}}</b></h3>-->
-    <!--        <p *ngIf="item.is_read">{{item.message}}</p>-->
-    <!--        <p *ngIf="!item.is_read"><b>{{item.message}}</b></p>-->
-    <!--      </ion-button>-->
   </ion-list>
-  <ion-list *ngIf="items.length <= 0">
+  <ion-list *ngIf="items.length < 1">
     <ion-grid>
-      <ion-row style="height: 100vw">
-        <ion-col style="top: 75%; bottom: 50%">
-          <ion-icon slot="icon-only" name="sad"></ion-icon>
-          <p>Search value not found</p>
+      <ion-row style="height: 100vh">
+        <ion-col size="12" style="top: -15%; text-align: center">
+          <ion-label>
+            <ion-icon slot="icon-only" name="mail-outline" size="large"></ion-icon>
+            <div>No se han encontrado mensajes.</div>
+          </ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-list>
+  <!--  <ion-list *ngIf="items.length <= 0">-->
+  <!--    <ion-grid>-->
+  <!--      <ion-row style="height: 100vw">-->
+  <!--        <ion-col style="top: 75%; bottom: 50%">-->
+  <!--          <ion-icon slot="icon-only" name="sad"></ion-icon>-->
+  <!--          <p>Search value not found</p>-->
+  <!--        </ion-col>-->
+  <!--      </ion-row>-->
+  <!--    </ion-grid>-->
+  <!--  </ion-list>-->
 </ion-content>

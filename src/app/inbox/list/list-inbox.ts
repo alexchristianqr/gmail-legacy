@@ -41,6 +41,7 @@ export class MailsInboxPage implements OnDestroy {
   }
 
   listInbox(): void {
+    console.log('[MailsInboxPage.listInbox]')
     this.httpService.loadSharedPreferences().then((data: MyPreferences) => {
       this.MY_SHARED_PREFERENCES.SETTINGS = data.SETTINGS
       this.httpService.loadDatabaseStorage(this.myDatabase).then((data) => {
@@ -50,41 +51,40 @@ export class MailsInboxPage implements OnDestroy {
   }
 
   async doRefresh(event: any) {
-    console.log('Begin async operation', { event })
+    console.log('[MailsInboxPage.doRefresh]')
     return this.storage
       .get(this.myDatabase)
       .then((data) => {
         setTimeout(() => {
           this.items = data
           this.httpService.loadPreferences(this.myDatabase, this)
-          console.log('Async operation has ended')
           event.target.complete()
         }, 2000)
       })
       .catch((error) => {
         console.error(error)
-        // this.dialogService.closeLoading()
       })
   }
 
   async fnViewDetail(item: MyMessage) {
+    console.log('[MailsInboxPage.fnViewDetail]')
     const data: MyParams = { item: item, path: 'inbox' }
-    // console.log({ data })
     await this.router.navigate(['inbox-detail'], { state: data })
-    // this.ngOnDestroy()
   }
 
   async fnViewSearch() {
+    console.log('[MailsInboxPage.fnViewSearch]')
     const data: MyParams = { database: 'DATABASE_INBOX', path: 'inbox' }
-    // console.log({ data })
     await this.router.navigate(['search'], { state: data })
   }
 
   async fnViewCreate() {
+    console.log('[MailsInboxPage.fnViewCreate]')
     await this.router.navigate(['create'])
   }
 
   async presentPopover(event: Event) {
+    console.log('[MailsInboxPage.presentPopover]')
     const popover = await this.popoverCtrl.create({ component: PopoverMailPage, event: event, dismissOnSelect: true })
     await popover.present()
   }

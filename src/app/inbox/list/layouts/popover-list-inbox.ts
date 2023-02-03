@@ -1,8 +1,9 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { AlertController } from '@ionic/angular'
+import { AlertController, ToastController } from '@ionic/angular'
 import { MyPopover } from '../../../core/types/MyPopover'
 import { HttpServiceProvider } from '../../../../providers/http-service/http-service'
+import { EventService } from '../../../core/services/events/event.service'
 
 @Component({
   selector: 'page-popover-mail',
@@ -12,12 +13,31 @@ export class PopoverMailPage {
   myDatabase: string = 'DATABASE_INBOX'
   items: Array<MyPopover>
 
-  constructor(private httpService: HttpServiceProvider, private router: Router, private alertController: AlertController) {
+  constructor(
+    private toastController: ToastController,
+    private eventService: EventService,
+    private httpService: HttpServiceProvider,
+    private router: Router,
+    private alertController: AlertController
+  ) {
     console.log('[PopoverMailPage.constructor]')
     this.items = [
       { title: 'Settings', path: 'inbox-settings' },
       { title: 'Clean database', dispatch: 'presentAlert' },
     ]
+  }
+
+  async open(payload: MyPopover) {
+    console.log('[PopoverMailPage.open]')
+    if (payload.path) {
+      await this.router.navigate([payload.path])
+    } else {
+      switch (payload.dispatch) {
+        case 'presentAlert':
+          await this.presentAlert()
+          break
+      }
+    }
   }
 
   async presentAlert() {
@@ -33,8 +53,8 @@ export class PopoverMailPage {
           role: 'cancel',
           handler: () => {
             this.httpService.removeStorage(this.myDatabase).then(() => {
-              console.log('eliminado')
-              // this.notificationService.notifyInfo('Database cleaned')
+              this.eventService.publish()
+              this.presentToast('Base de datos limpiada')
             })
           },
         },
@@ -48,16 +68,14 @@ export class PopoverMailPage {
     await alert.present()
   }
 
-  async open(payload: MyPopover) {
-    console.log('[PopoverMailPage.open]')
-    if (payload.path) {
-      await this.router.navigate([payload.path])
-    } else {
-      switch (payload.dispatch) {
-        case 'presentAlert':
-          await this.presentAlert()
-          break
-      }
-    }
+  async presentToast(message: string, duration: number = 1500) {
+    console.log('[PopoverMailPage.presentToast]')
+
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration,
+      position: 'bottom',
+    })
+    await toast.present()
   }
 }

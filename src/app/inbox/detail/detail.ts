@@ -22,9 +22,6 @@ export class DetailPage implements OnInit {
   data: MyParams | any
   item?: MyMessage
 
-  // handlerMessage = '';
-  // roleMessage = '';
-
   constructor(
     private toastController: ToastController,
     private eventService: EventService,
@@ -48,8 +45,7 @@ export class DetailPage implements OnInit {
   getState(): void {
     console.log('[DetailPage.getState]')
     this.data = this.router.getCurrentNavigation()?.extras.state
-    this.item = this.data?.item
-    // this.eventService.publish(this.item)
+    this.item = this.data.item
   }
 
   async back() {
@@ -65,7 +61,6 @@ export class DetailPage implements OnInit {
     console.log('[DetailPage.deleteMessage]')
 
     return this.httpService.removeItem(this.myDatabase, this.item).then(() => {
-      console.log('item eliminado')
       this.back()
     })
   }
@@ -79,11 +74,11 @@ export class DetailPage implements OnInit {
     console.log('[DetailPage.updateMessageReadOrUnread]')
 
     this.httpService.updateItem(this.myDatabase, this.item, 'is_read', value).then(async () => {
-      console.log(label)
-      if (!value) {
-        await this.back()
-        await this.presentToast(label)
-      } // Solamente al marcar como no leido volver a INBOX
+      if (value) return
+
+      // Solamente al marcar como no leido volver a INBOX y mostrar toast notificación
+      await this.back()
+      await this.presentToast(label)
     })
   }
 
