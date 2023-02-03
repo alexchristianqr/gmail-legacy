@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
-import { PopoverController } from '@ionic/angular'
+import { AlertController, PopoverController, ToastController } from '@ionic/angular'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
 import { PopoverMailPage } from './layouts/popover-list-inbox'
 import { Router } from '@angular/router'
@@ -22,7 +22,14 @@ export class MailsInboxPage implements OnDestroy {
   mySubscribe$: Subscription
   items: Array<MyMessage> = []
 
-  constructor(private eventService: EventService, private popoverCtrl: PopoverController, private httpService: HttpServiceProvider, private router: Router) {
+  constructor(
+    private toastController: ToastController,
+    private alertController: AlertController,
+    private eventService: EventService,
+    private popoverCtrl: PopoverController,
+    private httpService: HttpServiceProvider,
+    private router: Router
+  ) {
     console.log('[MailsInboxPage.constructor]')
     this.mySubscribe$ = this.eventService.dataSource.subscribe(() => this.listInbox())
     this.listInbox()
@@ -68,9 +75,54 @@ export class MailsInboxPage implements OnDestroy {
     await this.router.navigate(['create'])
   }
 
+  async fnCleanDB() {
+    this.httpService.removeStorage(this.myDatabase).then(() => {
+      this.presentAlert()
+    })
+  }
+
+  async presentAlert() {
+    console.log('[PopoverMailPage.presentAlert]')
+
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      subHeader: '¿Seguro que quieres limpiar la base de datos INBOX?',
+      message: 'Esta acción eliminará todos los registros.',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'ok',
+          handler: () => {
+            this.httpService.removeStorage(this.myDatabase).then(() => {
+              this.eventService.publish()
+              this.presentToast('Base de datos limpiada')
+            })
+          },
+        },
+        {
+          text: 'CANCEL',
+          role: 'cancel',
+          handler: () => ({}),
+        },
+      ],
+    })
+    await alert.present()
+  }
+
   async presentPopover(event: Event) {
     console.log('[MailsInboxPage.presentPopover]')
     const popover = await this.popoverCtrl.create({ component: PopoverMailPage, event: event, dismissOnSelect: true })
     await popover.present()
+  }
+
+  async presentToast(message: string, duration: number = 1500) {
+    console.log('[PopoverMailPage.presentToast]')
+
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration,
+      position: 'bottom',
+    })
+    await toast.present()
   }
 }
