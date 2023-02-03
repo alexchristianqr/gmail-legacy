@@ -13,11 +13,9 @@ import { EventService } from '../core/services/events/event.service'
   templateUrl: 'create.html',
 })
 export class CreatePage implements OnInit {
-  myDatabase: string = 'DATABASE_INBOX'
   formGroup: FormGroup
   submitted: boolean | undefined
   loading: boolean = false
-  uniqueUID: string = ''
 
   constructor(
     private eventService: EventService,
@@ -63,6 +61,7 @@ export class CreatePage implements OnInit {
 
     // Obtener UID
     const uniqueUID = await this.getUniqueUID()
+    console.log({ uniqueUID })
     this.formGroup.patchValue({ uid: uniqueUID })
 
     // Detener envío del formulario
@@ -86,7 +85,7 @@ export class CreatePage implements OnInit {
   }
 
   getUniqueUID() {
-    return this.httpService.getUniqueUID(this.myDatabase)
+    return this.httpService.getUniqueUID()
   }
 
   /**

@@ -3,6 +3,7 @@ import { SHARED_PREFERENCES } from '../../app/shared-preferences'
 import { Storage } from '@ionic/storage'
 import { MyPreferences } from '../../app/core/types/MyPreferences'
 import { MyMessage } from '../../app/core/types/MyMessage'
+import uuid from 'uuidv4'
 
 @Injectable({
   providedIn: 'root',
@@ -343,21 +344,7 @@ export class HttpServiceProvider {
     })
   }
 
-  async getUniqueUID(database: string) {
-    let uniqueUID
-    // this.getStorage(database).then((data:Array<any>) => {
-    //   const lastIndex = data.length - 1
-    //   const lastItem = data[lastIndex]
-    //   uniqueUID = (parseInt(lastItem.uid) + 1).toString()
-    //   console.log(uniqueUID)
-    //   return uniqueUID
-    // })
-    const data = await this.getStorage(database)
-    const lastIndex = data.length - 1
-    const lastItem = data[lastIndex]
-    uniqueUID = (parseInt(lastItem.uid) + 1).toString()
-    console.log(uniqueUID)
-    return uniqueUID
-    // return uniqueUID
+  async getUniqueUID() {
+    return uuid()
   }
 }

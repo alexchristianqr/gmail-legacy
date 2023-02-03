@@ -31,6 +31,7 @@
     "ionicons": "^6.0.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "uuidv4": "^5.0.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
