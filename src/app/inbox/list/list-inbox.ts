@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { PopoverController } from '@ionic/angular'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
-import { Storage } from '@ionic/storage'
 import { PopoverMailPage } from './layouts/popover-list-inbox'
 import { Router } from '@angular/router'
 import { MyMessage } from '../../core/types/MyMessage'
@@ -23,13 +22,7 @@ export class MailsInboxPage implements OnDestroy {
   mySubscribe$: Subscription
   items: Array<MyMessage> = []
 
-  constructor(
-    private eventService: EventService,
-    private popoverCtrl: PopoverController,
-    private httpService: HttpServiceProvider,
-    private storage: Storage,
-    private router: Router
-  ) {
+  constructor(private eventService: EventService, private popoverCtrl: PopoverController, private httpService: HttpServiceProvider, private router: Router) {
     console.log('[MailsInboxPage.constructor]')
     this.mySubscribe$ = this.eventService.dataSource.subscribe(() => this.listInbox())
     this.listInbox()
@@ -52,18 +45,10 @@ export class MailsInboxPage implements OnDestroy {
 
   async doRefresh(event: any) {
     console.log('[MailsInboxPage.doRefresh]')
-    return this.storage
-      .get(this.myDatabase)
-      .then((data) => {
-        setTimeout(() => {
-          this.items = data
-          this.httpService.loadPreferences(this.myDatabase, this)
-          event.target.complete()
-        }, 2000)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    setTimeout(() => {
+      this.listInbox()
+      event.target.complete()
+    }, 2000)
   }
 
   async fnViewDetail(item: MyMessage) {

@@ -22,8 +22,8 @@ export class PopoverMailPage {
   ) {
     console.log('[PopoverMailPage.constructor]')
     this.items = [
-      { title: 'Settings', path: 'inbox-settings' },
-      { title: 'Clean database', dispatch: 'presentAlert' },
+      { title: 'Configuración', path: 'inbox-settings' },
+      { title: 'Limpiar base de datos', dispatch: 'presentAlert' },
     ]
   }
 
@@ -46,11 +46,11 @@ export class PopoverMailPage {
     const alert = await this.alertController.create({
       header: 'Alerta',
       subHeader: '¿Seguro que quieres limpiar la base de datos INBOX?',
-      message: 'Esta acción eliminará todos los registros',
+      message: 'Esta acción eliminará todos los registros.',
       buttons: [
         {
           text: 'OK',
-          role: 'cancel',
+          role: 'ok',
           handler: () => {
             this.httpService.removeStorage(this.myDatabase).then(() => {
               this.eventService.publish()

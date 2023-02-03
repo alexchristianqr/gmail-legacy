@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage'
 import { MyPreferences } from '../../app/core/types/MyPreferences'
 import { MyMessage } from '../../app/core/types/MyMessage'
 import uuid from 'uuidv4'
+import { ReturnStatement } from '@angular/compiler'
 
 @Injectable({
   providedIn: 'root',
@@ -178,6 +179,7 @@ export class HttpServiceProvider {
 
     return this.getStorage(label).then((data) => {
       if (!data) {
+        if (!SHARED_PREFERENCES.SETTINGS.INITIALIZE_DATABASE) return []
         return this.setStorage(label, this.initDataDB).then((data) => {
           console.log(`Cargar BD ${label} por defecto`)
           return data
@@ -231,32 +233,6 @@ export class HttpServiceProvider {
   async removeStorage(key: string) {
     console.log('[HttpServiceProvider.removeStorage]', { key })
     await this.storage.remove(key)
-  }
-
-  loadPreferences(label: string, self?: any): void {
-    console.log('[HttpServiceProvider.loadPreferences]')
-
-    // this.getStorage(label).then((data) => {
-    //   if (!data) {
-    //     switch (label) {
-    //       case 'SHARED_PREFERENCES':
-    //         this.setStorage(label, this.initSharedPreferences).then((res) => {
-    //           self.MYSHAREDPREFERENCES = res
-    //           console.log('Carga de bd por default!')
-    //         })
-    //         break
-    //       case 'DATABASE_INBOX':
-    //         this.setStorage(label, this.initDataDB).then((res) => {
-    //           console.log('Carga de bd por default!')
-    //         })
-    //         break
-    //     }
-    //     return
-    //   }
-    //   this.setStorage(label, data).then(() => {
-    //     console.log('Cargar de base de datos por caché!')
-    //   })
-    // })
   }
 
   create(self: any) {

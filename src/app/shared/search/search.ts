@@ -30,7 +30,7 @@ export class SearchPage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log('[SearchPage.ngOnInit]')
-    this.httpService.loadPreferences(this.myDatabase)
+    // this.httpService.loadSharedPreferences()
     this.getState()
   }
 
