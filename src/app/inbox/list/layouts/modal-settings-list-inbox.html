@@ -11,29 +11,28 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
-      <h2>Acciones</h2>
+      <h3>Acciones</h3>
     </ion-list-header>
-    <!--    <ion-item>-->
-    <!--      <ion-label>-->
-    <!--        <span>Show sync</span>-->
-    <!--        <p>button</p>-->
-    <!--      </ion-label>-->
-    <!--      <ion-checkbox [(ngModel)]="MY_SHARED_PREFERENCES.inbox.MAIL_SHOW_BUTTON_SYNC" (click)="updateMyPreferences()"></ion-checkbox>-->
-    <!--    </ion-item>-->
     <ion-item>
       <ion-label>
-        <h2>Boton de limpieza</h2>
-        <p style="font-size: 0.75rem">Mostrar boton para limpiar la base de datos principal.</p>
+        <h2>Botón eliminar</h2>
+        <p style="font-size: 0.75rem">Mostrar botón para eliminar o resetar la base de datos principal.</p>
       </ion-label>
       <ion-checkbox [(ngModel)]="MY_SHARED_PREFERENCES.SETTINGS.MAIL_SHOW_BUTTON_CLEAN" (click)="updateMyPreferences()"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>
-        <h2>Boton de búsqueda</h2>
-        <p style="font-size: 0.75rem">Mostrar boton de búsqueda en la barra principal.</p>
+        <h2>Botón buscar</h2>
+        <p style="font-size: 0.75rem">Mostrar botón de búsqueda en la barra principal.</p>
       </ion-label>
       <ion-checkbox [(ngModel)]="MY_SHARED_PREFERENCES.SETTINGS.MAIL_SHOW_BUTTON_SEARCH" (click)="updateMyPreferences()"></ion-checkbox>
     </ion-item>
+  </ion-list>
+  <ion-item-divider></ion-item-divider>
+  <ion-list>
+    <ion-list-header>
+      <h3>General</h3>
+    </ion-list-header>
     <ion-item>
       <ion-label>
         <h2>Base de datos</h2>

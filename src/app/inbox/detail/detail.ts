@@ -53,9 +53,32 @@ export class DetailPage implements OnInit {
   async deleteMessage() {
     console.log('[DetailPage.deleteMessage]')
 
-    return this.httpService.removeItem(this.myDatabase, this.item).then(() => {
-      this.back()
-    })
+    const action = () => {
+      return this.httpService.removeItem(this.myDatabase, this.item).then(() => {
+        this.back()
+      })
+    }
+
+    if (this.MY_SHARED_PREFERENCES.SETTINGS.CONFIRM_BEFORE_REMOVING) {
+      await this.utilsService.presentAlert({
+        subHeader: '¿Estas seguro de eliminar este mensaje?',
+        message: 'Esta acción eliminará tu mensaje de la lista.',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'ok',
+            handler: () => {
+              action()
+            },
+          },
+          {
+            handler: () => ({}),
+          },
+        ],
+      })
+    } else {
+      action()
+    }
   }
 
   /**
