@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { NavController, PopoverController } from '@ionic/angular'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
 import { PopoverDetailPage } from './layouts/popover-detail'
 import { Storage } from '@ionic/storage'
@@ -9,7 +8,7 @@ import { MyParams } from '../../core/types/MyParams'
 import { MyPreferences } from '../../core/types/MyPreferences'
 import { EventService } from '../../core/services/events/event.service'
 import { SHARED_PREFERENCES } from '../../shared-preferences'
-import { ToastController } from '@ionic/angular'
+import { UtilsService } from '../../core/services/utils/utils.service'
 
 @Component({
   selector: 'page-detail',
@@ -21,33 +20,29 @@ export class DetailPage implements OnInit {
   data: MyParams | any
   item?: MyMessage
 
-  constructor(
-    private toastController: ToastController,
-    private eventService: EventService,
-    private popoverCtrl: PopoverController,
-    private httpService: HttpServiceProvider,
-    private navCtrl: NavController,
-    private storage: Storage,
-    private router: Router
-  ) {
+  constructor(private utilsService: UtilsService, private eventService: EventService, private httpService: HttpServiceProvider, private storage: Storage, private router: Router) {
     console.log('[DetailPage.constructor]')
+
     this.getState()
     this.updateMessageReadOrUnread('Mensaje leido', true)
   }
 
   ngOnInit() {
     console.log('[DetailPage.ngOnInit]')
+
     this.getState()
   }
 
   getState(): void {
     console.log('[DetailPage.getState]')
+
     this.data = this.router.getCurrentNavigation()?.extras.state
     this.item = this.data.item
   }
 
   async back() {
     console.log('[DetailPage.back]')
+
     this.eventService.publish(this.item)
     await this.router.navigate([this.data.path])
   }
@@ -64,7 +59,7 @@ export class DetailPage implements OnInit {
   }
 
   /**
-   * Aatualizar mensaje como leído o no leído
+   * Actualizar mensaje como leído o no leído
    * @param label
    * @param value
    */
@@ -82,17 +77,13 @@ export class DetailPage implements OnInit {
 
   async presentPopover(event: Event) {
     console.log('[DetailPage.presentPopover]')
-    const popover = await this.popoverCtrl.create({ component: PopoverDetailPage, event: event, dismissOnSelect: true })
-    await popover.present()
+
+    await this.utilsService.presentPopover({ component: PopoverDetailPage, event: event })
   }
 
-  async presentToast(message: string, duration: number = 1500) {
+  async presentToast(message: string) {
     console.log('[DetailPage.presentToast]')
-    const toast = await this.toastController.create({
-      message: message,
-      duration: duration,
-      position: 'bottom',
-    })
-    await toast.present()
+
+    await this.utilsService.presentToast({ message })
   }
 }

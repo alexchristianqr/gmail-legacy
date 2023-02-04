@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
-import { AlertController, PopoverController, ToastController } from '@ionic/angular'
 import { HttpServiceProvider } from '../../../providers/http-service/http-service'
 import { PopoverMailPage } from './layouts/popover-list-inbox'
 import { Router } from '@angular/router'
@@ -9,6 +8,7 @@ import { MyPreferences } from '../../core/types/MyPreferences'
 import { EventService } from '../../core/services/events/event.service'
 import { Subscription } from 'rxjs'
 import { SHARED_PREFERENCES } from '../../shared-preferences'
+import { UtilsService } from '../../core/services/utils/utils.service'
 
 @Component({
   selector: 'page-mails-inbox',
@@ -22,26 +22,22 @@ export class MailsInboxPage implements OnDestroy {
   mySubscribe$: Subscription
   items: Array<MyMessage> = []
 
-  constructor(
-    private toastController: ToastController,
-    private alertController: AlertController,
-    private eventService: EventService,
-    private popoverCtrl: PopoverController,
-    private httpService: HttpServiceProvider,
-    private router: Router
-  ) {
+  constructor(private utilsService: UtilsService, private eventService: EventService, private httpService: HttpServiceProvider, private router: Router) {
     console.log('[MailsInboxPage.constructor]')
+
     this.mySubscribe$ = this.eventService.dataSource.subscribe(() => this.listInbox())
     this.listInbox()
   }
 
   ngOnDestroy() {
     console.log('[MailsInboxPage.ngOnDestroy]')
+
     this.mySubscribe$.unsubscribe()
   }
 
   listInbox(): void {
     console.log('[MailsInboxPage.listInbox]')
+
     this.httpService.loadSharedPreferences().then((data: MyPreferences) => {
       this.MY_SHARED_PREFERENCES.SETTINGS = data.SETTINGS
       this.httpService.loadDatabaseStorage(this.myDatabase).then((data) => {
@@ -52,6 +48,7 @@ export class MailsInboxPage implements OnDestroy {
 
   async doRefresh(event: any) {
     console.log('[MailsInboxPage.doRefresh]')
+
     setTimeout(() => {
       this.listInbox()
       event.target.complete()
@@ -60,38 +57,32 @@ export class MailsInboxPage implements OnDestroy {
 
   async fnViewDetail(item: MyMessage) {
     console.log('[MailsInboxPage.fnViewDetail]')
+
     const data: MyParams = { item: item, path: 'inbox' }
     await this.router.navigate(['inbox-detail'], { state: data })
   }
 
   async fnViewSearch() {
     console.log('[MailsInboxPage.fnViewSearch]')
+
     const data: MyParams = { database: 'DATABASE_INBOX', path: 'inbox' }
     await this.router.navigate(['search'], { state: data })
   }
 
   async fnViewCreate() {
     console.log('[MailsInboxPage.fnViewCreate]')
+
     await this.router.navigate(['create'])
   }
 
-  async fnCleanDB() {
-    this.httpService.removeStorage(this.myDatabase).then(() => {
-      this.presentAlert()
-    })
-  }
-
   async presentAlert() {
-    console.log('[PopoverMailPage.presentAlert]')
+    console.log('[MailsInboxPage.presentAlert]')
 
-    const alert = await this.alertController.create({
-      header: 'Alerta',
+    await this.utilsService.presentAlert({
       subHeader: '¿Seguro que quieres limpiar la base de datos INBOX?',
       message: 'Esta acción eliminará todos los registros.',
       buttons: [
         {
-          text: 'OK',
-          role: 'ok',
           handler: () => {
             this.httpService.removeStorage(this.myDatabase).then(() => {
               this.eventService.publish()
@@ -100,29 +91,21 @@ export class MailsInboxPage implements OnDestroy {
           },
         },
         {
-          text: 'CANCEL',
-          role: 'cancel',
           handler: () => ({}),
         },
       ],
     })
-    await alert.present()
   }
 
   async presentPopover(event: Event) {
     console.log('[MailsInboxPage.presentPopover]')
-    const popover = await this.popoverCtrl.create({ component: PopoverMailPage, event: event, dismissOnSelect: true })
-    await popover.present()
+
+    await this.utilsService.presentPopover({ component: PopoverMailPage, event: event })
   }
 
-  async presentToast(message: string, duration: number = 1500) {
-    console.log('[PopoverMailPage.presentToast]')
+  async presentToast(message: string) {
+    console.log('[MailsInboxPage.presentToast]')
 
-    const toast = await this.toastController.create({
-      message: message,
-      duration: duration,
-      position: 'bottom',
-    })
-    await toast.present()
+    await this.utilsService.presentToast({ message })
   }
 }
