@@ -7,12 +7,15 @@ import { HttpServiceProvider } from '../../providers/http-service/http-service'
 import { MyMessage } from '../core/types/MyMessage'
 import { EventService } from '../core/services/events/event.service'
 import { UtilsService } from '../core/services/utils/utils.service'
+import { MyPreferences } from '../core/types/MyPreferences'
+import { SHARED_PREFERENCES } from '../shared-preferences'
 
 @Component({
   selector: 'page-create',
   templateUrl: 'create.html',
 })
 export class CreatePage implements OnInit {
+  MY_SHARED_PREFERENCES: MyPreferences = SHARED_PREFERENCES
   formGroup: FormGroup
   submitted: boolean | undefined
   loading: boolean = false
@@ -72,14 +75,37 @@ export class CreatePage implements OnInit {
     const item: MyMessage = this.formGroup.value
 
     // API
-    return this.httpService
-      .addItem(item.database, item)
-      .then(async () => {
-        await this.back()
+    const action = () => {
+      return this.httpService
+        .addItem(item.database, item)
+        .then(async () => {
+          await this.back()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    }
+
+    // Validar shared preferences del usuario
+    console.log(this.MY_SHARED_PREFERENCES)
+    if (this.MY_SHARED_PREFERENCES.SETTINGS.CONFIRM_BEFORE_SENDING) {
+      await this.utilsService.presentAlert({
+        subHeader: '¿Estas seguro de enviar el mensaje?',
+        message: 'Esta acción enviará tu mensaje a la lista de enviados.',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'ok',
+            handler: () => action(),
+          },
+          {
+            handler: () => ({}),
+          },
+        ],
       })
-      .catch((error) => {
-        console.error(error)
-      })
+    } else {
+      return action()
+    }
   }
 
   /**

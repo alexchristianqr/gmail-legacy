@@ -53,23 +53,23 @@ export class DetailPage implements OnInit {
   async deleteMessage() {
     console.log('[DetailPage.deleteMessage]')
 
+    // API
     const action = () => {
       return this.httpService.removeItem(this.myDatabase, this.item).then(() => {
         this.back()
       })
     }
 
+    // Validar shared preferences del usuario
     if (this.MY_SHARED_PREFERENCES.SETTINGS.CONFIRM_BEFORE_REMOVING) {
       await this.utilsService.presentAlert({
         subHeader: '¿Estas seguro de eliminar este mensaje?',
-        message: 'Esta acción eliminará tu mensaje de la lista.',
+        message: 'Esta acción eliminará tu mensaje de la lista de inbox.',
         buttons: [
           {
             text: 'OK',
             role: 'ok',
-            handler: () => {
-              action()
-            },
+            handler: () => action(),
           },
           {
             handler: () => ({}),
@@ -77,7 +77,7 @@ export class DetailPage implements OnInit {
         ],
       })
     } else {
-      action()
+      return action()
     }
   }
 
