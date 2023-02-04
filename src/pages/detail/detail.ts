@@ -5,7 +5,6 @@ import { HttpServiceProvider } from '../../providers/http-service/http-service'
 import { PopoverDetailPage } from './popover-detail'
 import { Storage } from '@ionic/storage'
 import { DialogServiceProvider } from '../../providers/dialog-service/dialog-service'
-import * as moment from 'dayjs'
 
 @Component({
   selector: 'page-detail',
@@ -31,7 +30,7 @@ export class DetailPage {
     this.httpService.loadPreferences(this)
     this.data = this.navParams.data.data
     this.index = this.navParams.data.index
-    this.newdate = moment(this.data.created_at).format('ll')
+    this.newdate = new Date(this.data.created_at)
     this.update(this.navParams.data.data, this.navParams.data.index)
     this.event.subscribe('eventDetailFetch', () => {
       this.httpService.loadPreferences(this)

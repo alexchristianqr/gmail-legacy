@@ -5,7 +5,6 @@ import { HttpServiceProvider } from '../../providers/http-service/http-service'
 import { Storage } from '@ionic/storage'
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service'
 import { PopoverCreatePage } from './popover-create'
-import * as moment from 'dayjs'
 
 @Component({
   selector: 'page-create',
@@ -41,12 +40,11 @@ export class CreatePage {
     public storage: Storage,
     public event: Events
   ) {
-    moment.locale('es')
     this.params.database = this.navParams.data.database
     this.params.name = ''
     this.params.from = 'alexchristianqr@utp.edu.pe'
     this.params.to = 'teacher2022@utp.edu.pe'
-    this.params.created_at = moment().format('YYYY-MM-DD HH:mm')
+    this.params.created_at = Date.now()
     this.params.is_read = false
   }
 
