@@ -64,20 +64,36 @@ export class UtilsService {
     const usePayload: any = {}
 
     usePayload.header = payload.header || 'Alerta'
-    usePayload.subHeader = payload.subHeader || 'Titulo'
+    if (payload.subHeader) usePayload.subHeader = payload.subHeader
     usePayload.message = payload.message || 'Descripción'
-    usePayload.buttons = [
-      {
+    let buttons = []
+    usePayload.buttons = []
+    if (payload.buttons[0]) {
+      usePayload.buttons.push({
         text: payload.buttons[0]?.text || 'OK',
         role: payload.buttons[0]?.role || 'ok',
         handler: payload.buttons[0].handler,
-      },
-      {
+      })
+    }
+    if (payload.buttons[1]) {
+      usePayload.buttons.push({
         text: payload.buttons[1]?.text || 'CANCEL',
         role: payload.buttons[1]?.role || 'cancel',
         handler: payload.buttons[1].handler,
-      },
-    ]
+      })
+    }
+    // usePayload.buttons = [
+    //   {
+    //     text: payload.buttons[0]?.text || 'OK',
+    //     role: payload.buttons[0]?.role || 'ok',
+    //     handler: payload.buttons[0].handler,
+    //   },
+    //   {
+    //     text: payload.buttons[1]?.text || 'CANCEL',
+    //     role: payload.buttons[1]?.role || 'cancel',
+    //     handler: payload.buttons[1].handler,
+    //   },
+    // ]
 
     const alert = await this.alertController.create(usePayload)
     await alert.present()

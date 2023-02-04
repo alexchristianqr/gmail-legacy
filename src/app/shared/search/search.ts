@@ -13,7 +13,6 @@ import { SHARED_PREFERENCES } from '../../shared-preferences'
   templateUrl: 'search.html',
 })
 export class SearchPage implements OnInit, OnDestroy {
-  myDatabase: string = 'DATABASE_INBOX'
   MY_SHARED_PREFERENCES: MyPreferences = SHARED_PREFERENCES
   data: MyParams | any
   mySubscribe$: Subscription
@@ -21,6 +20,7 @@ export class SearchPage implements OnInit, OnDestroy {
 
   constructor(private eventService: EventService, private httpService: HttpServiceProvider, private router: Router) {
     console.log('[SearchPage.constructor]')
+
     this.mySubscribe$ = this.eventService.dataSource.subscribe(async () => {
       const searchText = await this.httpService.getStorage('TEXT_SEARCH')
       await this.getItems(searchText)
@@ -30,33 +30,38 @@ export class SearchPage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log('[SearchPage.ngOnInit]')
-    // this.httpService.loadSharedPreferences()
+
     this.getState()
   }
 
   ngOnDestroy() {
     console.log('[SearchPage.ngOnDestroy]')
+
     this.mySubscribe$.unsubscribe()
   }
 
   getState(): void {
     console.log('[SearchPage.getState]')
+
     this.data = this.router.getCurrentNavigation()?.extras.state
   }
 
   async back() {
     console.log('[SearchPage.back]')
+
     await this.router.navigate([this.data.path])
   }
 
   async fnViewDetail(item: MyMessage) {
     console.log('[SearchPage.back]')
+
     const data: MyParams = { item: item, path: 'search' }
     await this.router.navigate(['inbox-detail'], { state: data })
   }
 
   async searchByEvent(event: any) {
     console.log('[SearchPage.searchByEvent]')
+
     const searchText = event.target.value.toString()
     if (!searchText) return
     return this.getItems(searchText)
@@ -64,6 +69,7 @@ export class SearchPage implements OnInit, OnDestroy {
 
   async getItems(searchText: string) {
     console.log('[SearchPage.getItems]')
+
     if (!searchText) return
     await this.httpService.setStorage('TEXT_SEARCH', searchText)
 

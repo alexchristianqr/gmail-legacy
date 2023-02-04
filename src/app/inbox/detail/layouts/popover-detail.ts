@@ -11,11 +11,13 @@ export class PopoverDetailPage {
 
   constructor(private router: Router) {
     console.log('[PopoverDetailPage.constructor]')
+
     this.items = [{ title: 'Settings', path: 'inbox-detail-settings' }]
   }
 
   async open(payload: MyPopover) {
     console.log('[PopoverDetailPage.open]')
+
     await this.router.navigate([payload.path])
   }
 }

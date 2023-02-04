@@ -1,9 +1,9 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { AlertController, ToastController } from '@ionic/angular'
 import { MyPopover } from '../../../core/types/MyPopover'
 import { HttpServiceProvider } from '../../../../providers/http-service/http-service'
 import { EventService } from '../../../core/services/events/event.service'
+import { UtilsService } from '../../../core/services/utils/utils.service'
 
 @Component({
   selector: 'page-popover-mail',
@@ -13,14 +13,9 @@ export class PopoverMailPage {
   myDatabase: string = 'DATABASE_INBOX'
   items: Array<MyPopover>
 
-  constructor(
-    private toastController: ToastController,
-    private eventService: EventService,
-    private httpService: HttpServiceProvider,
-    private router: Router,
-    private alertController: AlertController
-  ) {
+  constructor(private utilsService: UtilsService, private eventService: EventService, private httpService: HttpServiceProvider, private router: Router) {
     console.log('[PopoverMailPage.constructor]')
+
     this.items = [
       { title: 'Configuración', path: 'inbox-settings' },
       { title: 'Limpiar base de datos', dispatch: 'presentAlert' },
@@ -29,6 +24,7 @@ export class PopoverMailPage {
 
   async open(payload: MyPopover) {
     console.log('[PopoverMailPage.open]')
+
     if (payload.path) {
       await this.router.navigate([payload.path])
     } else {
@@ -43,14 +39,11 @@ export class PopoverMailPage {
   async presentAlert() {
     console.log('[PopoverMailPage.presentAlert]')
 
-    const alert = await this.alertController.create({
-      header: 'Alerta',
+    await this.utilsService.presentAlert({
       subHeader: '¿Seguro que quieres limpiar la base de datos INBOX?',
       message: 'Esta acción eliminará todos los registros.',
       buttons: [
         {
-          text: 'OK',
-          role: 'ok',
           handler: () => {
             this.httpService.removeStorage(this.myDatabase).then(() => {
               this.eventService.publish()
@@ -59,23 +52,15 @@ export class PopoverMailPage {
           },
         },
         {
-          text: 'CANCEL',
-          role: 'cancel',
           handler: () => ({}),
         },
       ],
     })
-    await alert.present()
   }
 
-  async presentToast(message: string, duration: number = 1500) {
+  async presentToast(message: string) {
     console.log('[PopoverMailPage.presentToast]')
 
-    const toast = await this.toastController.create({
-      message: message,
-      duration: duration,
-      position: 'bottom',
-    })
-    await toast.present()
+    await this.utilsService.presentToast({ message })
   }
 }

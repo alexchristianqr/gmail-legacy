@@ -18,11 +18,13 @@ export class ModalSettingsCreate {
 
   async back() {
     console.log('[ModalSettingsCreate.back]')
+
     await this.router.navigate(['create'])
   }
 
   async updateMyPreferences() {
     console.log('[ModalSettingsCreate.updateMyPreferences]')
+
     await this.httpService.setRemoveStorage(this.mySharedPreferences, this.MY_SHARED_PREFERENCES)
   }
 }

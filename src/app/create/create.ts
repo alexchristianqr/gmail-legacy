@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { PopoverCreatePage } from './layouts/popover-create'
-import { AlertController, PopoverController } from '@ionic/angular'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { StorageService } from '../core/services/storage/storage.service'
 import { HttpServiceProvider } from '../../providers/http-service/http-service'
 import { MyMessage } from '../core/types/MyMessage'
 import { EventService } from '../core/services/events/event.service'
+import { UtilsService } from '../core/services/utils/utils.service'
 
 @Component({
   selector: 'page-create',
@@ -18,13 +18,12 @@ export class CreatePage implements OnInit {
   loading: boolean = false
 
   constructor(
+    private utilsService: UtilsService,
     private eventService: EventService,
     private httpService: HttpServiceProvider,
     private storageService: StorageService,
     private formBuilder: FormBuilder,
-    private popoverCtrl: PopoverController,
-    private router: Router,
-    private alertController: AlertController
+    private router: Router
   ) {
     console.log('[CreatePage.constructor]')
     this.formGroup = this.formGroupInitialize()
@@ -87,6 +86,8 @@ export class CreatePage implements OnInit {
    * Obtener UUID
    */
   getUniqueUID() {
+    console.log('[CreatePage.getUniqueUID]')
+
     return this.httpService.getUniqueUID()
   }
 
@@ -95,37 +96,29 @@ export class CreatePage implements OnInit {
    */
   async back() {
     console.log('[CreatePage.back]')
+
     this.eventService.publish()
     await this.router.navigate(['inbox'])
   }
 
-  /**
-   * Alert UI
-   */
   async presentAlert() {
     console.log('[CreatePage.presentAlert]')
 
-    const alert = await this.alertController.create({
-      header: 'Alerta',
+    await this.utilsService.presentAlert({
       message: 'No se puede enviar tu mensaje, porque hay campos vacios.',
       buttons: [
         {
           text: 'OK',
           role: 'cancel',
+          handler: () => ({}),
         },
       ],
     })
-    await alert.present()
   }
 
-  /**
-   * Popover UI
-   * @param event
-   */
   async presentPopover(event: Event) {
     console.log('[CreatePage.presentPopover]')
 
-    const popover = await this.popoverCtrl.create({ component: PopoverCreatePage, event: event, dismissOnSelect: true })
-    await popover.present()
+    await this.utilsService.presentPopover({ component: PopoverCreatePage, event: event })
   }
 }

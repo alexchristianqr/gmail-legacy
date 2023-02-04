@@ -12,6 +12,7 @@ export class PopoverCreatePage {
 
   constructor(private router: Router) {
     console.log('[PopoverCreatePage.constructor]')
+
     this.items = [
       { title: 'Add Contacts', path: 'create-settings' },
       { title: 'Discard', path: 'create-settings' },
@@ -22,6 +23,7 @@ export class PopoverCreatePage {
 
   async open(payload: MyPopover) {
     console.log('[PopoverCreatePage.open]')
+
     await this.router.navigate([payload.path])
   }
 }
