@@ -1,9 +1,14 @@
 {
-  "name": "gmail-deprecated",
-  "version": "1.0.0",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "name": "gmail-legacy",
+  "description": "Clone de Gmail obsoleto. (TS + Ionic v3)",
+  "author": {
+    "name": "Alex Christian"
+  },
+  "repository": {
+    "url": "https://github.com/alexchristianqr/aws-sam"
+  },
   "private": true,
+  "version": "1.0.0",
   "scripts": {
     "start": "ionic-app-scripts serve",
     "clean": "ionic-app-scripts clean",
@@ -41,6 +46,5 @@
     "@capacitor/cli": "3.6.0",
     "@ionic/app-scripts": "3.2.4",
     "typescript": "2.6.2"
-  },
-  "description": "An Ionic project"
+  }
 }
