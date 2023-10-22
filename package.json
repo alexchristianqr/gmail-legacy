@@ -1,6 +1,6 @@
 {
   "name": "gmail-legacy",
-  "description": "Clone de Gmail obsoleto. (TS + Ionic v3)",
+  "description": "Clone de Gmail obsoleto. (TS + Angular + Ionic v3)",
   "author": {
     "name": "Alex Christian"
   },
